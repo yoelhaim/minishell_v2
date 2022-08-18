@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:58:58 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/18 19:54:04 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/18 21:14:19 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ static void check_in_env(char *str, char *str2)
 
 static int open_herdoc(int type, char *value)
 {
-	
 
 	if (type == HEREDOC)
 	{
@@ -64,7 +63,7 @@ static int open_herdoc(int type, char *value)
 		{
 			char *line;
 			line = readline("> ");
-			
+
 			if (!line || !ft_strcmp(line, value))
 				break;
 		}
