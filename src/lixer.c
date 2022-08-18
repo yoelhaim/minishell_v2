@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/01 16:54:42 by yoelhaim            #+#    #+#             */
-/*   Updated: 2022/08/17 01:42:22 by yoelhaim         ###   ########.fr       */
+/*   Created: 2022/08/01 16:54:42 by yoelhaim          #+#    #+#             */
+/*   Updated: 2022/08/18 23:35:45 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static char *check_is_red(t_node **list, char *line)
+static char	*check_is_red(t_node **list, char *line)
 {
 	if (*line == '<' && line[1] == '<')
 	{
@@ -31,10 +31,10 @@ static char *check_is_red(t_node **list, char *line)
 	return (line);
 }
 
-static char *check_is_wd(t_node **list, char *line, char *sc)
+static char	*check_is_wd(t_node **list, char *line, char *sc)
 {
-	char *buff;
-	int i;
+	char	*buff;
+	int		i;
 
 	i = 0;
 	while (!ft_strchr(sc, line[i]))
@@ -60,10 +60,10 @@ static char *check_is_wd(t_node **list, char *line, char *sc)
 	return (line);
 }
 
-static char *check_is_sign(t_node **list, char *line)
+static char	*check_is_sign(t_node **list, char *line)
 {
-	char *symbols;
-	char *buff;
+	char	*symbols;
+	char	*buff;
 
 	symbols = " \t\n!\"%'()*+,-./:;<=>?@[\\]^`|~$";
 	if (*line == '$')
@@ -93,10 +93,10 @@ static char *check_is_sign(t_node **list, char *line)
 	return (line);
 }
 
-static char *check_is_quot(t_node **list, char *line, char quot)
+static char	*check_is_quot(t_node **list, char *line, char quot)
 {
-	char *buff;
-	int i;
+	char	*buff;
+	int		i;
 
 	i = 0;
 	if (*line == quot)
@@ -106,7 +106,6 @@ static char *check_is_quot(t_node **list, char *line, char quot)
 		{
 			while (line[i] != quot)
 				i++;
-
 			if (i == 0 && *(line + 1) == '\0')
 			{
 				pushback(list, WSPACE, " ");
@@ -117,13 +116,11 @@ static char *check_is_quot(t_node **list, char *line, char quot)
 			if (!buff)
 				return (NULL);
 			i = 0;
-
 			while (line[i] && line[i] != quot)
 			{
 				buff[i] = line[i];
 				i++;
 			}
-
 			buff[i] = 0;
 			while (*buff != 0)
 			{
@@ -134,12 +131,12 @@ static char *check_is_quot(t_node **list, char *line, char quot)
 			return (ft_strchr(line, quot));
 		}
 		else
-			return (printf("minishell: unclosed  quotes\n"),NULL);
+			return (printf("minishell: unclosed  quotes\n"), NULL);
 	}
 	return (line);
 }
 
-int check_lexer(t_node **list, char *line)
+int	check_lexer(t_node **list, char *line)
 {
 	while (*line)
 	{
