@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:58:58 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/17 21:31:34 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/18 19:54:04 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void check_in_env(char *str, char *str2)
 
 	while (env)
 	{
-		if (!ft_strcmp(str, env->path))
+		if (!ft_strcmp(str, env->variable))
 		{
 			printf("%s\n", strstr(env->value, "=") + 1);
 			break;
@@ -56,13 +56,16 @@ static void check_in_env(char *str, char *str2)
 
 static int open_herdoc(int type, char *value)
 {
+	
+
 	if (type == HEREDOC)
 	{
 		while (1)
 		{
 			char *line;
 			line = readline("> ");
-			if (!ft_strcmp(line, value))
+			
+			if (!line || !ft_strcmp(line, value))
 				break;
 		}
 	}

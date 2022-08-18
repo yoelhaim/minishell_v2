@@ -115,9 +115,7 @@ static char *check_is_quot(t_node **list, char *line, char quot)
 			buff = malloc(sizeof(char) * (i + 1));
 			add(&g_tools.garbage, buff);
 			if (!buff)
-			{
 				return (NULL);
-			}
 			i = 0;
 
 			while (line[i] && line[i] != quot)
@@ -136,10 +134,7 @@ static char *check_is_quot(t_node **list, char *line, char quot)
 			return (ft_strchr(line, quot));
 		}
 		else
-		{
-			printf("minishell: unclosed  quotes\n");
-			return (NULL);
-		}
+			return (printf("minishell: unclosed  quotes\n"),NULL);
 	}
 	return (line);
 }

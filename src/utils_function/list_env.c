@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   list_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 19:00:14 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/18 00:19:49 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/18 19:40:58 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-t_env *new_node_env(char *path, char *val)
+t_env *new_node_env(char *variable, char *val)
 {
     t_env *newnode;
 
@@ -20,19 +20,19 @@ t_env *new_node_env(char *path, char *val)
     add(&g_tools.garbage, new_node);
     if (newnode != NULL)
     {
-        newnode->path = path;
+        newnode->variable = variable;
         newnode->value = val;
         newnode->next = NULL;
     }
     return (newnode);
 }
 
-void pushback_env(t_env **lst, char *path, char *val)
+void pushback_env(t_env **lst, char *variable, char *val)
 {
     t_env *head;
     t_env *new;
 
-    new = new_node_env(path, val);
+    new = new_node_env(variable, val);
     if (!*lst)
         *lst = new;
     else

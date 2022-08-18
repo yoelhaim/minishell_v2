@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/18 13:50:20 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/18 20:16:39 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct s_data
 
 typedef struct s_env
 {
-	char *path;
+	char *variable;
 	char *value;
 	struct s_env *next;
 
@@ -82,13 +82,12 @@ typedef struct s_node_free
 typedef struct s_globals
 {
 	int g_dollar_question;
-	t_env *g_env;
+	t_env *g_env; // envirment
 	t_node_free *garbage;
 } t_globals;
 
-// t_data g_data;
-t_env g_env;
 extern t_globals g_tools;
+
 typedef struct s_red
 {
 	int type;
@@ -142,4 +141,5 @@ char *check_is_pipe(t_node **list, char *line);
 
 void add(t_node_free **garbage, void *pointer);
 void free_all(t_node_free *garbage);
+void	exec_cmd(t_cmd *cmd);
 #endif

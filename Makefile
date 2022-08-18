@@ -9,6 +9,7 @@ INCLUDE_READLINE = $(addprefix $(READLINE),/include)
 
 LIB_READLINE = $(addprefix $(READLINE),/lib)
 FILES_SRC = src
+FILES_EXEC = src/execution
 FILES_UT = $(FILES_SRC)/utils_function
 LIBFT_DIR = libft
 LIBFT_LIB = $(LIBFT_DIR)/libft.a 
@@ -20,6 +21,7 @@ CC = cc -Wall -Wextra -Werror
 SRC = $(FILES_SRC)/main.c \
 	$(FILES_SRC)/read_line.c \
 	$(FILES_SRC)/lixer.c \
+	$(FILES_EXEC)/exec.c \
 	$(FILES_SRC)/forfree.c \
 	$(FILES_SRC)/parse.c \
 	$(FILES_SRC)/list_red.c \

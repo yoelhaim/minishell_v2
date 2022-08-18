@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 19:16:51 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/17 23:14:40 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/18 17:29:22 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ void create_env(char *data[])
     {
         spl = ft_split(data[i], '=');
         pushback_env(&g_tools.g_env, *spl, data[i]);
+        free(spl);
     }
 }
