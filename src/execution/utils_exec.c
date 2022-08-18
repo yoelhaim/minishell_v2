@@ -6,11 +6,25 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 22:34:27 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/18 23:02:34 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/18 23:48:55 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+char *setUpper(char *s)
+{
+	char *str= s;
+	int i = 0;
+	while(str[i])
+	{
+		if(str[i] >= 'A' && str[i] <= 'Z')
+			str[i] += 32;
+		printf("%c", str[i]);
+		i++;
+	}
+	return(str);
+}
 char **export_env(t_env *env)
 {
 	t_env *tmp;

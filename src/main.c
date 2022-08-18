@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:33 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/18 23:28:44 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/18 23:49:37 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	main(int ac, char **av, char **envr)
 	if (ac != 1)
 		return (printf("ERROR"), 0);
 	create_env(envr);
+	// printf(" is upp %s\n", setUpper("sggdgHHH"));
 	setup_shell (&data, &cmd);
 	free_all (g_tools.garbage);
 	rl_clear_history();

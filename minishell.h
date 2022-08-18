@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/18 23:14:47 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/18 23:45:26 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,4 +144,5 @@ void	free_all(t_node_free *garbage);
 void	exec_cmd(t_cmd *cmd);
 char	*get_path(void);
 char	**export_env(t_env *env);
+char *setUpper(char *str);
 #endif
