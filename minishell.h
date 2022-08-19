@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/19 15:22:46 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/19 22:21:50 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,5 +150,9 @@ void	ft_builtin(char **cmd);
 int	size_word(char **cmd);
 int	check_valid_export(char **cmd);
 int ft_echo(char **cmd);
+void ft_cd(char **cmd);
+int	check_folder(char *name);
+void ft_pwd(char *next_arg);
+void check_redirecrt(t_red *reds);
 
 #endif
