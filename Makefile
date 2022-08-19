@@ -5,9 +5,9 @@ INC = minishell.h  \
 
 READLINE = $(shell brew --prefix readline)
 
-INCLUDE_READLINE = ./readline/include
+INCLUDE_READLINE = $(addprefix $(READLINE),/include)
 
-LIB_READLINE = ./readline/lib
+LIB_READLINE = $(addprefix $(READLINE),/lib)
 FILES_SRC = src
 FILES_EXEC = src/execution
 FILES_UT = $(FILES_SRC)/utils_function
@@ -25,6 +25,7 @@ SRC = $(FILES_SRC)/main.c \
 	$(FILES_EXEC)/ft_builtin.c \
 	$(FILES_EXEC)/ft_builtin2.c \
 	$(FILES_EXEC)/utils_exec.c \
+	$(FILES_EXEC)/redirect_file.c \
 	$(FILES_SRC)/forfree.c \
 	$(FILES_SRC)/parse.c \
 	$(FILES_SRC)/list_red.c \
