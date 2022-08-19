@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:58:58 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/19 15:02:56 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/19 22:16:10 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,14 @@ static int	open_herdoc(int type, char *value)
 	{
 		while (1)
 		{
-			line = readline("> ");
-			if (!line || !ft_strcmp(line, value))
+		line = readline("> ");
+		if (!line || !ft_strcmp(line, value))
 				break ;
+			else
+		{int fd = open("hidden.txt", O_RDWR|O_CREAT, 0666);
+		write(fd, line, ft_strlen(line));}
 		}
+		
 	}
 	return (1);
 }
@@ -86,7 +90,7 @@ static void	push_cmd(t_cmd **cmd, t_node *t)
 	}
 	str2 = ft_split(str, '\t');
 	pushback_cmd(cmd, str2, red);
-	free(str);
+	// free(str);
 }
 
 t_cmd	*parse(t_node *list)
