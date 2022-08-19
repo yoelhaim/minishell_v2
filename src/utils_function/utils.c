@@ -6,16 +6,16 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:51:02 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/17 01:01:36 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/19 09:18:23 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int is_ws(char *line)
+int	is_ws(char *line)
 {
-	int i;
-	int r;
+	int	i;
+	int	r;
 
 	r = 0;
 	i = -1;
@@ -29,9 +29,9 @@ int is_ws(char *line)
 	return (1);
 }
 
-int ft_strcmp(char *s1, char *s2)
+int	ft_strcmp(char *s1, char *s2)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s1[i] && s2[i] && s1[i] == s2[i])
@@ -39,9 +39,9 @@ int ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
-char *check_is_ws(t_node **list, char *line)
+char	*check_is_ws(t_node **list, char *line)
 {
-	int r;
+	int	r;
 
 	r = 0;
 	(void)list;
@@ -55,35 +55,30 @@ char *check_is_ws(t_node **list, char *line)
 	return (line);
 }
 
-char *check_is_pipe(t_node **list, char *line)
+char	*check_is_pipe(t_node **list, char *line)
 {
 	if (*line == '|')
 		pushback(list, PIPE, "|");
 	return (line);
 }
-int check_folder(char *name)
+
+int	check_folder(char *name)
 {
-	DIR *dirs;
+	DIR	*dirs;
+
+	errno = 0;
+	dirs = opendir(name);
 	if (!name)
 		return (ERROR_RETURN);
-	errno = 0;
-	if ((dirs = opendir(name)) == NULL)
+	if ((dirs) == NULL)
 	{
 		if (errno == 13)
-		{
 			printf("permission denied\n");
-		}
 		if (errno == ENOENT)
-		{
 			printf("Directory does not exist\n");
-		}
 		if (errno == ENOTDIR)
-		{
 			printf("is not a directory\n");
-		}
 		return (ERROR_RETURN);
 	}
-
-	// closedir(dirs);
 	return (1);
 }

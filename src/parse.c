@@ -6,47 +6,38 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:58:58 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/18 21:14:19 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/19 09:31:15 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// static void free_str2d(char **str)
-// {
-// 	int i;
-// 	i = -1;
-// 	while(str[++i])
-// 	{
-// 		free(str[i]);
-// 	}
-// }
-static void printafternember(char *str)
+void	printafternember(char *str)
 {
-	int i = -1;
+	int	i;
+
+	i = -1;
 	while (str[++i])
 		ft_putchar_fd(str[i], 1);
 	ft_putchar_fd('\n', 1);
 }
 
-static void check_in_env(char *str, char *str2)
+static void	check_in_env(char *str, char *str2)
 {
-	t_env *env;
+	t_env	*env;
 
 	env = g_tools.g_env;
-
 	if ((str[0] >= '0' && str[0] <= '9') && !str2)
 	{
 		ft_putendl_fd("", 1);
-		return;
+		return ;
 	}
-
 	while (env)
 	{
 		if (!ft_strcmp(str, env->variable))
 		{
 			printf("%s\n", strstr(env->value, "=") + 1);
-			break;
+			break ;
 		}
 		env = env->next;
 	}
@@ -54,31 +45,30 @@ static void check_in_env(char *str, char *str2)
 		printafternember(str2);
 }
 
-static int open_herdoc(int type, char *value)
+static int	open_herdoc(int type, char *value)
 {
+	char	*line;
 
+	line = NULL;
 	if (type == HEREDOC)
 	{
 		while (1)
 		{
-			char *line;
 			line = readline("> ");
-
 			if (!line || !ft_strcmp(line, value))
-				break;
+				break ;
 		}
 	}
-
 	return (1);
 }
 
-static void push_red(t_red **red, t_node *t)
+static void	push_red(t_red **red, t_node *t)
 {
 	while (t)
 	{
-		if (t->type == REDIN || t->type == REDOUT || t->type == APPEND || t->type == HEREDOC)
+		if (t->type == REDIN || t->type == REDOUT \
+		|| t->type == APPEND || t->type == HEREDOC)
 		{
-
 			if (t->next->type == 1)
 			{
 				pushback_red(red, t->type, ft_strdup(t->next->next->val));
@@ -95,11 +85,11 @@ static void push_red(t_red **red, t_node *t)
 	}
 }
 
-static void push_cmd(t_cmd **cmd, t_node *t)
+static void	push_cmd(t_cmd **cmd, t_node *t)
 {
-	t_red *red;
-	char *str;
-	char **str2;
+	t_red	*red;
+	char	*str;
+	char	**str2;
 
 	str = "";
 	red = NULL;
@@ -114,8 +104,9 @@ static void push_cmd(t_cmd **cmd, t_node *t)
 				check_in_env(t->val, NULL);
 		}
 		else if (t->type == WSPACE && t->next == NULL)
-			break;
-		else if (t->type != REDIN && t->type != REDOUT && t->type != APPEND && t->type != HEREDOC)
+			break ;
+		else if (t->type != REDIN && t->type != REDOUT \
+		&& t->type != APPEND && t->type != HEREDOC)
 			str = ft_strjoin(str, t->val);
 		else
 		{
@@ -127,14 +118,14 @@ static void push_cmd(t_cmd **cmd, t_node *t)
 	}
 	str2 = ft_split(str, '\t');
 	pushback_cmd(cmd, str2, red);
-	// free(str);
+	free(str);
 }
 
-t_cmd *parse(t_node *list)
+t_cmd	*parse(t_node *list)
 {
-	t_node *tmp;
-	t_cmd *cmd;
-	t_node *t;
+	t_node	*tmp;
+	t_cmd	*cmd;
+	t_node	*t;
 
 	cmd = NULL;
 	tmp = list;

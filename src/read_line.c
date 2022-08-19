@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:12 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/16 16:54:32 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/19 09:36:58 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,16 @@
 
 void	handler(int sig)
 {
-	(void)sig;
+	struct termios	t;
 
-	struct termios t;
-    tcgetattr(0, &t);
-    t.c_lflag &= ~ECHOCTL;
-    tcsetattr(0, TCSANOW, &t);
-	
+	(void)sig;
+	tcgetattr(0, &t);
+	t.c_lflag &= ~ECHOCTL;
+	tcsetattr(0, TCSANOW, &t);
 	rl_replace_line("", 0);
 	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_redisplay();
-
-	
 }
 
 char	*read_line(void)
