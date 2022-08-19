@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/19 09:07:49 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/19 11:12:39 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,4 +145,8 @@ void	exec_cmd(t_cmd *cmd);
 char	*get_path(void);
 char	**export_env(t_env *env);
 char	*setUpper(char *str);
+void	ft_builtin(char **cmd);
+int	size_word(char **cmd);
+int	check_valid_export(char **cmd);
+
 #endif

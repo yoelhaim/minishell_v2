@@ -22,6 +22,7 @@ SRC = $(FILES_SRC)/main.c \
 	$(FILES_SRC)/read_line.c \
 	$(FILES_SRC)/lixer.c \
 	$(FILES_EXEC)/exec.c \
+	$(FILES_EXEC)/ft_builtin.c \
 	$(FILES_EXEC)/utils_exec.c \
 	$(FILES_SRC)/forfree.c \
 	$(FILES_SRC)/parse.c \

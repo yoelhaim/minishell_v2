@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 20:12:27 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/19 09:46:37 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/19 10:22:08 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,13 @@ int	check_builtin(char *cmd)
 
 void	print_cmnd(char **cmd)
 {
-	char	*tmp;
 	char	**splited_path;
 
-	tmp = *cmd;
 	splited_path = ft_split(get_path(), ':');
 	while (*splited_path)
 	{
-		execve(ft_strjoin(ft_strjoin("/", *splited_path), \
-		ft_strjoin("/", cmd[0])), cmd, export_env(g_tools.g_env));
+		execve(ft_strjoin(*splited_path,ft_strjoin("/", cmd[0])), \
+		cmd, export_env(g_tools.g_env));
 		splited_path++;
 	}
 }
@@ -60,10 +58,10 @@ void	exec_cmd(t_cmd *cmd)
 	{
 		if (*(tmp->cmnd) == NULL)
 		{
-			return ;
+			return ; // rederiction
 		}
 		if (check_builtin(*(tmp->cmnd)))
-			printf(" build => %s\n", *(tmp->cmnd));
+			ft_builtin(tmp->cmnd);
 		else
 			cmd_system(tmp->cmnd);
 		tmp = tmp->next;

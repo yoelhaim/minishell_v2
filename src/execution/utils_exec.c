@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 22:34:27 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/19 09:35:18 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/19 11:15:15 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,36 @@ char	**export_env(t_env *env)
 char	*get_path(void)
 {
 	t_env	*env;
-	char	*splited_path;
 
 	env = g_tools.g_env;
 	while (env)
 	{
 		if (strstr(env->variable, "PATH"))
-		{
-			splited_path = strstr(env->value, "=") + 1;
-			return (splited_path);
-		}
+			return (strstr(env->value, "=") + 1);
 		env = env->next;
 	}
 	return (NULL);
+}
+
+int	size_word(char **cmd)
+{
+	int	i;
+
+	i = 0;
+	if(!*cmd)
+		return (ERROR_RETURN);
+	while(cmd[i])
+		i++;
+	return(i);
+}
+
+int	check_valid_export(char **cmd)
+{
+	while(*cmd)
+	{
+		if(!ft_strcmp(*cmd, "="))
+			return(ERROR_RETURN);
+		cmd++;
+	}
+	return(1);
 }
