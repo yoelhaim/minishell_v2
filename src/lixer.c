@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lixer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:54:42 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/19 09:44:51 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/19 15:05:48 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static char	*check_is_wd(t_node **list, char *line, char *sc)
 	if (i != 0)
 	{
 		buff[i] = 0;
-		if (ft_strlen(sc) == 12 || ft_strlen(sc) == 1)
+		if (ft_strlen(sc) == 11 || ft_strlen(sc) == 1)
 			pushback(list, WORD, buff);
 		else
 			pushback(list, SIGN, buff);
@@ -141,7 +141,7 @@ int	check_lexer(t_node **list, char *line)
 	while (*line)
 	{
 		line = check_is_ws(list, line);
-		line = check_is_wd(list, line, " \t\r\n\"'\v\f|<>$");
+		line = check_is_wd(list, line, " \t\r\n\"'\v\f|<>");
 		line = check_is_pipe(list, line);
 		line = check_is_red(list, line);
 		line = check_is_sign(list, line);

@@ -3,47 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:58:58 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/19 09:31:15 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/19 15:02:56 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	printafternember(char *str)
-{
-	int	i;
-
-	i = -1;
-	while (str[++i])
-		ft_putchar_fd(str[i], 1);
-	ft_putchar_fd('\n', 1);
-}
-
-static void	check_in_env(char *str, char *str2)
-{
-	t_env	*env;
-
-	env = g_tools.g_env;
-	if ((str[0] >= '0' && str[0] <= '9') && !str2)
-	{
-		ft_putendl_fd("", 1);
-		return ;
-	}
-	while (env)
-	{
-		if (!ft_strcmp(str, env->variable))
-		{
-			printf("%s\n", strstr(env->value, "=") + 1);
-			break ;
-		}
-		env = env->next;
-	}
-	if (str2)
-		printafternember(str2);
-}
 
 static int	open_herdoc(int type, char *value)
 {
@@ -96,14 +64,14 @@ static void	push_cmd(t_cmd **cmd, t_node *t)
 	push_red(&red, t);
 	while (t)
 	{
-		if (t->type == 9)
-		{
-			if (t->next)
-				check_in_env(t->val, t->next->val);
-			else
-				check_in_env(t->val, NULL);
-		}
-		else if (t->type == WSPACE && t->next == NULL)
+		// if (t->type == 9)
+		// {
+		// 	if (t->next)
+		// 		check_in_env(t->val, t->next->val);
+		// 	else
+		// 		check_in_env(t->val, NULL);
+		// }
+		if (t->type == WSPACE && t->next == NULL)
 			break ;
 		else if (t->type != REDIN && t->type != REDOUT \
 		&& t->type != APPEND && t->type != HEREDOC)

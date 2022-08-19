@@ -6,7 +6,7 @@
 /*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:15:33 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/19 13:32:29 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/19 14:32:44 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,33 @@ void	ft_export(char **cmd)
 		printf("minishel: export: `=': not a valid identifier\n");
 		return ;
 	}
-	splited_value = ft_split(cmd[1], '=');
-	// printf("sppppl    %s\n", splited_value);
-	if(splited_value[0] == NULL)
-		return ;
-	while(env)
+
+	cmd++;
+	while(*cmd)
 	{
+	 splited_value = ft_split(*cmd, '=');
+	// printf("sppppl    %s\n", splited_value[0]);
+	if(splited_value[1] == NULL)
+		return ;
+		while(env)
+		{
 		if(!ft_strcmp(env->variable,splited_value[0]))
 		{
-			env->value = cmd[1];
+			printf("pwd\n");
+			env->value = *cmd;
 			status = 1;
-			return ;
+			break;
 		}
+		else
+			status = 0;
 			
 		env = env->next;
 	}
-	if(status == 0)
-		pushback_env(&g_tools.g_env, splited_value[0], cmd[1]);
-	
+	if(status == 0 && splited_value[1] != NULL)
+		pushback_env(&g_tools.g_env, splited_value[0], *cmd);
+		cmd++;
+	}
+	free(splited_value);
 }
 
 t_env	*ft_unset(char **cmd)
@@ -130,6 +139,9 @@ void	ft_builtin(char **cmd)
 		ft_env(cmd);
 	if (!ft_strcmp(*cmd, "export"))
 		ft_export(cmd);
+	if (!ft_strcmp(*cmd, "echo"))
+		ft_echo(cmd);
 	if (!ft_strcmp(*cmd, "unset"))
 		g_tools.g_env = ft_unset(cmd);
+	
 }

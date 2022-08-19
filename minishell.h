@@ -6,7 +6,7 @@
 /*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/19 11:12:39 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/19 15:22:46 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ int		ft_strcmp(char *s1, char *s2);
 t_cmd	*parse(t_node *list);
 char	*check_is_ws(t_node **list, char *line);
 char	*check_is_pipe(t_node **list, char *line);
+// void	check_in_env(char *str, char *str2);
 
 void	add(t_node_free **garbage, void *pointer);
 void	free_all(t_node_free *garbage);
@@ -148,5 +149,6 @@ char	*setUpper(char *str);
 void	ft_builtin(char **cmd);
 int	size_word(char **cmd);
 int	check_valid_export(char **cmd);
+int ft_echo(char **cmd);
 
 #endif
