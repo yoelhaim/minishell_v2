@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:26:39 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/19 17:39:09 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/19 20:20:25 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,27 +50,60 @@ void	check_in_env(char *str)
 	// 	printafternember(str2);
 }
 
-void check_doolar_sign(char *s)
+void ft_cd(char **cmd)
 {
-	int i;
-
-	i = -1;
-
-	while(s[++i])
+	if(*cmd && !*(cmd +1 ))
 	{
-		if(s[i] == '$' && ( s[i + 1] >= '0' && s[i + 1] <= '9'))
-			printf("%s\n", s  +1);
-		else if(s[i] == '$' && ( s[i + 1] >= 'a' && s[i + 1] <= 'z'))
-		  	printf("%s\n", s + 1);
-		else if(s[i] == '$' && ( s[i + 1] >= 'A' && s[i + 1] <= 'Z'))
-		  	printf("%s\n", s + 1);
-		else if(s[i] == '$' && (s[i + 1] == '?' ))
-		  	printf("%s\n", s + 1);
-		// else
-		// 	printf("%c", s[i]);	
+		if (chdir(getenv("HOME")) == -1)
+			check_folder(getenv("HOME"));
+		
 	}
-
+	else 
+	{
+		if (chdir(*(cmd +1)) == -1)
+			check_folder(*(cmd +1));
+	}
 	
+}
+
+void ft_pwd(char *next_arg)
+{
+	char path[1024];
+	
+	if(next_arg)
+		printf("pwd: too many arguments\n");
+	else
+		printf("%s\n", getcwd(path, 1024));
+}
+
+void check_doolar_sign(char *str)
+{
+	int i =0;
+	
+	while(*str != '$' && *str)
+	   printf("%c", *str++);
+	while(str[i])
+	{
+		if(str[i] == '$')
+			i++;
+		if(str[i] >= '0' && str[i] <= '9' && str[i -1] == '$')
+		{
+			i++;
+		}
+			
+		if(str[i] >= 'a' && str[i] <= 'z' && str[i -1] == '$')
+		{
+			
+			while(str[i] != '$' && str[i])
+				printf("%c", str[i++]);
+				
+		}
+		printf("%c", str[i]);
+		i++;
+	}
+	   
+	
+	printf("\n");
 }
 
 
@@ -80,7 +113,7 @@ int ft_echo(char **cmd)
 
 	if(cmd[1] == NULL && ft_strcmp(*cmd,"$"))
 		return(	printf("\n"), ERROR_RETURN);
-	
+	cmd++;
 	while(*cmd)
 	{
 
