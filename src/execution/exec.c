@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 20:12:27 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/19 10:22:08 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/19 22:44:08 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	print_cmnd(char **cmd)
 void	cmd_system(char **cmd)
 {
 	int	pid;
-
 	pid = fork();
 	if (pid == 0)
 	{
@@ -58,6 +57,7 @@ void	exec_cmd(t_cmd *cmd)
 	{
 		if (*(tmp->cmnd) == NULL)
 		{
+			check_redirecrt(tmp->red);
 			return ; // rederiction
 		}
 		if (check_builtin(*(tmp->cmnd)))
