@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/20 10:17:29 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/20 12:03:05 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,8 @@
  near unexpected token `'"
 # define NL_ERROR_MESSSAGE "minishell: syntax error \
  near unexpected token `newline' '"
-// # define TOKEN_ERROR_MESSSAGE ""
-// # define TOKEN_ERROR_MESSSAGE ""
-// # define TOKEN_ERROR_MESSSAGE ""
-// # define TOKEN_ERROR_MESSSAGE ""
 // fin error message
 
-// colors
-# define RED_C "\x1B[31m"
-# define GREEN_C "\x1B[32m"
-# define YELLOW_C "\x1B[33m"
-# define BLUE_C "\x1B[34m"
-# define WHITE_C "\x1B[0m"
-# define BLACK_C "\x1B[1m"
-// end colors
 typedef struct s_data
 {
 	char	**env;
@@ -83,6 +71,7 @@ typedef struct s_globals
 	int			g_dollar_question;
 	t_env		*g_env;
 	t_node_free	*garbage;
+	int			status_sign;
 }	t_globals;
 
 extern t_globals	g_tools;
