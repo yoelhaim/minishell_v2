@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/19 22:21:50 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/20 10:17:29 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct s_red
 	struct s_red	*next;
 }	t_red;
 
+// linked list commonds
 typedef struct s_node
 {
 	int				type;
@@ -136,7 +137,12 @@ int		ft_strcmp(char *s1, char *s2);
 t_cmd	*parse(t_node *list);
 char	*check_is_ws(t_node **list, char *line);
 char	*check_is_pipe(t_node **list, char *line);
+void expander(t_node **list);
 // void	check_in_env(char *str, char *str2);
+
+
+
+ char	*check_is_wd(t_node **list, char *line, char *sc);
 
 void	add(t_node_free **garbage, void *pointer);
 void	free_all(t_node_free *garbage);
