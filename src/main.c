@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:33 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/20 11:41:14 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/20 11:49:52 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	main(int ac, char **av, char **envr)
 	if (ac != 1)
 		return (printf("ERROR"), 0);
 	create_env(envr);
+	g_tools.status_sign = 0;
 	setup_shell (&data, &cmd);
 	free_all (g_tools.garbage);
 	rl_clear_history();
