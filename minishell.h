@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/20 13:38:17 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/20 21:56:44 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define WORD 11			   //
 # define ERROR_RETURN 404   // error retuen value
 # define SUCCESS_RETURN 200 // success retuen value
+# define STR_IGN " \t\r\n\"'\v\f|<>$"
 
 // error message
 # define TOKEN_ERR "minishell: syntax error, \
@@ -132,7 +133,7 @@ void	check_expand_status(char **value);
 
 
 
- char	*check_is_wd(t_node **list, char *line, char *sc);
+//  char	*check_is_wd(t_node **list, char *line, char *sc);
 
 void	add(t_node_free **garbage, void *pointer);
 void	free_all(t_node_free *garbage);
