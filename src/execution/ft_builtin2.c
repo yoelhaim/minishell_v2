@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:26:39 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/20 11:06:43 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/20 19:02:31 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void check_newline(char **str)
 		int i = 0;
 		while(s[++i] )
 		{
-			if(s[i] == 'n')
+			if(s[i] == 'n' && s[i])
 				status = 1;
 			else
 			{
@@ -107,23 +107,28 @@ void check_newline(char **str)
 			}
 		}
 		if(status == 0)
-			printf("%s ", *str++);
+			printf("%s ", *str);
+		str++;
 	}
+	
 	if(*str)
-		while(*str)
-			printf("%s ", *str++);
+		{
+			while(*str)
+			{
+				printf("|%s|", *str++);
+				if(*str)
+					printf(" ");
+				
+			}
+		}
 }
 
 
 int ft_echo(char **cmd)
 {
-
-
 	if(cmd[1] == NULL && ft_strcmp(*cmd,"$"))
 		return(	printf("\n"), ERROR_RETURN);
 	cmd++;
-	
-		check_newline(cmd);
-	
+	check_newline(cmd);
 	return (1);
 }

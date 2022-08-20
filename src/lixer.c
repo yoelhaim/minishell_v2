@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lixer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:54:42 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/20 11:56:31 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/20 19:38:43 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ char	*check_is_sign(t_node **list, char *line)
 {
 	char	*symbols;
 	char	*buff;
+	// int i = -1;
 
-	symbols = " \t\n!\"%'()*+,-./:;<=>?@[\\]^`|~$";
+	symbols = " \t\n!\"$%'()*+,-./:;<=>?@[\\]^`|~";
 	if (*line == '$')
 	{
 		if (line[1] == '?')
@@ -45,17 +46,27 @@ char	*check_is_sign(t_node **list, char *line)
 			buff = malloc(sizeof(char) * 2);
 			buff[0] = line[1];
 			buff[1] = 0;
-			add(&g_tools.garbage, buff);
 			return (pushback(list, SIGN, buff), line + 1);
 		}
-		else if (*(line + 1))
+		
+		else if (*line)
 		{
-			while (*symbols)
-			{
-				if (*(line + 1) == *symbols++)
-					return (line);
-			}
-			return (check_is_wd(list, ++line, symbols));
+			// int i = -1;
+			// while (symbols[++i])
+			// {
+			// 	int j= -1;
+			// 	while(line[++j])
+			// 	{
+			// 		//printf("dollar %c\n", line[j]);
+			// 	if (line[j] == symbols[i])
+			// 		{
+			// 			//printf ("ishere line => %s\n",line);
+			// 			return (line );
+			// 		}
+			// 	}
+			// }
+			
+			return(check_is_wd(list, ++line, symbols));
 		}
 		else
 			pushback(list, WORD, "$");
@@ -66,27 +77,27 @@ char	*check_is_sign(t_node **list, char *line)
 {
 	char	*buff;
 	int		i;
+	// int		j;
 
 	i = 0;
-	while (!ft_strchr(sc, line[i]))
+	while (!ft_strchr(sc, line[i]) && *line )
 		i++;
 	buff = malloc(sizeof(char) * i + 1);
-	add(&g_tools.garbage, buff);
 	i = 0;
-	while (*line && !ft_strchr(sc, *line) && *line != 32)
+	while (line[i] && !ft_strchr(sc, line[i]))
 	{
-		buff[i] = *line;
-		line++;
+		buff[i] = line[i];
 		i++;
 	}
 	if (i != 0)
 	{
 		buff[i] = 0;
-		if (ft_strlen(sc) == 11 || ft_strlen(sc) == 1)
-			pushback(list, WORD, buff);
+		// printf("|%s|  \n", buff );
+		if (ft_strlen(sc) == 12 || ft_strlen(sc) == 1)
+			return (pushback(list, WORD, buff),&line[i - 1]);
 		else
-			pushback(list, SIGN, buff);
-		return (line -1);
+			return (pushback(list, SIGN, buff),&line[i +]);
+	
 	}
 	return (line);
 }
@@ -104,7 +115,7 @@ static char	*check_is_quot(t_node **list, char *line, char quot)
 		line++;
 		if ((ft_strchr(line, quot)))
 		{
-			while (line[i] != quot)
+			while (line[i] != quot && line[i])
 				i++;
 			if (i == 0 && *(line + 1) == '\0')
 			{
@@ -144,10 +155,11 @@ int	check_lexer(t_node **list, char *line)
 	while (*line)
 	{
 		line = check_is_ws(list, line);
-		line = check_is_wd(list, line, "\t\r\n\"'\v\f|<>$");
+		line = check_is_sign(list, line);
+		line = check_is_wd(list, line, " \t\r\n\"'\v\f|<>$");
 		line = check_is_pipe(list, line);
 		line = check_is_red(list, line);
-		line = check_is_sign(list, line);
+		
 		line = check_is_quot(list, line, '"');
 		if (line == NULL)
 			return (ERROR_RETURN);
