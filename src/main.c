@@ -6,13 +6,20 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:33 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/18 23:49:37 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/20 11:41:14 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 t_globals	g_tools = {0};
+
+void	clear_and_free(t_node **list, t_cmd **cmd, char *line)
+{
+	clear_list(list);
+	clear_list_cmd(cmd);
+	free(line);
+}
 
 void	setup_shell(t_node **datas, t_cmd **cmds)
 {
@@ -26,10 +33,7 @@ void	setup_shell(t_node **datas, t_cmd **cmds)
 	{
 		line = read_line();
 		if (!line || !is_ws(line))
-		{
-			free(line);
 			continue ;
-		}
 		if (check_lexer(&data, line) == ERROR_RETURN)
 		{
 			clear_list(&data);
@@ -37,9 +41,10 @@ void	setup_shell(t_node **datas, t_cmd **cmds)
 		}
 		if (syntax_error(data) == ERROR_RETURN)
 			clear_list(&data);
+		expander(&data);
 		cmd = parse(data);
 		exec_cmd(cmd);
-		clear_list(&data);
+		clear_and_free(&data, &cmd, line);
 	}
 }
 
@@ -52,7 +57,6 @@ int	main(int ac, char **av, char **envr)
 	if (ac != 1)
 		return (printf("ERROR"), 0);
 	create_env(envr);
-	// printf(" is upp %s\n", setUpper("sggdgHHH"));
 	setup_shell (&data, &cmd);
 	free_all (g_tools.garbage);
 	rl_clear_history();
