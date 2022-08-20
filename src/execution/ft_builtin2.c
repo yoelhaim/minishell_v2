@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:26:39 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/19 20:20:25 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/20 11:06:43 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,34 +76,42 @@ void ft_pwd(char *next_arg)
 		printf("%s\n", getcwd(path, 1024));
 }
 
-void check_doolar_sign(char *str)
+void check_newline(char **str)
 {
-	int i =0;
-	
-	while(*str != '$' && *str)
-	   printf("%c", *str++);
-	while(str[i])
+	char *s;
+	int status = 0;
+	if(!ft_strcmp(*str, "-n"))
+		str++;
+	else
+		{
+			if(*str)
+				while(*str)
+					printf("%s ", *str++);
+			printf("\n");
+			return ;		
+		}
+	if(!*str)
+		return ;
+	if(*str[0] == '-')
 	{
-		if(str[i] == '$')
-			i++;
-		if(str[i] >= '0' && str[i] <= '9' && str[i -1] == '$')
+		s = *str;
+		int i = 0;
+		while(s[++i] )
 		{
-			i++;
+			if(s[i] == 'n')
+				status = 1;
+			else
+			{
+				status = 0;
+				break;
+			}
 		}
-			
-		if(str[i] >= 'a' && str[i] <= 'z' && str[i -1] == '$')
-		{
-			
-			while(str[i] != '$' && str[i])
-				printf("%c", str[i++]);
-				
-		}
-		printf("%c", str[i]);
-		i++;
+		if(status == 0)
+			printf("%s ", *str++);
 	}
-	   
-	
-	printf("\n");
+	if(*str)
+		while(*str)
+			printf("%s ", *str++);
 }
 
 
@@ -114,16 +122,8 @@ int ft_echo(char **cmd)
 	if(cmd[1] == NULL && ft_strcmp(*cmd,"$"))
 		return(	printf("\n"), ERROR_RETURN);
 	cmd++;
-	while(*cmd)
-	{
-
-		check_doolar_sign(*cmd);
-		// i = check_doolar_sign(*cmd);
-		// check_in_env(*cmd + i);
-		
-		cmd++;
-			
-	}
+	
+		check_newline(cmd);
 	
 	return (1);
 }
