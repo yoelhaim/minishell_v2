@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:33 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/20 18:44:55 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/20 23:39:00 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ t_globals	g_tools = {0};
 
 void	clear_and_free(t_node **list, t_cmd **cmd, char *line)
 {
+	(void) line;
+	(void) cmd;
 	clear_list(list);
-	clear_list_cmd(cmd);
-	free(line);
+	// clear_list_cmd(cmd);
 }
 
 void test(t_node **list)
@@ -55,7 +56,7 @@ void	setup_shell(t_node **datas, t_cmd **cmds)
 		if (syntax_error(data) == ERROR_RETURN)
 			clear_list(&data);
 		expander(&data);
-		test(&data);
+		// test(&data);
 		cmd = parse(data);
 		exec_cmd(cmd);
 		clear_and_free(&data, &cmd, line);
