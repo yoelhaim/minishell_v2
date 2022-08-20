@@ -6,14 +6,14 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 09:19:50 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/20 12:07:56 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/20 13:49:15 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 void	check_expand_status(char **value)
 {
-	*value = ft_itoa(g_tools.status_sign);
+	*value = "$?";
 }
 void	check_expand_dollar(char **value)
 {

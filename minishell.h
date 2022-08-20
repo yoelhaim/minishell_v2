@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/20 12:03:05 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/20 13:38:17 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ t_cmd	*parse(t_node *list);
 char	*check_is_ws(t_node **list, char *line);
 char	*check_is_pipe(t_node **list, char *line);
 void expander(t_node **list);
+void	check_expand_status(char **value);
 // void	check_in_env(char *str, char *str2);
 
 

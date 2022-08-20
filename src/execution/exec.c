@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 20:12:27 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/19 23:50:36 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/20 13:37:00 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,42 @@ int	check_builtin(char *cmd)
 	return (0);
 }
 
+// char *get_path(char *str)
+// {
+	
+// }
 void	print_cmnd(char **cmd)
 {
 	char	**splited_path;
 	char	*path;
+	(void ) cmd;
+	// int		status_cmnd;
+	// int		status_access;
 
 	splited_path = ft_split(get_path(), ':');
-	while (*splited_path)
-	{
-		path = ft_strjoin(*splited_path,ft_strjoin("/", cmd[0]));
+	if (!access(*cmd, X_OK))
+		path = *cmd;
+	else
+	{	
+		while (*splited_path)
+		{
+			path = ft_strjoin(*splited_path,ft_strjoin("/", cmd[0]));
+			if(!access(path, X_OK))
+				break;
+		splited_path++;
+	}
+	}
+	
+		// path = ft_strjoin(*splited_path,ft_strjoin("/", cmd[0]));
 		// printf("%d\n", access(path, 1));
 		// printf("%d\n", execve(path, \
 		// cmd, export_env(g_tools.g_env)));
-		execve(path, \
+		 execve(path, \
 		cmd, export_env(g_tools.g_env));
+		g_tools.status_sign = 3;
+		printf("minishell : %s : command not found\n", *cmd);
 		
-		splited_path++;
-	}
+		
 }
 
 void	cmd_system(char **cmd)
