@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 09:19:50 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/20 16:17:32 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/21 18:31:23 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 void	check_expand_status(char **value)
 {
-	*value = "$?";
+	*value = ft_itoa(g_tools.status_sign);
+	printf("sssss\n");
 }
 void	check_expand_dollar(char **value)
 {
@@ -57,7 +58,7 @@ void	expander(t_node **list)
 	{
 		if (cmd->type == SIGN)
 			check_expand_dollar(&cmd->val);
-		if (cmd->type == EXIT_STATUS)
+		else if (cmd->type == EXIT_STATUS)
 			check_expand_status(&cmd->val);
 		cmd = cmd->next;
 	}
