@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:15:33 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/19 21:54:31 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/21 21:54:41 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,22 @@
 
 void	ft_export(char **cmd)
 {
-	(void)cmd;
 	t_env	*env;
 	int		status;
 	char	**splited_value;
 
 	env = g_tools.g_env;
 	status = 0;
+	splited_value = NULL;
 	if(check_valid_export(cmd) == ERROR_RETURN)
 	{
 		printf("minishel: export: `=': not a valid identifier\n");
 		return ;
 	}
 	cmd++;
+	if(cmd)
+		next_export(cmd, splited_value, status, env);
 	
-	while(*cmd)
-	{
-		splited_value = ft_split(*cmd, '=');
-
-		if (ft_atoi(*cmd) != 0 )
-	{
-		printf("bash: export: `%s': not a valid identifier\n",*cmd);
-		return ;
-	}
-		if(splited_value[1] == NULL)
-			return ;
-		while (env)
-		{
-			if(!ft_strcmp(env->variable,splited_value[0]))
-			{
-				env->value = *cmd;
-				status = 1;
-				break;
-			}
-			else
-				status = 0;
-			
-			env = env->next;
-		}
-		if(status == 0 && splited_value[1] != NULL)
-			pushback_env(&g_tools.g_env, splited_value[0], *cmd);
-		status = 0;
-		cmd++;
-	}
-	free(splited_value);
 }
 
 t_env	*ft_unset(char **cmd)
