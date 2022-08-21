@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 20:12:27 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/20 13:37:00 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/21 18:38:02 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	print_cmnd(char **cmd)
 		// cmd, export_env(g_tools.g_env)));
 		 execve(path, \
 		cmd, export_env(g_tools.g_env));
-		g_tools.status_sign = 3;
-		printf("minishell : %s : command not found\n", *cmd);
+		
+		printf("minishell : %s : command not found ee %d \n", *cmd, g_tools.status_sign);
 		
 		
 }
@@ -65,6 +65,8 @@ void	cmd_system(char **cmd)
 	int	pid;
 	int fd[2];
 	pid = fork();
+	if (pid == -1)
+		exit(1);
 	if (pid == 0)
 	{
 		// close(fd[0]);
