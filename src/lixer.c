@@ -6,11 +6,12 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:54:42 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/20 23:49:18 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/21 16:35:00 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
 static char	*check_is_red(t_node **list, char *line)
 {
 	if (*line == '<' && line[1] == '<')
@@ -34,6 +35,7 @@ static char	*check_is_wd(t_node **list, char *line, char *sc)
 {
 	char	*buff;
 	int		i;
+
 	i = 0;
 	while (!ft_strchr(sc, line[i]))
 		i++;
@@ -60,33 +62,30 @@ static char	*check_is_wd(t_node **list, char *line, char *sc)
 
 static char	*check_is_sign(t_node **list, char *line)
 {
+	char	*symbols;
 	char	*buff;
-	int		i;
 
-	i = 0;
+	symbols = " \t\n!\"%'()*+,-./:;<=>?@[\\]^`|~$";
 	if (*line == '$')
 	{
 		if (line[1] == '?')
 			return (pushback(list, EXIT_STATUS, "$?"), line + 1);
-		else if (*line && line[1] >= '1' && line[1] <= '9')
-			return (pushback(list, SIGN, "1"), line + 1);
-		else if (*line && line[1] == '0')
-			return (pushback(list, SIGN, "0"), line + 1);
-		else if (*line++)
+		else if (*line && line[1] >= '0' && line[1] <= '9')
 		{
-		while (*line &&!ft_strchr(STR_IGN, line[i]))
-			i++;
-		i = 0;
-		buff = malloc(sizeof(char) * i + 1);
-		while (*line && !ft_strchr(STR_IGN, *line))
-		{
-			buff[i] = *line++;
-			i++;
+			buff = malloc(sizeof(char) * 2);
+			buff[0] = line[1];
+			buff[1] = 0;
+			add(&g_tools.garbage, buff);
+			return (pushback(list, SIGN, buff), line + 1);
 		}
-		buff[i] = 0;
-		pushback(list, SIGN, buff);
-		free(buff);
-		return (line -1);
+		else if (*(line + 1))
+		{
+			// while (*symbols)
+			// {
+			// 	if (*(line + 1) == *symbols++)
+			// 		return (line);
+			// }
+			return (check_is_wd(list, ++line, symbols));
 		}
 		else
 			pushback(list, WORD, "$");
@@ -126,8 +125,52 @@ static char	*check_is_quot(t_node **list, char *line, char quot)
 			while (*buff != 0)
 			{
 				buff = check_is_wd(list, buff, "$");
-				if(quot != '\'')
-					buff = check_is_sign(list, buff);
+				buff = check_is_sign(list, buff);
+				buff++;
+			}
+			return (ft_strchr(line, quot));
+		}
+		else
+			return (printf("minishell: unclosed  quotes\n"), NULL);
+	}
+	return (line);
+}
+
+
+
+static char	*check_is_quot_simple(t_node **list, char *line, char quot)
+{
+	char	*buff;
+	int		i;
+
+	i = 0;
+	if (*line == quot)
+	{
+		line++;
+		if ((ft_strchr(line, quot)))
+		{
+			while (line[i] != quot)
+				i++;
+			if (i == 0 && *(line + 1) == '\0')
+			{
+				pushback(list, WSPACE, " ");
+				return (" ");
+			}
+			buff = malloc(sizeof(char) * (i + 1));
+			add(&g_tools.garbage, buff);
+			if (!buff)
+				return (NULL);
+			i = 0;
+			while (line[i] && line[i] != quot)
+			{
+				buff[i] = line[i];
+				i++;
+			}
+			buff[i] = 0;
+			while (*buff != 0)
+			{
+				buff = check_is_wd(list, buff, "$");
+				
 				buff++;
 			}
 			return (ft_strchr(line, quot));
@@ -150,7 +193,7 @@ int	check_lexer(t_node **list, char *line)
 		line = check_is_quot(list, line, '"');
 		if (line == NULL)
 			return (ERROR_RETURN);
-		line = check_is_quot(list, line, '\'');
+		line = check_is_quot_simple(list, line, '\'');
 		if (line == NULL)
 			return (ERROR_RETURN);
 		line++;
