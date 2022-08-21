@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:33 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/20 23:39:00 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/21 21:29:03 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ void test(t_node **list)
 	cmd = *list;
 	while (cmd)
 	{
-		printf("value %s type => %d\n", cmd->val, cmd->type);
+		printf("\033[0;31m-----------------------------------\033[0m\n");
+		printf("| value => %s          |\n", cmd->val);
+		printf("| type => %d           |", cmd->type);
+		printf("\n\033[32m-----------------------------------\033[0m\n");
 		cmd = cmd->next;
 	}
 	
@@ -56,7 +59,7 @@ void	setup_shell(t_node **datas, t_cmd **cmds)
 		if (syntax_error(data) == ERROR_RETURN)
 			clear_list(&data);
 		expander(&data);
-		// test(&data);
+		//  test(&data);
 		cmd = parse(data);
 		exec_cmd(cmd);
 		clear_and_free(&data, &cmd, line);
@@ -72,7 +75,7 @@ int	main(int ac, char **av, char **envr)
 	if (ac != 1)
 		return (printf("ERROR"), 0);
 	create_env(envr);
-	g_tools.status_sign = 0;
+	
 	setup_shell (&data, &cmd);
 	free_all (g_tools.garbage);
 	rl_clear_history();
