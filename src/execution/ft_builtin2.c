@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:26:39 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/20 19:02:31 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/21 18:38:56 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void ft_cd(char **cmd)
 void ft_pwd(char *next_arg)
 {
 	char path[1024];
-	
 	if(next_arg)
 		printf("pwd: too many arguments\n");
 	else
@@ -115,7 +114,7 @@ void check_newline(char **str)
 		{
 			while(*str)
 			{
-				printf("|%s|", *str++);
+				printf("%s", *str++);
 				if(*str)
 					printf(" ");
 				
