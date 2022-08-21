@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/20 21:56:44 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/21 21:53:36 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define ERROR_RETURN 404   // error retuen value
 # define SUCCESS_RETURN 200 // success retuen value
 # define STR_IGN " \t\r\n\"'\v\f|<>$"
+# define STR_IGN_DOOLAR " \t\r\n\"'\v\f|<>>"
 
 // error message
 # define TOKEN_ERR "minishell: syntax error, \
@@ -45,12 +46,6 @@
 # define NL_ERROR_MESSSAGE "minishell: syntax error \
  near unexpected token `newline' '"
 // fin error message
-
-typedef struct s_data
-{
-	char	**env;
-	int		status;
-}	t_data;
 
 typedef struct s_env
 {
@@ -73,6 +68,7 @@ typedef struct s_globals
 	t_env		*g_env;
 	t_node_free	*garbage;
 	int			status_sign;
+	int			SHLVL;
 }	t_globals;
 
 extern t_globals	g_tools;
@@ -151,5 +147,5 @@ void ft_cd(char **cmd);
 int	check_folder(char *name);
 void ft_pwd(char *next_arg);
 void check_redirecrt(t_red *reds);
-
+void next_export(char **cmd, char **splited_value,int  status, t_env	*env);
 #endif
