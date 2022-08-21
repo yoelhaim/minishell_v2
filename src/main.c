@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:33 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/21 21:29:03 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/21 23:28:03 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	main(int ac, char **av, char **envr)
 	t_node	*data;
 
 	(void)av;
+	(void)envr;
 	if (ac != 1)
 		return (printf("ERROR"), 0);
 	create_env(envr);

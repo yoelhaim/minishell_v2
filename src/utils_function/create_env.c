@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 19:16:51 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/21 18:47:37 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/21 23:23:30 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,6 @@ void	create_env(char *data[])
 	{
 		spl = ft_split(data[i], '=');
 		pushback_env(&g_tools.g_env, *spl, data[i]);
-		if(!ft_strcmp("SHLVL", *spl))
-		{
-			int sh = ft_atoi(strstr(data[i],"=")+1);
-			
-					sh++;
-			
-		}
 		free(spl);
 	}
 }

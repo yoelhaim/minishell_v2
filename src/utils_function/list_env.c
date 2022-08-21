@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 19:00:14 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/19 09:24:13 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/21 23:24:07 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ t_env	*new_node_env(char *variable, char *val)
 	t_env	*newnode;
 
 	newnode = (t_env *)malloc(sizeof(t_env));
-	add(&g_tools.garbage, new_node);
 	if (newnode != NULL)
 	{
 		newnode->variable = variable;
