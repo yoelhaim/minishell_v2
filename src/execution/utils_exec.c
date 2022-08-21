@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 22:34:27 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/19 11:15:15 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/21 22:55:02 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,70 @@ int	size_word(char **cmd)
 
 int	check_valid_export(char **cmd)
 {
-	while(*cmd)
+	cmd++; 
+	char **str;
+
+	str = cmd;
+	while(*str)
 	{
-		if(!ft_strcmp(*cmd, "="))
+		if(!ft_strcmp(*str, "="))
 			return(ERROR_RETURN);
-		cmd++;
+		str++;
+	}
+	str = cmd;
+	while(*str)
+	{
+		if(*str[0] == '=')
+			return(ERROR_RETURN);
+		str++;
 	}
 	return(1);
+}
+
+void  next_export(char **cmd, char **splited_value,int  status, t_env	*env)
+{
+	while(*cmd)
+	{
+	  splited_value = ft_split(*cmd, '=');
+		if (ft_atoi(*cmd) != 0 )
+		{
+		printf("bash: export: `%s': not a valid identifier\n",*cmd);
+		return ;
+	}
+		if(splited_value[1] == NULL)
+		{
+			if(strstr(*cmd , "="))
+				*cmd = ft_strjoin(splited_value[0], "=  ");
+			else
+				return ;
+		}
+		
+		while (env)
+		{	
+					
+			if(!ft_strcmp(env->variable,splited_value[0]))
+			{
+				if(strstr(*cmd , "+="))
+					{
+						*cmd = ft_strjoin(env->value, strstr(env->value, "+=") + 2);
+						printf("www %s\n",*cmd) ;
+					}
+				env->value = *cmd;
+				status = 1;
+				break;
+			}
+			else
+				status = 0;
+			env = env->next;
+		}
+		if(status == 0)
+		{
+			if(!strstr(*cmd , "+="))
+				pushback_env(&g_tools.g_env, splited_value[0], *cmd);
+		}
+			
+		status = 0;
+		cmd++;
+	}
+	free(splited_value);
 }
