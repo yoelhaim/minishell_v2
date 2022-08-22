@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/21 21:53:36 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/22 22:08:35 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ void	check_expand_status(char **value);
 
 void	add(t_node_free **garbage, void *pointer);
 void	free_all(t_node_free *garbage);
-
+int		size_of_env(void);
 // execution
 void	exec_cmd(t_cmd *cmd);
 char	*get_path(void);
