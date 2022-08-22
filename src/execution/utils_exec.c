@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 22:34:27 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/21 22:55:02 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/22 22:09:50 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,16 +98,21 @@ int	check_valid_export(char **cmd)
 	return(1);
 }
 
+int check_cmd_valid(char *cmd)
+{
+	if(cmd[0] >= '0' && cmd[0] <= '9')
+		return (printf("bash: export: `%s': not a valid identifier\n",cmd),1);
+	
+	return(ERROR_RETURN);
+}
+
 void  next_export(char **cmd, char **splited_value,int  status, t_env	*env)
 {
 	while(*cmd)
 	{
 	  splited_value = ft_split(*cmd, '=');
-		if (ft_atoi(*cmd) != 0 )
-		{
-		printf("bash: export: `%s': not a valid identifier\n",*cmd);
-		return ;
-	}
+	if(check_cmd_valid(*cmd) != ERROR_RETURN)
+			return ;
 		if(splited_value[1] == NULL)
 		{
 			if(strstr(*cmd , "="))
