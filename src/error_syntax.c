@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 12:48:30 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/19 09:13:26 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/22 23:04:59 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	check_after_red(t_node *list)
 	return (1);
 }
 
-static int	check_pipe_is_end(t_node *list)
+int	check_pipe_is_end(t_node *list)
 {
 	t_node	*line;
 	char	*tmp;
@@ -59,7 +59,6 @@ static int	check_pipe_is_end(t_node *list)
 static int	valid_pipe(t_node *list)
 {
 	t_node	*line;
-
 	line = list;
 	if (line->type == PIPE)
 		return (printf("%s %s' \n", TOKEN_ERR, line->val), ERROR_RETURN);
@@ -68,10 +67,10 @@ static int	valid_pipe(t_node *list)
 		if (line->type == PIPE)
 		{
 			line = line->next;
-			while (line->type == WSPACE)
-				line = line->next;
 			if ((line))
 			{
+				while (line->type == WSPACE)
+				line = line->next;
 				if (line->type == PIPE)
 					return (printf("%s %s\n", \
 					TOKEN_ERR, line->val), ERROR_RETURN);
@@ -80,6 +79,7 @@ static int	valid_pipe(t_node *list)
 		else
 			line = line->next;
 	}
+	
 	return (check_pipe_is_end(list));
 }
 
