@@ -6,11 +6,65 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:15:33 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/21 21:54:41 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/22 22:48:19 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+void 	printf_export(char **str)
+{
+	char **export;
+	int		i;
+	char	*variable=  NULL ;
+	
+	i = 0;
+	export = str;
+	while(i <= size_of_env() && export[i + 1] )
+	{
+		if(export[i][0]  > export[i + 1][0])
+		{
+			variable = export[i + 1];
+			export[i + 1]= export[i];
+			export[i] = variable;
+			i = 0;
+		}
+		else
+			i++;
+	}
+	i =0;
+	while(export[i])
+	{
+		printf("declare -x %s\n", export[i++]);
+	}
+	
+}
+
+void getexport()
+{
+	t_env *env;
+	int i = 0;
+	
+	char **str;
+	env = g_tools.g_env;
+	while(env)
+	{
+		i++;
+		// printf("declare -x %s\n", env->value);
+		env= env->next;
+	}
+	str = malloc(sizeof(char *)* i);
+	i = 0;
+	env = g_tools.g_env;
+		while(env)
+	{
+		str[i] = env->value;
+		i++;
+		// printf("declare -x %s\n", env->value);
+		env= env->next;
+	}
+	printf_export(str);
+}
 
 void	ft_export(char **cmd)
 {
@@ -27,8 +81,11 @@ void	ft_export(char **cmd)
 		return ;
 	}
 	cmd++;
-	if(cmd)
+	if(*cmd != NULL)
 		next_export(cmd, splited_value, status, env);
+	else
+		getexport();
+		
 	
 }
 
@@ -99,7 +156,7 @@ void	ft_exit(char **cmd)
 		}
 		if (ft_atoi(cmd[i]) == 0)
 		{
-			printf("minishell: exit: %s: numeric argument required\n", cmd[i]);
+			printf("exit \nminishell: exit: %s: numeric argument required\n", cmd[i]);
 			exit(EXIT_FAILURE);
 		}
 		i++;
