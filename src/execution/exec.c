@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 20:12:27 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/21 23:44:40 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/22 22:18:39 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@ int	check_builtin(char *cmd)
 	return (0);
 }
 
-// char *get_path(char *str)
-// {
+void handler_sig(int pid)
+{
+	(void)pid;
+	printf("10000000\n");
 	
-// }
+}
 void	print_cmnd(char **cmd)
 {
 	char	**splited_path;
@@ -33,7 +35,7 @@ void	print_cmnd(char **cmd)
 	(void ) cmd;
 	// int		status_cmnd;
 	// int		status_access;
-
+	signal(SIGINT, handler_sig);
 	splited_path = ft_split(get_path(), ':');
 	if (!access(*cmd, X_OK))
 		path = *cmd;
@@ -47,13 +49,7 @@ void	print_cmnd(char **cmd)
 		splited_path++;
 	}
 	}
-	
-		// path = ft_strjoin(*splited_path,ft_strjoin("/", cmd[0]));
-		// printf("%d\n", access(path, 1));
-		// printf("%d\n", execve(path, \
-		// cmd, export_env(g_tools.g_env)));
-		 execve(path, \
-		cmd, export_env(g_tools.g_env));
+	execve(path, cmd, export_env(g_tools.g_env));
 		
 		printf("minishell : %s : command not found \n", *cmd );
 		
@@ -69,9 +65,6 @@ void	cmd_system(char **cmd)
 		exit(1);
 	if (pid == 0)
 	{
-		// close(fd[0]);
-        // dup2(fd[1], STDOUT_FILENO);
-        // close(fd[1]);
 		print_cmnd(cmd);
 		exit(1);
 	}
