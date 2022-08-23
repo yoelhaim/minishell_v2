@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 19:28:56 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/17 21:34:29 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/23 13:49:38 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,20 @@ t_cmd *clear_list_cmd(t_cmd **lst)
 		free(forfree);
 	}
 	return (NULL);
+}
+
+int	size_of_cmd(t_cmd **list)
+{
+
+	t_cmd	*cmd;
+	int		i;
+
+	cmd = *list;
+	i	= 0;
+	while(cmd)
+	{
+		i++;
+		cmd = cmd->next;
+	}
+	return(i);
 }

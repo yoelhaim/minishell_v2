@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:58:58 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/19 22:16:10 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/23 12:56:30 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	open_herdoc(int type, char *value)
 		if (!line || !ft_strcmp(line, value))
 				break ;
 			else
-		{int fd = open("hidden.txt", O_RDWR|O_CREAT, 0666);
+		{int fd = open(".herdoc.txt", O_RDWR|O_CREAT, 0666);
 		write(fd, line, ft_strlen(line));}
 		}
 		

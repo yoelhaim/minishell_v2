@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/23 12:47:18 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/23 13:50:13 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ t_red	*clear_list_red(t_red **lst);
 void	pushback_cmd(t_cmd **lst, char **arg, t_red *red);
 t_cmd	*new_node_cmd(char **arg, t_red *red);
 t_cmd	*clear_list_cmd(t_cmd **lst);
+int	size_of_cmd(t_cmd **list);
 //lixer and tokenzer
 int		check_lexer(t_node **list, char *line);
 int		syntax_error(t_node *list);

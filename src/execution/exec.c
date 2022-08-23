@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 20:12:27 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/22 22:18:39 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/23 14:34:56 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,12 @@ void handler_sig(int pid)
 	printf("10000000\n");
 	
 }
-void	print_cmnd(char **cmd)
+void	print_cmnd(char **cmd, int *stt)
 {
 	char	**splited_path;
 	char	*path;
+	
 	(void ) cmd;
-	// int		status_cmnd;
-	// int		status_access;
 	signal(SIGINT, handler_sig);
 	splited_path = ft_split(get_path(), ':');
 	if (!access(*cmd, X_OK))
@@ -52,7 +51,7 @@ void	print_cmnd(char **cmd)
 	execve(path, cmd, export_env(g_tools.g_env));
 		
 		printf("minishell : %s : command not found \n", *cmd );
-		
+		g_tools.status_sign = WEXITSTATUS(stt);
 		
 }
 
@@ -65,11 +64,11 @@ void	cmd_system(char **cmd)
 		exit(1);
 	if (pid == 0)
 	{
-		print_cmnd(cmd);
+		print_cmnd(cmd, &g_tools.status_sign);
 		exit(1);
 	}
-	else
-		pid = wait(NULL);
+	waitpid(-1, &g_tools.status_sign, 0);
+	// while(waitpid(-1, &g_tools.status_sign, 0));
 	close(fd[0]);
 	close(fd[1]);
 }
@@ -79,6 +78,8 @@ void	exec_cmd(t_cmd *cmd)
 	t_cmd	*tmp;
 
 	tmp = cmd;
+
+	// printf("size  the commond => %d\n", size_of_cmd(&tmp));
 	while (tmp)
 	{
 		if (*(tmp->cmnd) == NULL)

@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:15:33 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/23 10:27:54 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/23 14:35:08 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ void	ft_env(char **cmd)
 void	ft_exit(char **cmd)
 {
 	int	i;
-
 	i = 1;
 	while (cmd[i])
 	{
 		if (!ft_strcmp(cmd[i], "0") || ft_atoi(cmd[i]) > 0 \
 				|| ft_atoi(cmd[i]) < 0)
 		{	
-			printf("exit\n");
+			// g_tools.status_sign = WEXITSTATUS();
+			printf("exit %d\n", g_tools.status_sign);
 			exit (EXIT_FAILURE);
 		}
 		if (ft_atoi(cmd[i]) == 0)

@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 09:19:50 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/21 18:31:23 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/23 14:12:31 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 void	check_expand_status(char **value)
 {
 	*value = ft_itoa(g_tools.status_sign);
-	printf("sssss\n");
 }
 void	check_expand_dollar(char **value)
 {
