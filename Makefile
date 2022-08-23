@@ -23,8 +23,10 @@ SRC = $(FILES_SRC)/main.c \
 	$(FILES_SRC)/lixer.c \
 	$(FILES_SRC)/expander.c \
 	$(FILES_EXEC)/exec.c \
-	$(FILES_EXEC)/ft_builtin.c \
-	$(FILES_EXEC)/ft_builtin2.c \
+	$(FILES_EXEC)/builtin/ft_builtin.c \
+	$(FILES_EXEC)/builtin/ft_builtin2.c \
+	$(FILES_EXEC)/builtin/ft_export.c \
+	$(FILES_EXEC)/builtin/ft_unset.c \
 	$(FILES_EXEC)/utils_exec.c \
 	$(FILES_EXEC)/redirect_file.c \
 	$(FILES_SRC)/forfree.c \
