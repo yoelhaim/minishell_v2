@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:15:33 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/23 14:35:08 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/23 15:19:53 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void	ft_exit(char **cmd)
 		if (!ft_strcmp(cmd[i], "0") || ft_atoi(cmd[i]) > 0 \
 				|| ft_atoi(cmd[i]) < 0)
 		{	
-			// g_tools.status_sign = WEXITSTATUS();
-			printf("exit %d\n", g_tools.status_sign);
+			g_tools.status_sign = ft_atoi(cmd[i]);
+			printf("exit \n");
 			exit (EXIT_FAILURE);
 		}
 		if (ft_atoi(cmd[i]) == 0)

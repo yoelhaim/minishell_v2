@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 20:12:27 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/23 14:34:56 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/23 17:04:54 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,12 @@ int	check_builtin(char *cmd)
 	return (0);
 }
 
-void handler_sig(int pid)
-{
-	(void)pid;
-	printf("10000000\n");
-	
-}
 void	print_cmnd(char **cmd, int *stt)
 {
 	char	**splited_path;
 	char	*path;
 	
 	(void ) cmd;
-	signal(SIGINT, handler_sig);
 	splited_path = ft_split(get_path(), ':');
 	if (!access(*cmd, X_OK))
 		path = *cmd;
@@ -55,31 +48,46 @@ void	print_cmnd(char **cmd, int *stt)
 		
 }
 
-void	cmd_system(char **cmd)
+void	cmd_system(char **cmd, t_cmd **cmd_list, int count_cmd, int fd[2])
 {
-	int	pid;
-	int fd[2];
-	pid = fork();
-	if (pid == -1)
-		exit(1);
-	if (pid == 0)
-	{
+	g_tools.status_sign = 127;
+	 (void) cmd_list;
+	 if(count_cmd == 0)	// ls
+		{
+		close(fd[0]);
+		dup2(fd[1], 1);
+		close(fd[1]);
 		print_cmnd(cmd, &g_tools.status_sign);
-		exit(1);
-	}
-	waitpid(-1, &g_tools.status_sign, 0);
-	// while(waitpid(-1, &g_tools.status_sign, 0));
-	close(fd[0]);
-	close(fd[1]);
+		}
+		else if(count_cmd > 0)  //wc 
+		{
+		close(fd[1]);
+		dup2(fd[0], 0);
+		close(fd[0]);
+		print_cmnd(cmd, &g_tools.status_sign);
+		}
+	
+	
 }
 
 void	exec_cmd(t_cmd *cmd)
 {
 	t_cmd	*tmp;
-
-	tmp = cmd;
-
-	// printf("size  the commond => %d\n", size_of_cmd(&tmp));
+	
+	int		count_cmd = 0;
+	int		pid;
+	int		n_of_pipe =size_of_cmd(&tmp);
+	int fd[n_of_pipe];
+	
+	tmp =cmd;
+	if(n_of_pipe > 1)
+	{
+		while(n_of_pipe > 1)
+		{
+			pipe(fd);
+			n_of_pipe--;
+		}
+	}
 	while (tmp)
 	{
 		if (*(tmp->cmnd) == NULL)
@@ -88,9 +96,29 @@ void	exec_cmd(t_cmd *cmd)
 			return ; // rederiction
 		}
 		if (check_builtin(*(tmp->cmnd)))
-			ft_builtin(tmp->cmnd);
+			{
+				if(g_tools.status_sign == 256)
+					g_tools.status_sign = 1;
+				else
+					g_tools.status_sign = 0;
+				ft_builtin(tmp->cmnd);
+			}
 		else
-			cmd_system(tmp->cmnd);
+		{
+			pid = fork();
+			if(pid == 0)
+			{
+				cmd_system(tmp->cmnd, &cmd, count_cmd, fd);
+			}
+				
+		}
+		count_cmd++;
 		tmp = tmp->next;
+	
 	}
+	if (size_of_cmd(&cmd) > 1 )
+	{close(fd[0]);
+	close(fd[1]);}
+	while(waitpid(-1, NULL, 0) != -1);
+	
 }
