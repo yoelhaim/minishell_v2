@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/22 22:08:35 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/23 09:27:20 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,4 +148,7 @@ int	check_folder(char *name);
 void ft_pwd(char *next_arg);
 void check_redirecrt(t_red *reds);
 void next_export(char **cmd, char **splited_value,int  status, t_env	*env);
+void	ft_export(char **cmd);
+t_env	*ft_unset(char **cmd);
+int check_cmd_valid(char *cmd);
 #endif
