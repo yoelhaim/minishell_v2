@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 22:34:27 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/22 22:09:50 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/23 09:08:54 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,28 +76,6 @@ int	size_word(char **cmd)
 	return(i);
 }
 
-int	check_valid_export(char **cmd)
-{
-	cmd++; 
-	char **str;
-
-	str = cmd;
-	while(*str)
-	{
-		if(!ft_strcmp(*str, "="))
-			return(ERROR_RETURN);
-		str++;
-	}
-	str = cmd;
-	while(*str)
-	{
-		if(*str[0] == '=')
-			return(ERROR_RETURN);
-		str++;
-	}
-	return(1);
-}
-
 int check_cmd_valid(char *cmd)
 {
 	if(cmd[0] >= '0' && cmd[0] <= '9')
@@ -106,47 +84,4 @@ int check_cmd_valid(char *cmd)
 	return(ERROR_RETURN);
 }
 
-void  next_export(char **cmd, char **splited_value,int  status, t_env	*env)
-{
-	while(*cmd)
-	{
-	  splited_value = ft_split(*cmd, '=');
-	if(check_cmd_valid(*cmd) != ERROR_RETURN)
-			return ;
-		if(splited_value[1] == NULL)
-		{
-			if(strstr(*cmd , "="))
-				*cmd = ft_strjoin(splited_value[0], "=  ");
-			else
-				return ;
-		}
-		
-		while (env)
-		{	
-					
-			if(!ft_strcmp(env->variable,splited_value[0]))
-			{
-				if(strstr(*cmd , "+="))
-					{
-						*cmd = ft_strjoin(env->value, strstr(env->value, "+=") + 2);
-						printf("www %s\n",*cmd) ;
-					}
-				env->value = *cmd;
-				status = 1;
-				break;
-			}
-			else
-				status = 0;
-			env = env->next;
-		}
-		if(status == 0)
-		{
-			if(!strstr(*cmd , "+="))
-				pushback_env(&g_tools.g_env, splited_value[0], *cmd);
-		}
-			
-		status = 0;
-		cmd++;
-	}
-	free(splited_value);
-}
+
