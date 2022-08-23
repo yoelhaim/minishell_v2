@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 22:34:27 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/23 09:08:54 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/23 12:10:10 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,26 @@ int check_cmd_valid(char *cmd)
 	return(ERROR_RETURN);
 }
 
+void	check_exported_append(char **splited_value, char **cmd, int *append)
+{
+	int	i;
+
+	i = 0;
+	char *str;
+	if (strstr(*cmd, "+="))
+	{
+		while (splited_value[0][i])
+			i++;
+		str = malloc(sizeof(char) * i);
+		i = -1;
+		while (splited_value[0][++i])
+			str[i] = splited_value[0][i];
+		str[i -1] = 0;
+		splited_value[0] = str;
+		*cmd = ft_strjoin(splited_value[0], "=");
+		if (splited_value[1])
+			*cmd = ft_strjoin(*cmd, splited_value[1]);
+		*append = 1;
+	}
+}
 

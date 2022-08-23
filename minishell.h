@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/23 09:27:20 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/23 12:47:18 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef struct s_globals
 	t_env		*g_env;
 	t_node_free	*garbage;
 	int			status_sign;
-	int			SHLVL;
+	int			shlvl;
 }	t_globals;
 
 extern t_globals	g_tools;
@@ -101,21 +101,24 @@ void	pushback_env(t_env **lst, char *path, char *val);
 t_env	*new_node_env(char *path, char *val);
 t_env	*clear_list_env(t_env **lst);
 void	create_env(char *data[]);
+int		size_of_env(void);
 
 char	*read_line(void);
 int		is_ws(char *line);
+
+//node list
 t_node	*new_node(int type, char *val);
 void	pushback(t_node **lst, int type, char *val);
 t_node	*clear_list(t_node **lst);
-
+//redirection list
 t_red	*new_node_red(int type, char *val);
 void	pushback_red(t_red **lst, int type, char *val);
 t_red	*clear_list_red(t_red **lst);
-
+//commond list
 void	pushback_cmd(t_cmd **lst, char **arg, t_red *red);
 t_cmd	*new_node_cmd(char **arg, t_red *red);
 t_cmd	*clear_list_cmd(t_cmd **lst);
-
+//lixer and tokenzer
 int		check_lexer(t_node **list, char *line);
 int		syntax_error(t_node *list);
 void	intail_env(char **data);
@@ -123,32 +126,33 @@ int		ft_strcmp(char *s1, char *s2);
 t_cmd	*parse(t_node *list);
 char	*check_is_ws(t_node **list, char *line);
 char	*check_is_pipe(t_node **list, char *line);
-void expander(t_node **list);
+char	*middle_quets(t_node **list, char *line, char quot, int i);
+char	*check_is_sign(t_node **list, char *line);
+char	*check_is_wd(t_node **list, char *line, char *sc);
+char	*check_is_red(t_node **list, char *line);
+void	expander(t_node **list);
 void	check_expand_status(char **value);
-// void	check_in_env(char *str, char *str2);
-
-
-
-//  char	*check_is_wd(t_node **list, char *line, char *sc);
-
+//free
 void	add(t_node_free **garbage, void *pointer);
 void	free_all(t_node_free *garbage);
-int		size_of_env(void);
+
 // execution
 void	exec_cmd(t_cmd *cmd);
 char	*get_path(void);
 char	**export_env(t_env *env);
 char	*setUpper(char *str);
 void	ft_builtin(char **cmd);
-int	size_word(char **cmd);
-int	check_valid_export(char **cmd);
-int ft_echo(char **cmd);
-void ft_cd(char **cmd);
-int	check_folder(char *name);
-void ft_pwd(char *next_arg);
-void check_redirecrt(t_red *reds);
-void next_export(char **cmd, char **splited_value,int  status, t_env	*env);
+int		size_word(char **cmd);
+int		check_valid_export(char **cmd);
+int		ft_echo(char **cmd);
+void	ft_cd(char **cmd);
+int		check_folder(char *name);
+void	ft_pwd(char *next_arg);
+void	check_redirecrt(t_red *reds);
+void	next_export(char **cmd, char **splited_value \
+	, int status, t_env *env);
 void	ft_export(char **cmd);
 t_env	*ft_unset(char **cmd);
-int check_cmd_valid(char *cmd);
+int		check_cmd_valid(char *cmd);
+void	check_exported_append(char **splited_value, char **cmd, int *append);
 #endif

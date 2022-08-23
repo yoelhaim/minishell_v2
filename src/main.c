@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:33 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/21 23:28:03 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/23 12:18:23 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,6 @@ void	clear_and_free(t_node **list, t_cmd **cmd, char *line)
 	(void) line;
 	(void) cmd;
 	clear_list(list);
-	// clear_list_cmd(cmd);
-}
-
-void test(t_node **list)
-{
-	t_node *cmd;
-	cmd = *list;
-	while (cmd)
-	{
-		printf("\033[0;31m-----------------------------------\033[0m\n");
-		printf("| value => %s          |\n", cmd->val);
-		printf("| type => %d           |", cmd->type);
-		printf("\n\033[32m-----------------------------------\033[0m\n");
-		cmd = cmd->next;
-	}
-	
-		
 }
 
 void	setup_shell(t_node **datas, t_cmd **cmds)
@@ -59,7 +42,6 @@ void	setup_shell(t_node **datas, t_cmd **cmds)
 		if (syntax_error(data) == ERROR_RETURN)
 			clear_list(&data);
 		expander(&data);
-		//  test(&data);
 		cmd = parse(data);
 		exec_cmd(cmd);
 		clear_and_free(&data, &cmd, line);
@@ -76,7 +58,6 @@ int	main(int ac, char **av, char **envr)
 	if (ac != 1)
 		return (printf("ERROR"), 0);
 	create_env(envr);
-	
 	setup_shell (&data, &cmd);
 	free_all (g_tools.garbage);
 	rl_clear_history();

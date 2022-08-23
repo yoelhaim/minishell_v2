@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 12:48:30 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/22 23:04:59 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/23 12:19:07 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	check_pipe_is_end(t_node *list)
 static int	valid_pipe(t_node *list)
 {
 	t_node	*line;
+
 	line = list;
 	if (line->type == PIPE)
 		return (printf("%s %s' \n", TOKEN_ERR, line->val), ERROR_RETURN);
@@ -79,7 +80,6 @@ static int	valid_pipe(t_node *list)
 		else
 			line = line->next;
 	}
-	
 	return (check_pipe_is_end(list));
 }
 

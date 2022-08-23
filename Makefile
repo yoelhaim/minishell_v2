@@ -21,6 +21,7 @@ CC = cc -Wall -Wextra -Werror
 SRC = $(FILES_SRC)/main.c \
 	$(FILES_SRC)/read_line.c \
 	$(FILES_SRC)/lixer.c \
+	$(FILES_SRC)/more_lixer.c \
 	$(FILES_SRC)/expander.c \
 	$(FILES_EXEC)/exec.c \
 	$(FILES_EXEC)/builtin/ft_builtin.c \

@@ -6,32 +6,13 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:54:42 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/21 16:35:00 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/23 12:40:34 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static char	*check_is_red(t_node **list, char *line)
-{
-	if (*line == '<' && line[1] == '<')
-	{
-		pushback(list, HEREDOC, "<<");
-		line++;
-	}
-	else if (*line == '<')
-		pushback(list, REDIN, "<");
-	else if (*line == '>' && line[1] == '>')
-	{
-		pushback(list, APPEND, ">>");
-		line++;
-	}
-	else if (*line == '>')
-		pushback(list, REDOUT, ">");
-	return (line);
-}
-
-static char	*check_is_wd(t_node **list, char *line, char *sc)
+char	*check_is_wd(t_node **list, char *line, char *sc)
 {
 	char	*buff;
 	int		i;
@@ -60,7 +41,7 @@ static char	*check_is_wd(t_node **list, char *line, char *sc)
 	return (line);
 }
 
-static char	*check_is_sign(t_node **list, char *line)
+char	*check_is_sign(t_node **list, char *line)
 {
 	char	*symbols;
 	char	*buff;
@@ -79,14 +60,7 @@ static char	*check_is_sign(t_node **list, char *line)
 			return (pushback(list, SIGN, buff), line + 1);
 		}
 		else if (*(line + 1))
-		{
-			// while (*symbols)
-			// {
-			// 	if (*(line + 1) == *symbols++)
-			// 		return (line);
-			// }
 			return (check_is_wd(list, ++line, symbols));
-		}
 		else
 			pushback(list, WORD, "$");
 	}
@@ -98,6 +72,7 @@ static char	*check_is_quot(t_node **list, char *line, char quot)
 	char	*buff;
 	int		i;
 
+	buff = NULL;
 	i = 0;
 	if (*line == quot)
 	{
@@ -106,28 +81,7 @@ static char	*check_is_quot(t_node **list, char *line, char quot)
 		{
 			while (line[i] != quot)
 				i++;
-			if (i == 0 && *(line + 1) == '\0')
-			{
-				pushback(list, WSPACE, " ");
-				return (" ");
-			}
-			buff = malloc(sizeof(char) * (i + 1));
-			add(&g_tools.garbage, buff);
-			if (!buff)
-				return (NULL);
-			i = 0;
-			while (line[i] && line[i] != quot)
-			{
-				buff[i] = line[i];
-				i++;
-			}
-			buff[i] = 0;
-			while (*buff != 0)
-			{
-				buff = check_is_wd(list, buff, "$");
-				buff = check_is_sign(list, buff);
-				buff++;
-			}
+			middle_quets(list, line, quot, i);
 			return (ft_strchr(line, quot));
 		}
 		else
@@ -136,13 +90,10 @@ static char	*check_is_quot(t_node **list, char *line, char quot)
 	return (line);
 }
 
-
-
 static char	*check_is_quot_simple(t_node **list, char *line, char quot)
 {
-	char	*buff;
 	int		i;
-
+	
 	i = 0;
 	if (*line == quot)
 	{
@@ -151,28 +102,7 @@ static char	*check_is_quot_simple(t_node **list, char *line, char quot)
 		{
 			while (line[i] != quot)
 				i++;
-			if (i == 0 && *(line + 1) == '\0')
-			{
-				pushback(list, WSPACE, " ");
-				return (" ");
-			}
-			buff = malloc(sizeof(char) * (i + 1));
-			add(&g_tools.garbage, buff);
-			if (!buff)
-				return (NULL);
-			i = 0;
-			while (line[i] && line[i] != quot)
-			{
-				buff[i] = line[i];
-				i++;
-			}
-			buff[i] = 0;
-			while (*buff != 0)
-			{
-				buff = check_is_wd(list, buff, "$");
-				
-				buff++;
-			}
+			middle_quets(list, line, quot, i);
 			return (ft_strchr(line, quot));
 		}
 		else

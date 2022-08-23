@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:05:02 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/23 11:23:01 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/23 12:12:09 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,36 +33,13 @@ int	check_valid_export(char **cmd)
 	return (1);
 }
 
-void	check_exported_append(char **splited_value, char **cmd, int *append)
-{
-	 int i;
-
-			i = 0;
-			char *str;
-			if (strstr(*cmd, "+="))
-			{
-			while(splited_value[0][i])
-				i++;
-			str = malloc(sizeof(char) * i);
-			i = -1;
-			while(splited_value[0][++i])
-				str[i] = splited_value[0][i];
-			str[i -1] = 0;
-			splited_value[0] = str;
-			*cmd = ft_strjoin(splited_value[0], "=");
-			if(splited_value[1])
-				*cmd = ft_strjoin(*cmd, splited_value[1]);
-			*append = 1;
-			}
-}
-
 void	next_export(char **cmd, char **splited_value, int status, t_env *env)
 {
+	int	append;
+
+	append = 0;
 	while (*cmd)
 	{
-		int	append;
-
-		append = 0;
 		splited_value = ft_split(*cmd, '=');
 		if (check_cmd_valid(*cmd) != ERROR_RETURN)
 			return ;
@@ -73,25 +50,23 @@ void	next_export(char **cmd, char **splited_value, int status, t_env *env)
 			else
 				return ;
 		}
-		  check_exported_append(splited_value, cmd, &append); 
-		  printf ("next Cmd => %d\n", append);
+		check_exported_append(splited_value, cmd, &append);
 		while (env)
 		{
 			if (!ft_strcmp(env->variable, splited_value[0]))
 			{
 				if (append)
 					*cmd = ft_strjoin(env->value, splited_value[1]);
-				printf("cmd is%s\n", *cmd);
 				env->value = *cmd;
 				status = 1;
 				break ;
 			}
 			else
-				status = 0;
+			status = 0;
 			env = env->next;
 		}
 		if (status == 0)
-				pushback_env(&g_tools.g_env, splited_value[0], *cmd);
+			pushback_env(&g_tools.g_env, splited_value[0], *cmd);
 		status = 0;
 		cmd++;
 	}
