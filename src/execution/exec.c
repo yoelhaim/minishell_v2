@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 20:12:27 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/23 17:04:54 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/23 20:22:47 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,21 @@ void	cmd_system(char **cmd, t_cmd **cmd_list, int count_cmd, int fd[2])
 		close(fd[1]);
 		print_cmnd(cmd, &g_tools.status_sign);
 		}
-		else if(count_cmd > 0)  //wc 
+		else if(count_cmd == size_of_cmd(cmd_list) -1)  //wc 
 		{
 		close(fd[1]);
 		dup2(fd[0], 0);
 		close(fd[0]);
 		print_cmnd(cmd, &g_tools.status_sign);
 		}
-	
-	
+		else
+		{
+		close(fd[1 - 1]);
+		dup2(fd[0 +1], 0+1);
+		close(fd[1+1]);
+		print_cmnd(cmd, &g_tools.status_sign);
+		}
+		// printf("cmd n => %d\n", count_cmd);
 }
 
 void	exec_cmd(t_cmd *cmd)
@@ -97,10 +103,6 @@ void	exec_cmd(t_cmd *cmd)
 		}
 		if (check_builtin(*(tmp->cmnd)))
 			{
-				if(g_tools.status_sign == 256)
-					g_tools.status_sign = 1;
-				else
-					g_tools.status_sign = 0;
 				ft_builtin(tmp->cmnd);
 			}
 		else
@@ -109,16 +111,22 @@ void	exec_cmd(t_cmd *cmd)
 			if(pid == 0)
 			{
 				cmd_system(tmp->cmnd, &cmd, count_cmd, fd);
+				if(errno == ENOENT)
+					exit(127);
+				if(errno == EACCES)
+					exit(126);
+				exit(1);
 			}
-				
 		}
 		count_cmd++;
 		tmp = tmp->next;
 	
 	}
 	if (size_of_cmd(&cmd) > 1 )
-	{close(fd[0]);
-	close(fd[1]);}
+	{
+		close(fd[0]);
+		close(fd[1]);
+	}
 	while(waitpid(-1, NULL, 0) != -1);
 	
 }

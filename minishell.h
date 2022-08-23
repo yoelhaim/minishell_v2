@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/23 13:50:13 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/23 20:02:20 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ typedef struct s_node_free
 
 typedef struct s_globals
 {
-	int			g_dollar_question;
 	t_env		*g_env;
 	t_node_free	*garbage;
 	int			status_sign;
@@ -133,10 +132,9 @@ char	*check_is_wd(t_node **list, char *line, char *sc);
 char	*check_is_red(t_node **list, char *line);
 void	expander(t_node **list);
 void	check_expand_status(char **value);
-//free
+//free 
 void	add(t_node_free **garbage, void *pointer);
 void	free_all(t_node_free *garbage);
-
 // execution
 void	exec_cmd(t_cmd *cmd);
 char	*get_path(void);
@@ -150,6 +148,7 @@ void	ft_cd(char **cmd);
 int		check_folder(char *name);
 void	ft_pwd(char *next_arg);
 void	check_redirecrt(t_red *reds);
+// function export and unset
 void	next_export(char **cmd, char **splited_value \
 	, int status, t_env *env);
 void	ft_export(char **cmd);

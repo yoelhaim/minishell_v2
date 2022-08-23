@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:05:02 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/23 12:12:09 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/23 19:42:11 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	next_export(char **cmd, char **splited_value, int status, t_env *env)
 			return ;
 		if (splited_value[1] == NULL)
 		{
-			if (strstr(*cmd, "="))
+			if (strstr(*cmd, "=") )
 				*cmd = ft_strjoin(splited_value[0], "=  ");
 			else
 				return ;

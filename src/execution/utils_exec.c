@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 22:34:27 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/23 12:10:10 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/23 20:08:02 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,30 @@ int	size_word(char **cmd)
 
 int check_cmd_valid(char *cmd)
 {
+	char temp;
+	char *sym;
+	int i;
+	
+	i = -1;
+	sym = "!\"'#$%&()*,-.>?-/\\;<>?@~_";
 	if(cmd[0] >= '0' && cmd[0] <= '9')
-		return (printf("bash: export: `%s': not a valid identifier\n",cmd),1);
+		return (printf("minishell: export: `%s': not a valid identifier\n",cmd),1);
+	while (*cmd)
+	{
+		temp = *cmd;
+		cmd++;
+		if(*cmd == '=')
+		{
+			while (sym[++i])
+		{
+			if(temp == '_')
+				return(1);
+			if(temp == sym[i])
+			return (printf("minishell:2 export: `%s': not a valid identifier\n",cmd),1);
+		}
+	}
+}
+	
 	
 	return(ERROR_RETURN);
 }
@@ -90,6 +112,8 @@ void	check_exported_append(char **splited_value, char **cmd, int *append)
 
 	i = 0;
 	char *str;
+	if(strstr(*cmd, "++"))
+		return ;
 	if (strstr(*cmd, "+="))
 	{
 		while (splited_value[0][i])
