@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:26:39 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/23 10:28:32 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/24 22:10:29 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,6 @@ int	ft_echo(char **cmd)
 		return (printf("\n"), ERROR_RETURN);
 	cmd++;
 	check_newline(cmd);
+	exit(-1);
 	return (1);
 }
