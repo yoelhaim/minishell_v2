@@ -6,7 +6,7 @@
 /*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 20:12:27 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/23 20:22:47 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/24 20:12:11 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	check_builtin(char *cmd)
 	return (0);
 }
 
-void	print_cmnd(char **cmd, int *stt)
+int	print_cmnd(char **cmd, int *stt)
 {
 	char	**splited_path;
 	char	*path;
@@ -45,88 +45,72 @@ void	print_cmnd(char **cmd, int *stt)
 		
 		printf("minishell : %s : command not found \n", *cmd );
 		g_tools.status_sign = WEXITSTATUS(stt);
+	return(ERROR_RETURN);
 		
 }
 
-void	cmd_system(char **cmd, t_cmd **cmd_list, int count_cmd, int fd[2])
+int	cmd_system(t_cmd *cmd_list,int  fd[2])
 {
+	int	fd_help;
+	int	pid;
+
 	g_tools.status_sign = 127;
-	 (void) cmd_list;
-	 if(count_cmd == 0)	// ls
+	while (cmd_list)
+	{
+	pipe(fd);
+	if ((pid = fork()) == -1)
+		exit(1);
+	else if (pid == 0)
+	{
+		dup2(fd_help, 0);
+		if (size_of_cmd(&cmd_list) != 1)
 		{
-		close(fd[0]);
-		dup2(fd[1], 1);
+			dup2(fd[1], 1);
+		}
+		if(print_cmnd(cmd_list->cmnd, &g_tools.status_sign) == ERROR_RETURN)
+			return(ERROR_RETURN);
+	}
+	else
+	{
+		wait(NULL);
 		close(fd[1]);
-		print_cmnd(cmd, &g_tools.status_sign);
-		}
-		else if(count_cmd == size_of_cmd(cmd_list) -1)  //wc 
-		{
-		close(fd[1]);
-		dup2(fd[0], 0);
-		close(fd[0]);
-		print_cmnd(cmd, &g_tools.status_sign);
-		}
-		else
-		{
-		close(fd[1 - 1]);
-		dup2(fd[0 +1], 0+1);
-		close(fd[1+1]);
-		print_cmnd(cmd, &g_tools.status_sign);
-		}
-		// printf("cmd n => %d\n", count_cmd);
+		fd_help = fd[0];
+		cmd_list = (cmd_list->next);
+	}
+	}
+	close(fd[0]);
+		close(fd[1]);	
+
+	return(1);
 }
 
 void	exec_cmd(t_cmd *cmd)
 {
 	t_cmd	*tmp;
 	
-	int		count_cmd = 0;
-	int		pid;
-	int		n_of_pipe =size_of_cmd(&tmp);
-	int fd[n_of_pipe];
+	int		fd[2];
 	
-	tmp =cmd;
-	if(n_of_pipe > 1)
-	{
-		while(n_of_pipe > 1)
-		{
-			pipe(fd);
-			n_of_pipe--;
-		}
-	}
-	while (tmp)
-	{
+	tmp = cmd;
+// printf("size %d\n", size_of_cmd(&cmd) );
 		if (*(tmp->cmnd) == NULL)
 		{
 			check_redirecrt(tmp->red);
 			return ; // rederiction
 		}
 		if (check_builtin(*(tmp->cmnd)))
-			{
+		{
 				ft_builtin(tmp->cmnd);
-			}
+		}
+		// if(!ft_strcmp(*(tmp->cmnd), "cd") && size_of_cmd(&cmd) > 1)
+		// 	tmp++;
 		else
 		{
-			pid = fork();
-			if(pid == 0)
-			{
-				cmd_system(tmp->cmnd, &cmd, count_cmd, fd);
+			if(cmd_system(cmd, fd) == ERROR_RETURN)
+				exit(1) ;
+		
 				if(errno == ENOENT)
 					exit(127);
 				if(errno == EACCES)
-					exit(126);
-				exit(1);
-			}
-		}
-		count_cmd++;
-		tmp = tmp->next;
-	
-	}
-	if (size_of_cmd(&cmd) > 1 )
-	{
-		close(fd[0]);
-		close(fd[1]);
-	}
-	while(waitpid(-1, NULL, 0) != -1);
-	
+					exit(126);	
+		}	
 }

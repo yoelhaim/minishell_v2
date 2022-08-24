@@ -6,7 +6,7 @@
 /*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/23 20:02:20 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/24 14:02:30 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct s_cmd
 {
 	int				r_in;
 	int				w_out;
+	//int				fd_help;
 	char			**cmnd;
 	struct s_red	*red;
 	struct s_cmd	*next;
