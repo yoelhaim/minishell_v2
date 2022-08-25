@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:26:39 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/25 01:22:27 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/25 15:20:14 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	ft_pwd(char *next_arg)
 {
 	char	path[1024];
-printf("sssss\n");
 	if (next_arg)
 		printf("pwd: too many arguments\n");
 	else

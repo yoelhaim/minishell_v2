@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 22:34:27 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/23 20:08:02 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/25 13:12:48 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char	**export_env(t_env *env)
 	int		len;
 	char	**exported_env;
 	int		i;
+	char	**forfree;
 
 	i = 0;
 	len = 0;
@@ -47,7 +48,8 @@ char	**export_env(t_env *env)
 		env = env->next;
 	}
 	exported_env[i] = NULL;
-	return (exported_env);
+	forfree = exported_env;
+	return (forfree);
 }
 
 char	*get_path(void)

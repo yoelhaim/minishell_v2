@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:58:58 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/25 00:00:55 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/25 15:50:03 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	open_herdoc(int type, char *value)
 	char	*line;
 	char	*buff;
 	
-	buff = NULL;
+	buff = ft_strdup("");
 	line = NULL;
 	if (type == HEREDOC)
 	{
@@ -29,22 +29,13 @@ static int	open_herdoc(int type, char *value)
 				break ;
 		else
 		{
+			buff = ft_strjoin(buff, ft_strjoin(line, "\n"));
+		
+		}
+		}
+		
 		int fd = open(".herdoc", O_RDWR|O_CREAT, 0666);
-		printf("=>%d\n", fd);
-		char *l = line;
-		if(buff != NULL)
-	     {	
-		buff = malloc(ft_strlen(l) + ft_strlen(buff));
-		write(fd, buff, ft_strlen(buff) + ft_strlen(l) );
-		}
-		buff = ft_strjoin(buff, l);
-		// read(fd, buff,ft_strlen(buff)  +1 );
-		
-		
-		printf("len => %zu\n str %s\n", ft_strlen(l), buff);
-		}
-		}
-		
+		ft_putstr_fd(buff, fd);
 	}
 	return (1);
 }

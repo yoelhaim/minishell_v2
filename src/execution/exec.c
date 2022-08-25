@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 12:28:53 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/25 12:30:23 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/25 16:09:44 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	print_cmnd(char **cmd, int *stt)
 			path = ft_strjoin(*splited_path,ft_strjoin("/", cmd[0]));
 			if(!access(path, X_OK))
 				break;
+			free(path);
+			free(*splited_path);
 		splited_path++;
 	}
 	}
@@ -45,6 +47,7 @@ int	print_cmnd(char **cmd, int *stt)
 		
 		printf("minishell : %s : command not found \n", *cmd );
 		g_tools.status_sign = WEXITSTATUS(stt);
+	
 	return(ERROR_RETURN);
 		
 }
@@ -53,8 +56,8 @@ int	cmd_system(t_cmd *cmd_list,int  fd[2], t_cmd *tmp)
 {
 	int	fd_help;
 	int	pid;
+	int	status;
 
-	g_tools.status_sign = 127;
 	fd_help = 0;
 	while (cmd_list)
 	{
@@ -75,12 +78,13 @@ int	cmd_system(t_cmd *cmd_list,int  fd[2], t_cmd *tmp)
 		}
 		else
 		{
-			wait(NULL);
+			waitpid(-1, &status, 0);
 			if (size_of_cmd(&tmp) != 1)
 				close(fd[1]);
 			fd_help = fd[0];
 			cmd_list = (cmd_list->next);
 		}
+		g_tools.status_sign = WEXITSTATUS(status);
 	}
 	if (size_of_cmd(&tmp) != 1)
 	{close(fd[0]);
@@ -93,6 +97,7 @@ void	exec_cmd(t_cmd *cmd)
 {
 	t_cmd	*tmp;
 	int		fd[2];
+	int pid;
 	
 	tmp = cmd;
 		if (*(tmp->cmnd) == NULL)
@@ -101,16 +106,35 @@ void	exec_cmd(t_cmd *cmd)
 			return ; // rederiction
 		}
 		
-		if (check_builtin(*(tmp->cmnd)) && size_of_cmd(&cmd) > 1)
+		if (check_builtin(*(tmp->cmnd)) )
 		{
+			if(size_of_cmd(&cmd) != 1)
+			{
+			pipe(fd);
+			pid =fork();
+			if(pid == 0)
+			{
+				dup2(fd[1], 1);
+				close(fd[1]);
 				ft_builtin(tmp->cmnd);
+				exit(1);
+			}
+			else
+				pid = wait(NULL);
+			}
+			else
+				{
+					ft_builtin(tmp->cmnd);
+					return ;
+				}
 		}
 		
-		if(cmd_system(cmd, fd, tmp) == ERROR_RETURN )
-				exit(1) ;
+		 if(cmd_system(cmd, fd, tmp) == ERROR_RETURN )
+		{		
+			exit(127) ;
 		if(errno == ENOENT)
 			exit(127);
 		if(errno == EACCES)
-			exit(126);	
+			exit(126);	}
 		
 }
