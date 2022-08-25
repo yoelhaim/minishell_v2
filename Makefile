@@ -49,7 +49,7 @@ OBJ = $(SRC:.c=.o)
 
 all : $(NAME)
 
-$(NAME) : $(INC)  $(OBJ) $(LIBFT_LIB)
+$(NAME) : $(INC)  $(OBJ) $(LIBFT_LIB) $(INC)
 	$(CC)  -I $(INCLUDE_READLINE) -L $(LIB_READLINE) -lreadline $(LIBFT_LIB) $(OBJ) -o $(NAME) -g
 
 $(LIBFT_LIB) :
@@ -62,3 +62,4 @@ fclean : clean
 	rm -rf $(NAME)
 	$(MAKE) fclean -C $(LIBFT_DIR)
 re: fclean all
+PHONY : clean fclean re all
