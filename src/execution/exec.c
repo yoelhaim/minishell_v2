@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 22:19:40 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/24 22:19:45 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/25 01:27:16 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,30 +87,25 @@ int	cmd_system(t_cmd *cmd_list,int  fd[2])
 void	exec_cmd(t_cmd *cmd)
 {
 	t_cmd	*tmp;
-	
 	int		fd[2];
 	
 	tmp = cmd;
-// printf("size %d\n", size_of_cmd(&cmd) );
 		if (*(tmp->cmnd) == NULL)
 		{
 			check_redirecrt(tmp->red);
 			return ; // rederiction
 		}
-		if (check_builtin(*(tmp->cmnd)))
+		
+		if (check_builtin(*(tmp->cmnd)) && size_of_cmd(&cmd) > 1)
 		{
 				ft_builtin(tmp->cmnd);
 		}
-		// if(!ft_strcmp(*(tmp->cmnd), "cd") && size_of_cmd(&cmd) > 1)
-		// 	tmp++;
-		else
-		{
-			if(cmd_system(cmd, fd) == ERROR_RETURN)
-				exit(1) ;
 		
-				if(errno == ENOENT)
-					exit(127);
-				if(errno == EACCES)
-					exit(126);	
-		}	
+		if(cmd_system(cmd, fd) == ERROR_RETURN )
+				exit(1) ;
+		if(errno == ENOENT)
+			exit(127);
+		if(errno == EACCES)
+			exit(126);	
+		
 }

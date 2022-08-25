@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:15:33 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/24 22:20:29 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/25 01:21:44 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	change_pwd(char *last_cmd)
 	char	path[1024];
 
 	env = g_tools.g_env;
-
 	while(env)
 	{
 		if(!ft_strcmp(env->variable, "PWD"))
@@ -66,7 +65,6 @@ void	ft_env(char **cmd)
 		printf("%s\n", env->value);
 		env = env->next;
 	}
-	exit(-1);
 }
 
 void	ft_exit(char **cmd)
