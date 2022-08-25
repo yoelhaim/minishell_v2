@@ -5,8 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+<<<<<<< Updated upstream
 /*   Created: 2022/08/24 22:19:40 by yoelhaim          #+#    #+#             */
 /*   Updated: 2022/08/25 01:27:16 by yoelhaim         ###   ########.fr       */
+=======
+/*   Created: 2022/08/18 20:12:27 by akadi             #+#    #+#             */
+/*   Updated: 2022/08/25 11:08:30 by akadi            ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,37 +54,42 @@ int	print_cmnd(char **cmd, int *stt)
 		
 }
 
-int	cmd_system(t_cmd *cmd_list,int  fd[2])
+int	cmd_system(t_cmd *cmd_list,int  fd[2], t_cmd *tmp)
 {
 	int	fd_help;
 	int	pid;
 
 	g_tools.status_sign = 127;
+	fd_help = 0;
 	while (cmd_list)
 	{
-	pipe(fd);
-	if ((pid = fork()) == -1)
-		exit(1);
-	else if (pid == 0)
-	{
-		dup2(fd_help, 0);
-		if (size_of_cmd(&cmd_list) != 1)
+		if(size_of_cmd(&tmp) != 1)
+			pipe(fd);
+		if ((pid = fork()) == -1)
+			exit(1);
+		else if (pid == 0)
 		{
-			dup2(fd[1], 1);
+			dup2(fd_help, 0);
+			if (size_of_cmd(&cmd_list) != 1)
+			{
+				dup2(fd[1], 1);
+				close(fd[1]);
+			}
+			if(print_cmnd(cmd_list->cmnd, &g_tools.status_sign) == ERROR_RETURN)
+				return(ERROR_RETURN);
 		}
-		if(print_cmnd(cmd_list->cmnd, &g_tools.status_sign) == ERROR_RETURN)
-			return(ERROR_RETURN);
+		else
+		{
+			wait(NULL);
+			if (size_of_cmd(&tmp) != 1)
+				close(fd[1]);
+			fd_help = fd[0];
+			cmd_list = (cmd_list->next);
+		}
 	}
-	else
-	{
-		wait(NULL);
-		close(fd[1]);
-		fd_help = fd[0];
-		cmd_list = (cmd_list->next);
-	}
-	}
-	close(fd[0]);
-		close(fd[1]);	
+	if (size_of_cmd(&tmp) != 1)
+	{close(fd[0]);
+	close(fd[1]);}	
 
 	return(1);
 }
@@ -100,8 +110,16 @@ void	exec_cmd(t_cmd *cmd)
 		{
 				ft_builtin(tmp->cmnd);
 		}
+<<<<<<< Updated upstream
 		
 		if(cmd_system(cmd, fd) == ERROR_RETURN )
+=======
+		// if(!ft_strcmp(*(tmp->cmnd), "cd") && size_of_cmd(&cmd) > 1)
+		// 	tmp++;
+		else
+		{
+			if(cmd_system(cmd, fd, tmp) == ERROR_RETURN)
+>>>>>>> Stashed changes
 				exit(1) ;
 		if(errno == ENOENT)
 			exit(127);
