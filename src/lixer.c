@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:54:42 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/25 00:35:42 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/25 18:33:48 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static char	*check_is_quot_simple(t_node **list, char *line, char quot)
 		{
 			while (line[i] != quot)
 				i++;
-			middle_quets(list, line, quot, i);
+			middle_quets_s(list, line, quot, i);
 			return (ft_strchr(line, quot));
 		}
 		else

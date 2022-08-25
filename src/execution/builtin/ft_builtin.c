@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:15:33 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/25 01:21:44 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/25 19:07:06 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,27 +69,25 @@ void	ft_env(char **cmd)
 
 void	ft_exit(char **cmd)
 {
-	int	i;
-	i = 1;
-	while (cmd[i])
-	{
-		if (!ft_strcmp(cmd[i], "0") || ft_atoi(cmd[i]) > 0 \
-				|| ft_atoi(cmd[i]) < 0)
+	cmd++;
+	if ((!ft_strcmp(*cmd, "0") || ft_atoi(*cmd) > 0 \
+				|| ft_atoi(*cmd) < 0) && *(cmd +1) == NULL)
 		{	
-			g_tools.status_sign = ft_atoi(cmd[i]);
+			g_tools.status_sign = ft_atoi(*cmd);
 			printf("exit \n");
-			exit (EXIT_FAILURE);
+			exit (ft_atoi(*cmd));
 		}
-		if (ft_atoi(cmd[i]) == 0)
+		
+		if (ft_atoi(*cmd) == 0)
 		{
-			printf("exit \nminishell: exit: %s: \
-			numeric argument required\n", cmd[i]);
-			exit(EXIT_FAILURE);
+			printf("exit \nminishell: exit: %s: numeric argument required\n", *cmd);
+			exit(255);
 		}
-		i++;
+	if(*++cmd)
+	{	
+		printf("exit \nminishell: exit: %s: oo many arguments\n", *cmd);
+		return ;
 	}
-	printf("exit\n");
-	exit(EXIT_FAILURE);
 }
 
 void	ft_builtin(char **cmd)

@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 12:28:53 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/25 16:09:44 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/25 19:10:14 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,10 @@ void	exec_cmd(t_cmd *cmd)
 		
 		if (check_builtin(*(tmp->cmnd)) )
 		{
+			if (g_tools.status_sign == 127)
+			  g_tools.status_sign = 1;
+			else
+				g_tools.status_sign = 0;
 			if(size_of_cmd(&cmd) != 1)
 			{
 			pipe(fd);

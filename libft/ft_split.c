@@ -6,11 +6,12 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 15:30:09 by yoelhaim          #+#    #+#             */
-/*   Updated: 2021/11/18 21:38:59 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/25 19:21:50 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "../../minishell.h"
 
 static void	free_array(char **arr)
 {
@@ -61,6 +62,7 @@ static	char	**fill_array(char **array, char const *s, char c)
 			while (s[i] != c && s[i])
 				i++;
 			array[index] = malloc(i - temp + 1);
+			add(&g_tools.garbage, array[index]);
 			if (!array[index])
 				return (NULL);
 			ft_strlcpy(array[index++], s + temp, i - temp + 1);
@@ -79,6 +81,7 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	count = count_size(s, c);
 	array = malloc((count + 1) * sizeof(char *));
+	add(&g_tools.garbage, array);
 	if (!array)
 		return (NULL);
 	if (!fill_array(array, s, c))

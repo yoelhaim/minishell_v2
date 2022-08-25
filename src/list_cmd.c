@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 19:28:56 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/25 16:05:09 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/25 19:23:09 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_cmd *new_node_cmd(char **arg, t_red *red)
 	t_cmd *newnode;
 
 	newnode = (t_cmd *)malloc(sizeof(t_cmd));
+	add(&g_tools.garbage, new_node);
 	if (newnode != NULL)
 	{
 		newnode->cmnd = arg;

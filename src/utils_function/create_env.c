@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 19:16:51 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/24 21:52:53 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/25 20:13:56 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@ void	create_env(char *data[])
 	{
 		spl = ft_split(data[i], '=');
 		pushback_env(&g_tools.g_env, *spl, data[i]);
+		
 		free(spl);
 	}
+	// while (*spl)
+	// 	{
+			
+	// 		free(*spl);
+	// 		spl++;
+	// 	}
 }

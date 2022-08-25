@@ -6,11 +6,12 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 19:27:43 by yoelhaim          #+#    #+#             */
-/*   Updated: 2021/11/18 14:03:12 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/25 19:22:14 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "../../minishell.h"
 
 static int	count_size(long long n)
 {
@@ -40,6 +41,7 @@ char	*ft_itoa(int n)
 	if (nb < 0 || len == 0)
 		len++;
 	str = malloc(len + 1);
+	add(&g_tools.garbage, str);
 	if (!str)
 		return (NULL);
 	str[len] = '\0';

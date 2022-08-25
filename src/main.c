@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:33 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/25 15:04:09 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/25 20:13:21 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ren_shlvl(char **envr)
 	t_env	*env;
 	int		i;
 	int		value;
+	char	*input;
 	
 	i = -1;
 	value = 0;
@@ -32,13 +33,15 @@ void	ren_shlvl(char **envr)
 	while (envr[++i])
 	{
 		if (ft_strnstr(envr[i], "SHLVL", ft_strlen(envr[i])))
-			value = ft_atoi(ft_strnstr(envr[i], "SHLVL", ft_strlen(envr[i]))+ 6);
+			value = ft_atoi(ft_strnstr(envr[i], "SHLVL", ft_strlen(envr[i] +1))+ 6);
 	}
 	while (env)
 	{
-		if (ft_strnstr(env->variable, "SHLVL", ft_strlen(env->variable)))
+		if (ft_strnstr("SHLVL", env->variable, 6))
 		{
-			 env->value = ft_strjoin("SHLVL=",  ft_itoa(value + 1));
+			input = ft_strjoin("SHLVL=",  ft_itoa(value + 1));
+			 env->value = input;
+			 free(input);
 			 break ;
 		}
 		env = env->next;
@@ -73,6 +76,7 @@ void	setup_shell(t_node **datas, t_cmd **cmds)
 		exec_cmd(cmd);
 		clear_and_free(&data, &cmd, line);
 	}
+
 }
 
 int	main(int ac, char **av, char **envr)
@@ -81,7 +85,6 @@ int	main(int ac, char **av, char **envr)
 	t_node	*data;
 
 	(void)av;
-	(void)envr;
 	if (ac != 1)
 		return (printf("ERROR"), 0);
 	create_env(envr);

@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/25 00:24:44 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/25 18:34:11 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ char	*check_is_wd(t_node **list, char *line, char *sc);
 char	*check_is_red(t_node **list, char *line);
 void	expander(t_node **list);
 void	check_expand_status(char **value);
+char	*middle_quets_s(t_node **list, char *line, char quot,int i);
 //free 
 void	add(t_node_free **garbage, void *pointer);
 void	free_all(t_node_free *garbage);

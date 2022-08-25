@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 22:34:27 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/25 13:12:48 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/25 19:23:49 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ void	check_exported_append(char **splited_value, char **cmd, int *append)
 		while (splited_value[0][i])
 			i++;
 		str = malloc(sizeof(char) * i);
+		add(&g_tools.garbage, str);
 		i = -1;
 		while (splited_value[0][++i])
 			str[i] = splited_value[0][i];
