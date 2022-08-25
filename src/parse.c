@@ -6,14 +6,14 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:58:58 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/25 15:50:03 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/25 20:30:19 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 
-static int	open_herdoc(int type, char *value)
+int	open_herdoc(int type, char *value)
 {
 	char	*line;
 	char	*buff;

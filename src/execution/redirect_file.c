@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 20:33:22 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/25 15:49:54 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/25 20:30:59 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int fd;
 		printf("minishell: %s: No such file or directory\n", str);
 		return ;
 	}
-	printf("%d\n", fd);
 	close(fd);
 }
 
