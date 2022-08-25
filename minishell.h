@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/25 18:34:11 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/25 22:34:44 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ char	*middle_quets_s(t_node **list, char *line, char quot,int i);
 void	add(t_node_free **garbage, void *pointer);
 void	free_all(t_node_free *garbage);
 // execution
-void	exec_cmd(t_cmd *cmd);
+void	exec_cmd(t_cmd *cmd, t_node *list);
 char	*get_path(void);
 char	**export_env(t_env *env);
 char	*setUpper(char *str);

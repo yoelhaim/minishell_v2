@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:33 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/25 20:13:21 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/25 22:34:22 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	setup_shell(t_node **datas, t_cmd **cmds)
 		}
 		expander(&data);
 		cmd = parse(data);
-		exec_cmd(cmd);
+		exec_cmd(cmd,data);
 		clear_and_free(&data, &cmd, line);
 	}
 

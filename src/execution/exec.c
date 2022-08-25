@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 12:28:53 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/25 19:10:14 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/25 23:26:15 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	check_builtin(char *cmd)
 	return (0);
 }
 
-int	print_cmnd(char **cmd, int *stt)
+int	print_cmnd(char **cmd)
 {
 	char	**splited_path;
 	char	*path;
@@ -46,99 +46,170 @@ int	print_cmnd(char **cmd, int *stt)
 	execve(path, cmd, export_env(g_tools.g_env));
 		
 		printf("minishell : %s : command not found \n", *cmd );
-		g_tools.status_sign = WEXITSTATUS(stt);
 	
 	return(ERROR_RETURN);
 		
 }
-
-int	cmd_system(t_cmd *cmd_list,int  fd[2], t_cmd *tmp)
+int cmd_systm_one(t_cmd *cmd)
 {
-	int	fd_help;
-	int	pid;
-	int	status;
-
-	fd_help = 0;
-	while (cmd_list)
+	int pid;
+	pid = fork();
+	if(pid == 0)
 	{
-		if(size_of_cmd(&tmp) != 1)
-			pipe(fd);
-		if ((pid = fork()) == -1)
-			exit(1);
-		else if (pid == 0)
+		print_cmnd(cmd->cmnd);
+	}
+	pid = wait(NULL);
+	return (1);
+}
+
+// int	cmd_system(t_cmd *cmd_list,int  fd[2], t_cmd *tmp)
+// {
+// 	int	fd_help;
+// 	int	pid;
+// 	int	status;
+
+// 	fd_help = 0;
+// 	while (cmd_list)
+// 	{
+// 		if(size_of_cmd(&tmp) != 1)
+// 			pipe(fd);
+// 		if ((pid = fork()) == -1)
+// 			exit(1);
+// 		else if (pid == 0)
+// 		{
+// 			dup2(fd_help, 0);
+// 			if (size_of_cmd(&cmd_list) != 1)
+// 			{
+// 				dup2(fd[1], 1);
+// 				close(fd[1]);
+// 			}
+// 			if(print_cmnd(cmd_list->cmnd, &g_tools.status_sign) == ERROR_RETURN)
+// 				return(ERROR_RETURN);
+// 		}
+// 		else
+// 		{
+// 			waitpid(-1, &status, 0);
+// 			if (size_of_cmd(&tmp) != 1)
+// 				close(fd[1]);
+// 			fd_help = fd[0];
+// 			cmd_list = (cmd_list->next);
+// 		}
+// 		g_tools.status_sign = WEXITSTATUS(status);
+// 	}
+// 	if (size_of_cmd(&tmp) != 1)
+// 	{close(fd[0]);
+// 	close(fd[1]);}	
+
+// 	return(1);
+// }
+int 	check_is_one_cmnd(t_cmd *cmd, t_node *list)
+{
+	int	i;
+	int fd;
+	int out;
+	out = dup(1);
+	int in = dup(0);
+	int status = 1;
+	i = 0;
+	(void) cmd;
+	while (list)
+	{
+		if(list->type ==  PIPE)
+			i++;
+		list = list->next;
+	}
+	if(i == 0)
+	{	
+		while (cmd->red)
 		{
-			dup2(fd_help, 0);
-			if (size_of_cmd(&cmd_list) != 1)
-			{
-				dup2(fd[1], 1);
-				close(fd[1]);
-			}
-			if(print_cmnd(cmd_list->cmnd, &g_tools.status_sign) == ERROR_RETURN)
-				return(ERROR_RETURN);
+			if(cmd->red->type == APPEND)
+				fd = open(cmd->red->filename, O_CREAT |O_APPEND |O_RDWR| 0, 0644);
+			else
+				fd = open(cmd->red->filename, O_CREAT |O_RDWR|O_TRUNC , 0644);
+			if(cmd->red->type  == REDIN)
+				status = 0;
+	
+		
+			cmd->red = cmd->red->next;
+		}
+		if(status)
+			dup2(fd, 1);
+		else 
+			dup2(fd, 0);
+		if(*cmd->cmnd == NULL)
+			return 1 ;
+		if(check_builtin(*cmd->cmnd))
+			ft_builtin(cmd->cmnd);
+		else
+			cmd_systm_one(cmd);
+		if(status)
+		{
+			dup2(out , 1);
+		close(out);
 		}
 		else
-		{
-			waitpid(-1, &status, 0);
-			if (size_of_cmd(&tmp) != 1)
-				close(fd[1]);
-			fd_help = fd[0];
-			cmd_list = (cmd_list->next);
-		}
-		g_tools.status_sign = WEXITSTATUS(status);
+			dup2(in , 0);
+		close(in);
+		return(1);
 	}
-	if (size_of_cmd(&tmp) != 1)
-	{close(fd[0]);
-	close(fd[1]);}	
-
-	return(1);
+	return(0);
 }
 
-void	exec_cmd(t_cmd *cmd)
+
+void	exec_cmd(t_cmd *cmd, t_node *list)
 {
-	t_cmd	*tmp;
-	int		fd[2];
-	int pid;
+	if(check_is_one_cmnd(cmd, list))
+		return ;
 	
-	tmp = cmd;
-		if (*(tmp->cmnd) == NULL)
-		{
-			check_redirecrt(tmp->red);
-			return ; // rederiction
-		}
-		
-		if (check_builtin(*(tmp->cmnd)) )
-		{
-			if (g_tools.status_sign == 127)
-			  g_tools.status_sign = 1;
-			else
-				g_tools.status_sign = 0;
-			if(size_of_cmd(&cmd) != 1)
-			{
-			pipe(fd);
-			pid =fork();
-			if(pid == 0)
-			{
-				dup2(fd[1], 1);
-				close(fd[1]);
-				ft_builtin(tmp->cmnd);
-				exit(1);
-			}
-			else
-				pid = wait(NULL);
-			}
-			else
-				{
-					ft_builtin(tmp->cmnd);
-					return ;
-				}
-		}
-		
-		 if(cmd_system(cmd, fd, tmp) == ERROR_RETURN )
-		{		
-			exit(127) ;
-		if(errno == ENOENT)
-			exit(127);
-		if(errno == EACCES)
-			exit(126);	}
-		
+	
 }
+
+// void	exec_cmd(t_cmd *cmd)
+// {
+// 	t_cmd	*tmp;
+// 	int		fd[2];
+	
+// 	tmp = cmd;
+// 		if (*(tmp->cmnd) == NULL)
+// 		{
+// 			check_redirecrt(tmp->red);
+// 			return ; // rederiction
+// 		}
+		
+// 		if (check_builtin(*(tmp->cmnd)) )
+// 		{
+// 			if (g_tools.status_sign == 127)
+// 			  g_tools.status_sign = 1;
+// 			else
+// 				g_tools.status_sign = 0;
+// 			if(size_of_cmd(&cmd) != 1)
+// 			{
+// 			pipe(fd);
+// 			pid =fork();
+// 			if(pid == 0)
+// 			{
+				
+// 				dup2(fd[1], 1);
+// 				close(fd[1]);
+// 				ft_builtin(tmp->cmnd);
+// 				exit(1);
+// 			}
+// 			else
+// 				pid = wait(NULL);
+// 			}
+// 			else
+// 				{
+// 					ft_builtin(tmp->cmnd);
+// 					return ;
+// 				}
+// 		}
+		
+// 		 if(cmd_system(cmd, fd, tmp) == ERROR_RETURN )
+// 		{		
+// 			exit(127) ;
+// 		if(errno == ENOENT)
+// 			exit(127);
+// 		if(errno == EACCES)
+// 			exit(126);	}
+		
+// }
