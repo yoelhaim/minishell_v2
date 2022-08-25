@@ -5,13 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-<<<<<<< Updated upstream
-/*   Created: 2022/08/24 22:19:40 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/25 01:27:16 by yoelhaim         ###   ########.fr       */
-=======
-/*   Created: 2022/08/18 20:12:27 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/25 11:08:30 by akadi            ###   ########.fr       */
->>>>>>> Stashed changes
+/*   Created: 2022/08/25 12:28:53 by yoelhaim          #+#    #+#             */
+/*   Updated: 2022/08/25 12:30:23 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,16 +105,8 @@ void	exec_cmd(t_cmd *cmd)
 		{
 				ft_builtin(tmp->cmnd);
 		}
-<<<<<<< Updated upstream
 		
-		if(cmd_system(cmd, fd) == ERROR_RETURN )
-=======
-		// if(!ft_strcmp(*(tmp->cmnd), "cd") && size_of_cmd(&cmd) > 1)
-		// 	tmp++;
-		else
-		{
-			if(cmd_system(cmd, fd, tmp) == ERROR_RETURN)
->>>>>>> Stashed changes
+		if(cmd_system(cmd, fd, tmp) == ERROR_RETURN )
 				exit(1) ;
 		if(errno == ENOENT)
 			exit(127);
