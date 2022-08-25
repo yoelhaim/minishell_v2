@@ -6,12 +6,12 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 19:27:43 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/25 19:22:14 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/25 20:27:10 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "../../minishell.h"
+#include "../minishell.h"
 
 static int	count_size(long long n)
 {

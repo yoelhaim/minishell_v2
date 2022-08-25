@@ -6,12 +6,12 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 15:30:09 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/25 19:21:50 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/25 20:27:39 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "../../minishell.h"
+#include "../minishell.h"
 
 static void	free_array(char **arr)
 {
