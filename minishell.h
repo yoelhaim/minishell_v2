@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/25 22:34:44 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/26 17:50:19 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,11 @@ typedef struct s_globals
 	t_node_free	*garbage;
 	int			status_sign;
 	int			shlvl;
+	int				r_in;
+	int				w_out;
+	int				fd1;
+	int				fd2;
+	int				fd3;
 }	t_globals;
 
 extern t_globals	g_tools;
@@ -90,7 +95,6 @@ typedef struct s_cmd
 {
 	int				r_in;
 	int				w_out;
-	//int				fd_help;
 	char			**cmnd;
 	struct s_red	*red;
 	struct s_cmd	*next;
@@ -149,7 +153,7 @@ int		ft_echo(char **cmd);
 void	ft_cd(char **cmd);
 int		check_folder(char *name);
 void	ft_pwd(char *next_arg);
-void	check_redirecrt(t_red *reds);
+int  check_redirecrt(t_red *red, int *status);
 // function export and unset
 void	next_export(char **cmd, char **splited_value \
 	, int status, t_env *env);
@@ -157,4 +161,10 @@ void	ft_export(char **cmd);
 t_env	*ft_unset(char **cmd);
 int		check_cmd_valid(char *cmd);
 void	check_exported_append(char **splited_value, char **cmd, int *append);
+
+
+// red 
+void	open_redout(char *filename);
+void	open_append(char *filename);
+int		open_in(char *filename, int *status);
 #endif
