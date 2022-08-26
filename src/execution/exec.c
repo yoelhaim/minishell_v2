@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 12:28:53 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/25 23:26:15 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/26 17:56:31 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	print_cmnd(char **cmd)
 	}
 	execve(path, cmd, export_env(g_tools.g_env));
 		
-		printf("minishell : %s : command not found \n", *cmd );
+	printf("minishell : %s : command not found \n", *cmd );
 	
 	return(ERROR_RETURN);
 		
@@ -53,12 +53,28 @@ int	print_cmnd(char **cmd)
 int cmd_systm_one(t_cmd *cmd)
 {
 	int pid;
+	int	statuss;
+	int out;
+	out = dup(1);
+	int in = dup(0);
+	int status = 1;
+	
+	(void)in;
 	pid = fork();
 	if(pid == 0)
 	{
+		if(check_redirecrt(cmd->red,&status) == ERROR_RETURN)
+			return(1);
 		print_cmnd(cmd->cmnd);
+		exit(127);
 	}
-	pid = wait(NULL);
+	waitpid(-1, &statuss, 0);
+	if(status)
+		{
+		  dup2(out , 1);
+		  close(out);
+		}
+	g_tools.status_sign = WEXITSTATUS(statuss);
 	return (1);
 }
 
@@ -105,13 +121,11 @@ int cmd_systm_one(t_cmd *cmd)
 int 	check_is_one_cmnd(t_cmd *cmd, t_node *list)
 {
 	int	i;
-	int fd;
 	int out;
 	out = dup(1);
 	int in = dup(0);
 	int status = 1;
 	i = 0;
-	(void) cmd;
 	while (list)
 	{
 		if(list->type ==  PIPE)
@@ -120,36 +134,27 @@ int 	check_is_one_cmnd(t_cmd *cmd, t_node *list)
 	}
 	if(i == 0)
 	{	
-		while (cmd->red)
+		if(check_redirecrt(cmd->red, &status) == ERROR_RETURN)
+			return(1);
+		if(*cmd->cmnd != NULL)
 		{
-			if(cmd->red->type == APPEND)
-				fd = open(cmd->red->filename, O_CREAT |O_APPEND |O_RDWR| 0, 0644);
-			else
-				fd = open(cmd->red->filename, O_CREAT |O_RDWR|O_TRUNC , 0644);
-			if(cmd->red->type  == REDIN)
-				status = 0;
-	
-		
-			cmd->red = cmd->red->next;
-		}
-		if(status)
-			dup2(fd, 1);
-		else 
-			dup2(fd, 0);
-		if(*cmd->cmnd == NULL)
-			return 1 ;
 		if(check_builtin(*cmd->cmnd))
 			ft_builtin(cmd->cmnd);
 		else
 			cmd_systm_one(cmd);
+		}
 		if(status)
 		{
-			dup2(out , 1);
-		close(out);
+		  dup2(out , 1);
+		  close(out);
 		}
 		else
-			dup2(in , 0);
-		close(in);
+		{
+		 dup2(in , 0);
+		  close(in);
+		  dup2(out , 1);
+		  close(out);
+		}
 		return(1);
 	}
 	return(0);
