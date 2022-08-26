@@ -24,6 +24,7 @@ SRC = $(FILES_SRC)/main.c \
 	$(FILES_SRC)/more_lixer.c \
 	$(FILES_SRC)/expander.c \
 	$(FILES_EXEC)/exec.c \
+	$(FILES_EXEC)/red_cheker.c \
 	$(FILES_EXEC)/builtin/ft_builtin.c \
 	$(FILES_EXEC)/builtin/ft_builtin2.c \
 	$(FILES_EXEC)/builtin/ft_export.c \
