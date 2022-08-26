@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/26 17:50:19 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/26 19:24:12 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,4 +167,7 @@ void	check_exported_append(char **splited_value, char **cmd, int *append);
 void	open_redout(char *filename);
 void	open_append(char *filename);
 int		open_in(char *filename, int *status);
+//pipe
+void	pipe_cmd(t_cmd *cmd, t_node *list);
+
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_file.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 20:33:22 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/26 17:49:43 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/26 23:06:23 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int	check_n_of_red(t_red *red)
 int check_red(int type, char *namefile, int *status)
 {
 
-	
 	if(type == REDOUT)
-		open_redout(namefile);
+	{printf("fgfgfgdfgfgf-----\n");
+		open_redout(namefile);}
 	else if(type == APPEND)
 		open_append(namefile);
 	else if(type == REDIN)

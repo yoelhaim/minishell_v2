@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:26:39 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/25 19:20:02 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/26 21:51:35 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_pwd(char *next_arg)
 {
 	char	path[1024];
 	if (next_arg)
-		printf("pwd: too many arguments\n");
+		printf("pwd: too many arguments22\n");
 	else
 		printf("%s\n", getcwd(path, 1024));
 }
@@ -99,6 +99,7 @@ void	check_newline(char **str)
 
 int	ft_echo(char **cmd)
 {
+	printf("hello");
 	if (cmd[1] == NULL && ft_strcmp(*cmd, "$"))
 		return (printf("\n"), ERROR_RETURN);
 	cmd++;

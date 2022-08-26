@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 12:28:53 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/26 17:56:31 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/26 23:23:26 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,50 +74,18 @@ int cmd_systm_one(t_cmd *cmd)
 		  dup2(out , 1);
 		  close(out);
 		}
+		else
+		{
+		 dup2(in , 0);
+		 close(in);
+		 dup2(out , 1);
+		 close(out);
+		}	
 	g_tools.status_sign = WEXITSTATUS(statuss);
 	return (1);
 }
 
-// int	cmd_system(t_cmd *cmd_list,int  fd[2], t_cmd *tmp)
-// {
-// 	int	fd_help;
-// 	int	pid;
-// 	int	status;
 
-// 	fd_help = 0;
-// 	while (cmd_list)
-// 	{
-// 		if(size_of_cmd(&tmp) != 1)
-// 			pipe(fd);
-// 		if ((pid = fork()) == -1)
-// 			exit(1);
-// 		else if (pid == 0)
-// 		{
-// 			dup2(fd_help, 0);
-// 			if (size_of_cmd(&cmd_list) != 1)
-// 			{
-// 				dup2(fd[1], 1);
-// 				close(fd[1]);
-// 			}
-// 			if(print_cmnd(cmd_list->cmnd, &g_tools.status_sign) == ERROR_RETURN)
-// 				return(ERROR_RETURN);
-// 		}
-// 		else
-// 		{
-// 			waitpid(-1, &status, 0);
-// 			if (size_of_cmd(&tmp) != 1)
-// 				close(fd[1]);
-// 			fd_help = fd[0];
-// 			cmd_list = (cmd_list->next);
-// 		}
-// 		g_tools.status_sign = WEXITSTATUS(status);
-// 	}
-// 	if (size_of_cmd(&tmp) != 1)
-// 	{close(fd[0]);
-// 	close(fd[1]);}	
-
-// 	return(1);
-// }
 int 	check_is_one_cmnd(t_cmd *cmd, t_node *list)
 {
 	int	i;
@@ -159,13 +127,84 @@ int 	check_is_one_cmnd(t_cmd *cmd, t_node *list)
 	}
 	return(0);
 }
-
-
+int is_red(t_red *cmd, int *fdd, int *status)
+{
+	t_red *red;
+	(void) fdd;
+	red = cmd;
+	while (red)
+	{
+		printf("cmd file name :%s\n", red->filename);
+		if(check_redirecrt(cmd, status) == ERROR_RETURN)
+			return 1;
+		// *fdd = g_tools.w_out;
+		red = red->next;
+	}
+	return (0);
+}
+void	pipe_cmd(t_cmd *cmd, t_node *list)
+{
+	(void)list;
+	int fd[2];
+	pid_t pid;
+	int	fdd;
+	int status = 1;		
+	int out;
+	out = dup(1);
+	int in = dup(0);
+	while (cmd) 
+	{
+		
+	    
+		// if(check_builtin(*cmd->cmnd))
+		// 	{
+		// 		ft_builtin(cmd->cmnd);
+		// 		break;
+		// 	}
+		// 	else
+		
+		// {	
+		if(is_red(cmd->red, &fdd, &status))
+				return ;
+		pipe(fd);
+			
+		if ((pid = fork()) == -1) {
+			perror("fork");
+			exit(1);
+		}
+		else if (pid == 0) {
+			dup2(fdd, 0);
+			if (cmd->next != NULL) {
+				dup2(fd[1], 1);
+			}
+			close(fd[0]);
+				print_cmnd(cmd->cmnd);
+		}
+		else {
+			wait(NULL);
+			close(fd[1]);
+			fdd = fd[0];
+			cmd = cmd->next;
+		}
+		
+	}
+	if(status)
+		{
+		  dup2(out , 1);
+		  close(out);
+		}
+		else
+		{
+		 dup2(in , 0);
+		  close(in);
+		}	
+}
 void	exec_cmd(t_cmd *cmd, t_node *list)
 {
 	if(check_is_one_cmnd(cmd, list))
 		return ;
-	
+	else
+		pipe_cmd(cmd, list);
 	
 }
 

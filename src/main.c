@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:33 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/26 15:06:02 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/26 22:16:53 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ void	ren_shlvl(char **envr)
 		if (ft_strnstr(envr[i], "SHLVL", ft_strlen(envr[i])))
 			value = ft_atoi(ft_strnstr(envr[i], "SHLVL", ft_strlen(envr[i] +1))+ 6);
 	}
+	printf("%d\n", value);
 	while (env)
 	{
 		if (ft_strnstr("SHLVL", env->variable, 6))
 		{
 			input = ft_strjoin("SHLVL=",  ft_itoa(value + 1));
 			 env->value = input;
-			 free(input);
 			 break ;
 		}
 		env = env->next;
