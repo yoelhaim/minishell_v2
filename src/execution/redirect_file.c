@@ -6,64 +6,66 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 20:33:22 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/25 20:30:59 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/26 17:49:43 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void ft_red_in(char *str)
+int	check_n_of_red(t_red *red)
 {
+	t_red *tmp;
+	int i;
 
-int fd;
-
-	fd =  open(str,  O_RDWR | 0 , 0777);
-	if(fd == -1)
+	i= 0;
+	tmp = red;
+	while (red)
 	{
-		printf("minishell: %s: No such file or directory\n", str);
-		return ;
+		i++;
+		red = red->next ;
+		
 	}
-	close(fd);
-}
-
-void ft_red_out(char *str)
-{
-	int fd;
-
-	fd =  open(str, O_CREAT | O_RDWR| 0 , 0777);
-	ft_putstr_fd("hello", fd);
-	printf("%d\n", fd);
-	close(fd);
-}
-
-void ft_red_append(char *str)
-{
-	int fd;
-
-	fd =  open(str, O_CREAT | O_RDWR| O_APPEND | 0 , 0777);
-	ft_putstr_fd("xx\n", fd);
-	printf("%d\n", fd);
-	close(fd);
+	return(i);
 }
 
 
-
-void check_redirecrt(t_red *reds)
+int check_red(int type, char *namefile, int *status)
 {
 
-	t_red  *red;
-	red = reds;
-	while(red)
+	
+	if(type == REDOUT)
+		open_redout(namefile);
+	else if(type == APPEND)
+		open_append(namefile);
+	else if(type == REDIN)
 	{
-	if(red->type == REDIN)
-		ft_red_in(red->filename);
-	if(red->type == REDOUT)
-		ft_red_out(red->filename);
-	if(red->type == APPEND)
-		ft_red_append(red->filename);
-	if(red->type == HEREDOC)
-		ft_red_in(".herdoc");
-		red = red->next;
+		if(open_in(namefile,status) == ERROR_RETURN)
+			return (ERROR_RETURN);
 	}
 	
+	return (1);
+}
+
+int  check_redirecrt(t_red *red, int *status)
+{
+	int len;
+	(void) status;
+	g_tools.r_in = 0;
+	g_tools.w_out = 1;
+	
+	len = check_n_of_red(red);
+		t_red *tmp;
+	tmp = red;
+	if(len > 0 )
+	{
+	
+	while (red)
+	{
+		if(check_red(red->type, red->filename, status) == ERROR_RETURN)
+			return (ERROR_RETURN);
+		red = red->next ;
+	}
+	}
+	
+	return (1);
 }
