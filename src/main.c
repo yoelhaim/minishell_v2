@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:33 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/25 22:34:22 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/26 15:06:02 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	clear_and_free(t_node **list, t_cmd **cmd, char *line)
 	(void) line;
 	(void) cmd;
 	clear_list(list);
+	free(line);
 }
 void	ren_shlvl(char **envr)
 {
@@ -69,6 +70,7 @@ void	setup_shell(t_node **datas, t_cmd **cmds)
 		if (syntax_error(data) == ERROR_RETURN)
 		{
 			clear_list(&data);
+			free(line);
 			continue ;
 		}
 		expander(&data);
