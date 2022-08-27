@@ -6,7 +6,7 @@
 /*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 12:28:53 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/27 19:41:00 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/27 19:52:12 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,8 @@ void	pipe_cmd(t_cmd *cmd, t_node *list)
 {
 	(void)list;
 	int fd[2];
-	int out = dup(1);
-	int in = dup(0);
+	// int out = dup(1);
+	// int in = dup(0);
 	pid_t pid;
 	int status = 1;		
 	while (cmd) 
@@ -155,22 +155,8 @@ void	pipe_cmd(t_cmd *cmd, t_node *list)
 			perror("fork");
 			exit(1);
 		}
-		else if (pid == 0) {
-			
-			if (is_red(cmd->red, &status))
-			{
-				if (!status)
-				{
-					dup2(out, 1);
-					close(out);
-				}
-				else
-				{
-					dup2(in, 1);
-					close(in);
-				}
-				printf("--------\n");
-			}
+		else if (pid == 0) 
+		{
 			close(fd[0]);
 			if (g_tools.fdd != 0)
 			{
@@ -182,12 +168,26 @@ void	pipe_cmd(t_cmd *cmd, t_node *list)
 				dup2(fd[1], 1);
 			}
 			close(fd[1]);
+			if (is_red(cmd->red, &status))
+			{
+				/*if (!status)
+				{
+					dup2(out, 1);
+					close(out);
+				}
+				else
+				{
+					dup2(in, 1);
+					close(in);
+				}*/
+				printf("--------\n");
+			}
 			if (check_builtin(*(cmd->cmnd)) )
-		{
-			if (g_tools.status_sign == 127)
-			  g_tools.status_sign = 1;
-			else
-				g_tools.status_sign = 0;
+			{
+				if (g_tools.status_sign == 127)
+			 		g_tools.status_sign = 1;
+				else
+					g_tools.status_sign = 0;
 				ft_builtin(cmd->cmnd);
 				exit(1);
 			}

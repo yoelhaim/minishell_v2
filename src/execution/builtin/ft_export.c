@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:05:02 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/26 14:42:10 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/27 20:05:11 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	getexport(void)
 		i++;
 		env = env->next;
 	}
-	str = malloc(sizeof(char *) * i);
+	str = malloc(sizeof(char *) * i + 1);
 	add(&g_tools.garbage, str);
 	i = 0;
 	env = g_tools.g_env;
@@ -121,6 +121,7 @@ void	getexport(void)
 		i++;
 		env = env->next;
 	}
+	str[i] = 0;
 	printf_export(str);
 }
 
