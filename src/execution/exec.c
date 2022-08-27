@@ -6,7 +6,7 @@
 /*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 12:28:53 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/27 17:44:46 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/27 19:41:00 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,17 +125,15 @@ int 	check_is_one_cmnd(t_cmd *cmd, t_node *list)
 	return(0);
 }
 
-int is_red(t_red *cmd, int *fdd, int *status)
+int is_red(t_red *cmd, int *status)
 {
 	t_red *red;
-	(void) fdd;
 	red = cmd;
 	(void) status;
 	while (red)
 	{
-		if(check_redirecrt(cmd, status) == ERROR_RETURN)
+		if(check_redirecrt(cmd, status) != ERROR_RETURN)
 			return 1;
-		*fdd = g_tools.w_out;
 		red = red->next;
 	}
 	return (0);
@@ -145,6 +143,8 @@ void	pipe_cmd(t_cmd *cmd, t_node *list)
 {
 	(void)list;
 	int fd[2];
+	int out = dup(1);
+	int in = dup(0);
 	pid_t pid;
 	int status = 1;		
 	while (cmd) 
@@ -156,8 +156,21 @@ void	pipe_cmd(t_cmd *cmd, t_node *list)
 			exit(1);
 		}
 		else if (pid == 0) {
-			if (is_red(cmd->red, &g_tools.fdd, &status))
-				exit(1);
+			
+			if (is_red(cmd->red, &status))
+			{
+				if (!status)
+				{
+					dup2(out, 1);
+					close(out);
+				}
+				else
+				{
+					dup2(in, 1);
+					close(in);
+				}
+				printf("--------\n");
+			}
 			close(fd[0]);
 			if (g_tools.fdd != 0)
 			{
@@ -181,7 +194,7 @@ void	pipe_cmd(t_cmd *cmd, t_node *list)
 			else 
 			{
 					print_cmnd(cmd->cmnd);
-					exit(1);
+					//exit(1);
 			}
 		}
 			close(fd[1]);
@@ -191,12 +204,13 @@ void	pipe_cmd(t_cmd *cmd, t_node *list)
 				close(fd[0]);
 			g_tools.fdd = fd[0];
 			cmd = cmd->next;	
-	}	
+	}
 	while(1)
 		{
 			if (wait(NULL) == -1)
 				break;
 		}
+	
 }
 void	exec_cmd(t_cmd *cmd, t_node *list)
 {
