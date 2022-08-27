@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:05:02 by yoelhaim          #+#    #+#             */
-<<<<<<< Updated upstream
-/*   Updated: 2022/08/27 20:05:11 by akadi            ###   ########.fr       */
-=======
-/*   Updated: 2022/08/27 20:04:05 by yoelhaim         ###   ########.fr       */
->>>>>>> Stashed changes
+/*   Updated: 2022/08/27 22:02:07 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +40,8 @@ void	next_export(char **cmd, char **splited_value, int status, t_env *env)
 	append = 0;
 	while (*cmd)
 	{
-		splited_value = ft_split(*cmd, '=');
-		if (check_cmd_valid(*cmd) != ERROR_RETURN)
-			return ;
-		if (splited_value[1] == NULL)
-		{
-			if (strstr(*cmd, "="))
-				*cmd = ft_strjoin(splited_value[0], "=  ");
-			else
-				return ;
-		}
-		check_exported_append(splited_value, cmd, &append);
+		*cmd = get_cmd_export(&splited_value, *cmd);
+		check_exported_append(&splited_value, cmd, &append);
 		while (env)
 		{
 			if (!ft_strcmp(env->variable, splited_value[0]))
@@ -73,7 +60,6 @@ void	next_export(char **cmd, char **splited_value, int status, t_env *env)
 		status = 0;
 		cmd++;
 	}
-	free (splited_value);
 }
 
 void	printf_export(char **str)
@@ -134,7 +120,7 @@ void	ft_export(char **cmd)
 {
 	t_env	*env;
 	int		status;
-	char	**splited_value;
+	char	*splited_value;
 
 	env = g_tools.g_env;
 	status = 0;
@@ -146,7 +132,7 @@ void	ft_export(char **cmd)
 		return ;
 	}
 	if (*cmd != NULL)
-		next_export(cmd, splited_value, status, env);
+		next_export(cmd, &splited_value, status, env);
 	else
 		getexport();
 }

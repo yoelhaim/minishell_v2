@@ -6,15 +6,15 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 17:07:05 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/17 01:42:43 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/27 21:11:07 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_node *new_node(int type, char *val)
+t_node	*new_node(int type, char *val)
 {
-	t_node *newnode;
+	t_node	*newnode;
 
 	newnode = (t_node *)malloc(sizeof(t_node));
 	add(&g_tools.garbage, new_node);
@@ -27,10 +27,10 @@ t_node *new_node(int type, char *val)
 	return (newnode);
 }
 
-void pushback(t_node **lst, int type, char *val)
+void	pushback(t_node **lst, int type, char *val)
 {
-	t_node *head;
-	t_node *new;
+	t_node	*head;
+	t_node	*new;
 
 	new = new_node(type, val);
 	if (!*lst)
@@ -44,15 +44,14 @@ void pushback(t_node **lst, int type, char *val)
 	}
 }
 
-t_node *clear_list(t_node **lst)
+t_node	*clear_list(t_node **lst)
 {
-	t_node *forfree;
+	t_node	*forfree;
 
 	while ((*lst))
 	{
 		forfree = (*lst);
 		(*lst) = (*lst)->next;
-
 		free(forfree);
 	}
 	return (NULL);

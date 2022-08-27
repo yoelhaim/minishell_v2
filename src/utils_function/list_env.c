@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 19:00:14 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/25 19:24:20 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/27 21:08:49 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,19 @@ void	pushback_env(t_env **lst, char *variable, char *val)
 	}
 }
 
-int size_of_env(void)
+int	size_of_env(void)
 {
-	int	i;
-	t_env *env;
-	
+	int		i;
+	t_env	*env;
+
 	env = g_tools.g_env;
 	i = 0;
-	while(env)
+	while (env)
 	{
 		i++;
 		env = env->next;
 	}
-	return(i);
+	return (i);
 }
 
 t_env	*clear_list_env(t_env **lst)

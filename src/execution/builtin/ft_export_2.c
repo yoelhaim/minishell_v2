@@ -1,0 +1,54 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_export_2.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/27 21:07:57 by yoelhaim          #+#    #+#             */
+/*   Updated: 2022/08/27 22:02:50 by yoelhaim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../../minishell.h"
+
+void	check_exported_append(char ***splited_value, char **cmd, int *append)
+{
+	int		i;
+	char	*str;
+
+	i = 0;
+	if (strstr(*cmd, "++"))
+		return ;
+	if (strstr(*cmd, "+="))
+	{
+		while (*splited_value[0][i])
+			i++;
+		str = malloc(sizeof(char) * i);
+		add(&g_tools.garbage, str);
+		i = -1;
+		while (*splited_value[0][++i])
+			str[i] = *splited_value[0][i];
+		str[i -1] = 0;
+		*splited_value[0] = str;
+		*cmd = ft_strjoin(*splited_value[0], "=");
+		if (*splited_value[1])
+			*cmd = ft_strjoin(*cmd, *splited_value[1]);
+		*append = 1;
+	}
+}
+
+char	*get_cmd_export(char ***splited_value, char *cmd)
+{
+	*splited_value = ft_split(cmd, '=');
+	if (check_cmd_valid(cmd) != ERROR_RETURN)
+		return (NULL);
+	if (*splited_value[1] == NULL)
+	{
+		if (strstr(cmd, "="))
+			cmd = ft_strjoin(*splited_value[0], "=  ");
+		else
+			return (NULL);
+	}
+	return (cmd);
+}

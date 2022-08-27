@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 12:25:31 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/27 19:49:22 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/27 21:22:06 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,17 @@ char	*middle_quets_s(t_node **list, char *line, char quot, int i)
 	return (NULL);
 }
 
+void	pushstr_quets(char *buff, t_node **list, char quot)
+{
+	while (*buff != 0)
+	{
+		buff = check_is_wd(list, buff, "$");
+		if (quot == '"')
+			buff = check_is_sign(list, buff);
+		buff++;
+	}
+}
+
 char	*middle_quets(t_node **list, char *line, char quot, int i)
 {
 	char	*buff;
@@ -58,13 +69,7 @@ char	*middle_quets(t_node **list, char *line, char quot, int i)
 		i++;
 	}
 	buff[i] = 0;
-	while (*buff != 0)
-	{
-		buff = check_is_wd(list, buff, "$");
-		if (quot == '"')
-			buff = check_is_sign(list, buff);
-		buff++;
-	}
+	pushstr_quets(buff, list, quot);
 	return (NULL);
 }
 

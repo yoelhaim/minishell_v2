@@ -6,15 +6,15 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:01:09 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/17 01:43:12 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/27 21:10:47 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_red *new_node_red(int type, char *val)
+t_red	*new_node_red(int type, char *val)
 {
-	t_red *newnode;
+	t_red	*newnode;
 
 	newnode = (t_red *)malloc(sizeof(t_red));
 	add(&g_tools.garbage, new_node);
@@ -27,10 +27,10 @@ t_red *new_node_red(int type, char *val)
 	return (newnode);
 }
 
-void pushback_red(t_red **lst, int type, char *val)
+void	pushback_red(t_red **lst, int type, char *val)
 {
-	t_red *head;
-	t_red *new;
+	t_red	*head;
+	t_red	*new;
 
 	new = new_node_red(type, val);
 	if (!*lst)
@@ -44,9 +44,9 @@ void pushback_red(t_red **lst, int type, char *val)
 	}
 }
 
-t_red *clear_list_red(t_red **lst)
+t_red	*clear_list_red(t_red **lst)
 {
-	t_red *forfree;
+	t_red	*forfree;
 
 	while ((*lst))
 	{

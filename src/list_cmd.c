@@ -6,15 +6,15 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 19:28:56 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/25 19:23:09 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/27 21:10:26 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_cmd *new_node_cmd(char **arg, t_red *red)
+t_cmd	*new_node_cmd(char **arg, t_red *red)
 {
-	t_cmd *newnode;
+	t_cmd	*newnode;
 
 	newnode = (t_cmd *)malloc(sizeof(t_cmd));
 	add(&g_tools.garbage, new_node);
@@ -29,10 +29,10 @@ t_cmd *new_node_cmd(char **arg, t_red *red)
 	return (newnode);
 }
 
-void pushback_cmd(t_cmd **lst, char **arg, t_red *red)
+void	pushback_cmd(t_cmd **lst, char **arg, t_red *red)
 {
-	t_cmd *head;
-	t_cmd *new;
+	t_cmd	*head;
+	t_cmd	*new;
 
 	new = new_node_cmd(arg, red);
 	if (!*lst)
@@ -46,9 +46,9 @@ void pushback_cmd(t_cmd **lst, char **arg, t_red *red)
 	}
 }
 
-t_cmd *clear_list_cmd(t_cmd **lst)
+t_cmd	*clear_list_cmd(t_cmd **lst)
 {
-	t_cmd *forfree;
+	t_cmd	*forfree;
 
 	while ((*lst))
 	{
@@ -61,16 +61,15 @@ t_cmd *clear_list_cmd(t_cmd **lst)
 
 int	size_of_cmd(t_cmd **list)
 {
-
 	t_cmd	*cmd;
 	int		i;
 
 	cmd = *list;
-	i	= 0;
-	while(cmd)
+	i = 0;
+	while (cmd)
 	{
 		i++;
 		cmd = cmd->next;
 	}
-	return(i);
+	return (i);
 }
