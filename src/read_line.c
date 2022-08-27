@@ -6,7 +6,7 @@
 /*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:12 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/27 10:40:12 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/27 17:18:56 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*read_line(void)
 	read_line = readline("miniShell$ ");
 	if (!read_line)
 	{
-		printf(MOVE_UP_RIGHRT "exit\n");
+		printf(MOVE_UP_RIGHRT "exitddd\n");
 		exit(1);
 	}
 	if (read_line && read_line[0])

@@ -6,7 +6,7 @@
 /*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:33 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/26 22:16:53 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/27 15:08:56 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ren_shlvl(char **envr)
 		if (ft_strnstr(envr[i], "SHLVL", ft_strlen(envr[i])))
 			value = ft_atoi(ft_strnstr(envr[i], "SHLVL", ft_strlen(envr[i] +1))+ 6);
 	}
-	printf("%d\n", value);
+	// printf("%d\n", value);
 	while (env)
 	{
 		if (ft_strnstr("SHLVL", env->variable, 6))

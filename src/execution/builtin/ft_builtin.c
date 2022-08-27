@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:15:33 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/25 19:07:06 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/27 16:57:39 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	ft_builtin(char **cmd)
 	if (!ft_strcmp(*cmd, "cd"))
 		ft_cd(cmd);
 	if (!ft_strcmp(*cmd, "pwd"))
-		ft_pwd(*(cmd + 1));
+		ft_pwd();
 	if (!ft_strcmp(*cmd, "unset"))
 		g_tools.g_env = ft_unset(cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 20:33:22 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/26 23:06:23 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/27 14:08:40 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ int check_red(int type, char *namefile, int *status)
 {
 
 	if(type == REDOUT)
-	{printf("fgfgfgdfgfgf-----\n");
-		open_redout(namefile);}
+		open_redout(namefile);
 	else if(type == APPEND)
 		open_append(namefile);
 	else if(type == REDIN)

@@ -6,7 +6,7 @@
 /*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/27 10:39:31 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/27 16:57:19 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_globals
 	int			shlvl;
 	int				r_in;
 	int				w_out;
+	int				fdd;
 	int				fd1;
 	int				fd2;
 	int				fd3;
@@ -154,7 +155,7 @@ int		check_valid_export(char **cmd);
 int		ft_echo(char **cmd);
 void	ft_cd(char **cmd);
 int		check_folder(char *name);
-void	ft_pwd(char *next_arg);
+void	ft_pwd(void);
 int  check_redirecrt(t_red *red, int *status);
 // function export and unset
 void	next_export(char **cmd, char **splited_value \
