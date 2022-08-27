@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 12:48:30 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/25 00:03:09 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/27 22:17:13 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	check_after_red(t_node *list)
 			{
 				if (str->next->type == 1 && str->next->next != NULL)
 					str = str->next;
-				if (str->next->type != 11)
+				if (str->next->type != 11 && str->next->type != 9)
 					return (printf("%s\n", NL_ERROR_MESSSAGE), ERROR_RETURN);
 			}
 		}
