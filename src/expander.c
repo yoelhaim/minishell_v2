@@ -6,15 +6,17 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 09:19:50 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/23 14:12:31 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/27 21:09:27 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
 void	check_expand_status(char **value)
 {
 	*value = ft_itoa(g_tools.status_sign);
 }
+
 void	check_expand_dollar(char **value)
 {
 	char	*val;
@@ -22,8 +24,6 @@ void	check_expand_dollar(char **value)
 
 	val = *value;
 	env = g_tools.g_env;
-
-
 	while (env)
 	{
 		if (!ft_strcmp(env->variable, val))
@@ -42,10 +42,8 @@ void	check_expand_dollar(char **value)
 			else
 				*value = "\0";
 		}
-
 		env = env->next;
 	}
-
 }
 
 void	expander(t_node **list)
