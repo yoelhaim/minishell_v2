@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:54:42 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/25 18:33:48 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/27 19:48:13 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static char	*check_is_quot(t_node **list, char *line, char quot)
 static char	*check_is_quot_simple(t_node **list, char *line, char quot)
 {
 	int		i;
-	
+
 	i = 0;
 	if (*line == quot)
 	{

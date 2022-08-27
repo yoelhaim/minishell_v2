@@ -6,35 +6,33 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:58:58 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/25 20:30:19 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/27 19:51:03 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-
 int	open_herdoc(int type, char *value)
 {
 	char	*line;
 	char	*buff;
-	
+	int		fd;
+
 	buff = ft_strdup("");
 	line = NULL;
 	if (type == HEREDOC)
 	{
 		while (1)
 		{
-		line = readline("> ");
-		if (!line || !ft_strcmp(line, value))
+			line = readline("> ");
+			if (!line || !ft_strcmp(line, value))
 				break ;
-		else
-		{
-			buff = ft_strjoin(buff, ft_strjoin(line, "\n"));
-		
+			else
+			{
+				buff = ft_strjoin(buff, ft_strjoin(line, "\n"));
+			}
 		}
-		}
-		
-		int fd = open(".herdoc", O_RDWR|O_CREAT, 0666);
+		fd = open (".herdoc", O_RDWR | O_CREAT | O_APPEND, 0666);
 		ft_putstr_fd(buff, fd);
 	}
 	return (1);
@@ -45,7 +43,7 @@ static void	push_red(t_red **red, t_node *t)
 	while (t)
 	{
 		if (t->type == REDIN || t->type == REDOUT \
-		|| t->type == APPEND || t->type == HEREDOC)
+				|| t->type == APPEND || t->type == HEREDOC)
 		{
 			if (t->next->type == 1)
 			{
@@ -74,17 +72,10 @@ static void	push_cmd(t_cmd **cmd, t_node *t)
 	push_red(&red, t);
 	while (t)
 	{
-		// if (t->type == 9)
-		// {
-		// 	if (t->next)
-		// 		check_in_env(t->val, t->next->val);
-		// 	else
-		// 		check_in_env(t->val, NULL);
-		// }
 		if (t->type == WSPACE && t->next == NULL)
 			break ;
 		else if (t->type != REDIN && t->type != REDOUT \
-		&& t->type != APPEND && t->type != HEREDOC)
+				&& t->type != APPEND && t->type != HEREDOC)
 			str = ft_strjoin(str, t->val);
 		else
 		{
@@ -96,7 +87,6 @@ static void	push_cmd(t_cmd **cmd, t_node *t)
 	}
 	str2 = ft_split(str, '\t');
 	pushback_cmd(cmd, str2, red);
-	// free(str);
 }
 
 t_cmd	*parse(t_node *list)

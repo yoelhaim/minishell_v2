@@ -6,7 +6,11 @@
 /*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:05:02 by yoelhaim          #+#    #+#             */
+<<<<<<< Updated upstream
 /*   Updated: 2022/08/27 20:05:11 by akadi            ###   ########.fr       */
+=======
+/*   Updated: 2022/08/27 20:04:05 by yoelhaim         ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +49,7 @@ void	next_export(char **cmd, char **splited_value, int status, t_env *env)
 			return ;
 		if (splited_value[1] == NULL)
 		{
-			if (strstr(*cmd, "=") )
+			if (strstr(*cmd, "="))
 				*cmd = ft_strjoin(splited_value[0], "=  ");
 			else
 				return ;
@@ -105,6 +109,7 @@ void	getexport(void)
 	char	**str;
 
 	i = 0;
+	str = NULL;
 	env = g_tools.g_env;
 	while (env)
 	{

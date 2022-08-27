@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:26:39 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/27 17:12:17 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/27 19:58:40 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	ft_pwd(void)
 {
 	char	path[1024];
-		printf("%s\n", getcwd(path, 1024));
+
+	printf("%s\n", getcwd(path, 1024));
 }
 
 void	check_next_nl(char **str, int status, char *s)
@@ -96,7 +97,6 @@ void	check_newline(char **str)
 
 int	ft_echo(char **cmd)
 {
-	// printf("hello");
 	if (cmd[1] == NULL && ft_strcmp(*cmd, "$"))
 		return (printf("\n"), ERROR_RETURN);
 	cmd++;

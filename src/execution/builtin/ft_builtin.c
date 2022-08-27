@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:15:33 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/27 16:57:39 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/27 19:52:49 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void	change_pwd(char *last_cmd)
 	char	path[1024];
 
 	env = g_tools.g_env;
-	while(env)
+	while (env)
 	{
-		if(!ft_strcmp(env->variable, "PWD"))
-			env->value = ft_strdup(ft_strjoin("PWD=", getcwd(path, 1024) ));
-		if(!ft_strcmp(env->variable, "OLDPWD"))
+		if (!ft_strcmp(env->variable, "PWD"))
+			env->value = ft_strdup (ft_strjoin("PWD=", getcwd(path, 1024)));
+		if (!ft_strcmp(env->variable, "OLDPWD"))
 			env->value = ft_strdup(ft_strjoin("OLD_PWD=", last_cmd));
 		env = env->next;
 	}
@@ -72,18 +72,17 @@ void	ft_exit(char **cmd)
 	cmd++;
 	if ((!ft_strcmp(*cmd, "0") || ft_atoi(*cmd) > 0 \
 				|| ft_atoi(*cmd) < 0) && *(cmd +1) == NULL)
-		{	
-			g_tools.status_sign = ft_atoi(*cmd);
-			printf("exit \n");
-			exit (ft_atoi(*cmd));
-		}
-		
-		if (ft_atoi(*cmd) == 0)
-		{
-			printf("exit \nminishell: exit: %s: numeric argument required\n", *cmd);
-			exit(255);
-		}
-	if(*++cmd)
+	{	
+		g_tools.status_sign = ft_atoi(*cmd);
+		printf("exit \n");
+		exit (ft_atoi(*cmd));
+	}
+	if (ft_atoi(*cmd) == 0)
+	{
+		printf("exit \nminishell: exit: %s: numeric argument required\n", *cmd);
+		exit(255);
+	}
+	if (*++cmd)
 	{	
 		printf("exit \nminishell: exit: %s: oo many arguments\n", *cmd);
 		return ;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/27 16:57:19 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/27 19:47:45 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,9 @@ typedef struct s_globals
 	t_node_free	*garbage;
 	int			status_sign;
 	int			shlvl;
-	int				r_in;
-	int				w_out;
-	int				fdd;
-	int				fd1;
-	int				fd2;
-	int				fd3;
+	int			r_in;
+	int			w_out;
+	int			fdd;
 }	t_globals;
 
 extern t_globals	g_tools;
@@ -125,7 +122,7 @@ t_red	*clear_list_red(t_red **lst);
 void	pushback_cmd(t_cmd **lst, char **arg, t_red *red);
 t_cmd	*new_node_cmd(char **arg, t_red *red);
 t_cmd	*clear_list_cmd(t_cmd **lst);
-int	size_of_cmd(t_cmd **list);
+int		size_of_cmd(t_cmd **list);
 //lixer and tokenzer
 int		check_lexer(t_node **list, char *line);
 int		syntax_error(t_node *list);
@@ -140,7 +137,7 @@ char	*check_is_wd(t_node **list, char *line, char *sc);
 char	*check_is_red(t_node **list, char *line);
 void	expander(t_node **list);
 void	check_expand_status(char **value);
-char	*middle_quets_s(t_node **list, char *line, char quot,int i);
+char	*middle_quets_s(t_node **list, char *line, char quot, int i);
 //free 
 void	add(t_node_free **garbage, void *pointer);
 void	free_all(t_node_free *garbage);
@@ -156,7 +153,7 @@ int		ft_echo(char **cmd);
 void	ft_cd(char **cmd);
 int		check_folder(char *name);
 void	ft_pwd(void);
-int  check_redirecrt(t_red *red, int *status);
+int		check_redirecrt(t_red *red, int *status);
 // function export and unset
 void	next_export(char **cmd, char **splited_value \
 	, int status, t_env *env);
@@ -164,7 +161,6 @@ void	ft_export(char **cmd);
 t_env	*ft_unset(char **cmd);
 int		check_cmd_valid(char *cmd);
 void	check_exported_append(char **splited_value, char **cmd, int *append);
-
 
 // red 
 void	open_redout(char *filename);
