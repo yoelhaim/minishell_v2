@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/27 19:47:45 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/27 22:45:02 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,9 @@ typedef struct s_globals
 	int			r_in;
 	int			w_out;
 	int			fdd;
+	int			dup_in;
+	int			dup_out;
+	int			fd[2];
 }	t_globals;
 
 extern t_globals	g_tools;
@@ -154,19 +157,24 @@ void	ft_cd(char **cmd);
 int		check_folder(char *name);
 void	ft_pwd(void);
 int		check_redirecrt(t_red *red, int *status);
+int		check_builtin(char *cmd);
+int		print_cmnd(char **cmd);
+// next_ exec part 2
+// void	check_status_file(int status, int *in, int *out);
+int		check_is_one_cmnd(t_cmd *cmd, t_node *list, int *i);
+void	child_process(t_cmd *cmd, int *status);
 // function export and unset
+char	*get_cmd_export(char ***splited_value, char *cmd);
 void	next_export(char **cmd, char **splited_value \
 	, int status, t_env *env);
 void	ft_export(char **cmd);
 t_env	*ft_unset(char **cmd);
 int		check_cmd_valid(char *cmd);
-void	check_exported_append(char **splited_value, char **cmd, int *append);
-
+void	check_exported_append(char ***splited_value, char **cmd, int *append);
+void	is_red(t_red *cmd, int *status);
 // red 
 void	open_redout(char *filename);
 void	open_append(char *filename);
 int		open_in(char *filename, int *status);
-//pipe
-void	pipe_cmd(t_cmd *cmd, t_node *list);
 
 #endif
