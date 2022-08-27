@@ -6,7 +6,7 @@
 /*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/26 19:24:12 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/27 10:39:31 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@
 # define SUCCESS_RETURN 200 // success retuen value
 # define STR_IGN " \t\r\n\"'\v\f|<>$"
 # define STR_IGN_DOOLAR " \t\r\n\"'\v\f|<>>"
+//exit without new line
+# define MOVE_UP_RIGHRT "\033[1A\033[12C"
 
 // error message
 # define TOKEN_ERR "minishell: syntax error, \
