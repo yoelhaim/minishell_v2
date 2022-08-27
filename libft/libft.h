@@ -6,10 +6,9 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 18:16:25 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/19 09:10:18 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/27 21:23:47 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef LIBFT_H
 # define LIBFT_H
@@ -19,9 +18,9 @@
 
 typedef struct s_list
 {
-	void *content;
-	struct s_list *next;
-} t_list;
+	void			*content;
+	struct s_list	*next;
+}	t_list;
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
