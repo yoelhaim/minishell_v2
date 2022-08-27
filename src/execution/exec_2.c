@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 20:24:16 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/27 22:58:10 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/27 23:45:33 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ int	cmd_systm_one(t_cmd *cmd)
 	if (pid == 0)
 	{
 		if (check_redirecrt(cmd->red, &status) == ERROR_RETURN)
-			return (1);
+			exit(127);
 		print_cmnd(cmd->cmnd);
-		exit(0);
+		exit(127);
 	}
-	waitpid (-1, &statuss, 0);
+	while (waitpid (-1, &statuss, 0) != -1);
 	check_status_file(status);
 	g_tools.status_sign = WEXITSTATUS(statuss);
 	return (1);
@@ -67,12 +67,13 @@ int	check_is_one_cmnd(t_cmd *cmd, t_node *list, int *i)
 	}
 	if (*i == 0)
 	{	
-		if (check_redirecrt(cmd->red, &status) == ERROR_RETURN)
-			return (1);
 		if (*cmd->cmnd != NULL)
 		{
 			if (check_builtin(*cmd->cmnd))
+			{
+				check_redirecrt(cmd->red, &status);
 				ft_builtin(cmd->cmnd);
+			}
 			else
 				cmd_systm_one(cmd);
 		}

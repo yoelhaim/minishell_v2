@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_file.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 20:33:22 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/27 14:08:40 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/27 23:19:15 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,57 +14,50 @@
 
 int	check_n_of_red(t_red *red)
 {
-	t_red *tmp;
-	int i;
+	t_red	*tmp;
+	int		i;
 
-	i= 0;
+	i = 0;
 	tmp = red;
 	while (red)
 	{
 		i++;
 		red = red->next ;
-		
 	}
-	return(i);
+	return (i);
 }
 
-
-int check_red(int type, char *namefile, int *status)
+int	check_red(int type, char *namefile, int *status)
 {
-
-	if(type == REDOUT)
+	if (type == REDOUT)
 		open_redout(namefile);
-	else if(type == APPEND)
+	else if (type == APPEND)
 		open_append(namefile);
-	else if(type == REDIN)
+	else if (type == REDIN)
 	{
-		if(open_in(namefile,status) == ERROR_RETURN)
+		if (open_in(namefile, status) == ERROR_RETURN)
 			return (ERROR_RETURN);
 	}
-	
 	return (1);
 }
 
-int  check_redirecrt(t_red *red, int *status)
+int	check_redirecrt(t_red *red, int *status)
 {
-	int len;
-	(void) status;
+	int		len;
+	t_red	*tmp;
+
 	g_tools.r_in = 0;
 	g_tools.w_out = 1;
-	
 	len = check_n_of_red(red);
-		t_red *tmp;
 	tmp = red;
-	if(len > 0 )
+	if (len > 0)
 	{
-	
-	while (red)
-	{
-		if(check_red(red->type, red->filename, status) == ERROR_RETURN)
-			return (ERROR_RETURN);
-		red = red->next ;
+		while (red)
+		{
+			if (check_red(red->type, red->filename, status) == ERROR_RETURN)
+				return (ERROR_RETURN);
+			red = red->next ;
+		}
 	}
-	}
-	
 	return (1);
 }
