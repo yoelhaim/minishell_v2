@@ -6,7 +6,7 @@
 /*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 12:28:53 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/27 17:36:36 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/27 17:44:46 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void	pipe_cmd(t_cmd *cmd, t_node *list)
 	(void)list;
 	int fd[2];
 	pid_t pid;
-	// int status = 1;		
+	int status = 1;		
 	while (cmd) 
 	{
 
@@ -156,8 +156,8 @@ void	pipe_cmd(t_cmd *cmd, t_node *list)
 			exit(1);
 		}
 		else if (pid == 0) {
-			// if (is_red(cmd->red, &g_tools.fdd, &status))
-			// 	exit(1);
+			if (is_red(cmd->red, &g_tools.fdd, &status))
+				exit(1);
 			close(fd[0]);
 			if (g_tools.fdd != 0)
 			{
@@ -169,20 +169,20 @@ void	pipe_cmd(t_cmd *cmd, t_node *list)
 				dup2(fd[1], 1);
 			}
 			close(fd[1]);
-		// 	if (check_builtin(*(cmd->cmnd)) )
-		// {
-		// 	if (g_tools.status_sign == 127)
-		// 	  g_tools.status_sign = 1;
-		// 	else
-		// 		g_tools.status_sign = 0;
-		// 		ft_builtin(cmd->cmnd);
-		// 		exit(1);
-		// 	}
-		// 	else 
-		// 	{
+			if (check_builtin(*(cmd->cmnd)) )
+		{
+			if (g_tools.status_sign == 127)
+			  g_tools.status_sign = 1;
+			else
+				g_tools.status_sign = 0;
+				ft_builtin(cmd->cmnd);
+				exit(1);
+			}
+			else 
+			{
 					print_cmnd(cmd->cmnd);
-			// 		exit(1);
-			// }
+					exit(1);
+			}
 		}
 			close(fd[1]);
 			if (g_tools.fdd != 0)
