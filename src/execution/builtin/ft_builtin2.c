@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:26:39 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/27 19:58:40 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/28 14:24:18 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	check_newline(char **str)
 	check_next_nl(str, status = 0, s);
 	if (*str)
 	{
+		str++;
 		while (*str)
 		{
 			printf("%s", *str++);

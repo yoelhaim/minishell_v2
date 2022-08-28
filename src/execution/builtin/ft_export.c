@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:05:02 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/27 22:02:07 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/28 14:11:23 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ void	next_export(char **cmd, char **splited_value, int status, t_env *env)
 	while (*cmd)
 	{
 		*cmd = get_cmd_export(&splited_value, *cmd);
-		check_exported_append(&splited_value, cmd, &append);
+		if(*cmd == NULL)
+			return ;
+		check_exported_append(&splited_value, &cmd, &append);
+		// return ;
 		while (env)
 		{
 			if (!ft_strcmp(env->variable, splited_value[0]))
@@ -55,7 +58,7 @@ void	next_export(char **cmd, char **splited_value, int status, t_env *env)
 			status = 0;
 			env = env->next;
 		}
-		if (status == 0 && append == 0)
+		if (status == 0 && append == 1)
 			pushback_env(&g_tools.g_env, splited_value[0], *cmd);
 		status = 0;
 		cmd++;
@@ -128,7 +131,7 @@ void	ft_export(char **cmd)
 	cmd++;
 	if (check_valid_export(cmd) == ERROR_RETURN)
 	{
-		printf("minishel: export: `=': not a valid identifier\n");
+		ft_putstr_fd("minishel: export: `=': not a valid identifier\n", 2);
 		return ;
 	}
 	if (*cmd != NULL)

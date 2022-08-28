@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/27 22:45:02 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/28 14:41:11 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include "./libft/libft.h"
 # include <dirent.h>
 # include <errno.h>
+# include <stdbool.h>
 
 # define WSPACE 1		   // ' '
 # define PIPE 2			   // |
@@ -163,18 +164,21 @@ int		print_cmnd(char **cmd);
 // void	check_status_file(int status, int *in, int *out);
 int		check_is_one_cmnd(t_cmd *cmd, t_node *list, int *i);
 void	child_process(t_cmd *cmd, int *status);
-// function export and unset
+// function export and unset cd
 char	*get_cmd_export(char ***splited_value, char *cmd);
 void	next_export(char **cmd, char **splited_value \
 	, int status, t_env *env);
 void	ft_export(char **cmd);
 t_env	*ft_unset(char **cmd);
 int		check_cmd_valid(char *cmd);
-void	check_exported_append(char ***splited_value, char **cmd, int *append);
+void	check_exported_append(char ***splited_value, char ***cmd, int *append);
 void	is_red(t_red *cmd, int *status);
+void	ft_cd(char **cmd);
 // red 
 void	open_redout(char *filename);
 void	open_append(char *filename);
 int		open_in(char *filename, int *status);
 
+
+char	*create_err(char *firs_s, char *midl_s, char *last_s);
 #endif

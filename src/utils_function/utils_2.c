@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_env.c                                       :+:      :+:    :+:   */
+/*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/16 19:16:51 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/28 14:57:36 by yoelhaim         ###   ########.fr       */
+/*   Created: 2022/08/28 12:49:23 by yoelhaim          #+#    #+#             */
+/*   Updated: 2022/08/28 13:06:33 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	create_env(char *data[])
+char	*create_err(char *firs_s, char *midl_s, char *last_s)
 {
-	int		i;
-	char	**spl;
+	char *str;
 
-	i = -1;
-	while (data[++i])
-	{
-		spl = ft_split(data[i], '=');
-		if(ft_strcmp(*spl , "OLDPWD"))
-			pushback_env(&g_tools.g_env, *spl, data[i]);
-	}
+	str = NULL;
+	if (!firs_s)
+		return (NULL);
+	if (midl_s && last_s)
+		str = ft_strjoin(firs_s, ft_strjoin(midl_s, last_s));
+	else if (!midl_s && last_s)
+		str = ft_strjoin(firs_s, last_s);
+	else
+		str = "error ";
+	
+	return (str);
 }

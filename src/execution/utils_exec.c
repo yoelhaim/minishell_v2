@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 22:34:27 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/27 21:07:17 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/28 13:22:02 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,34 +76,4 @@ int	size_word(char **cmd)
 	while (cmd[i])
 		i++;
 	return (i);
-}
-
-int	check_cmd_valid(char *cmd)
-{
-	char	temp;
-	char	*sym;
-	int		i;
-
-	i = -1;
-	sym = "!\"'#$%&()*,-.>?-/\\;<>?@~_";
-	if (cmd[0] >= '0' && cmd[0] <= '9')
-		return (printf("minishell: export: `%s': \
-					not a valid identifier\n", cmd), 1);
-	while (*cmd)
-	{
-		temp = *cmd;
-		cmd++;
-		if (*cmd == '=')
-		{
-			while (sym[++i])
-			{
-				if (temp == '_')
-					return (1);
-				if (temp == sym[i])
-					return (printf("minishell:2 export: `%s': \
-					 not a valid identifier\n", cmd), 1);
-			}
-		}
-	}
-	return (ERROR_RETURN);
 }
