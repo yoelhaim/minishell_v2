@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:58:58 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/27 19:51:03 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/28 22:41:18 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	open_herdoc(int type, char *value)
 				buff = ft_strjoin(buff, ft_strjoin(line, "\n"));
 			}
 		}
-		fd = open (".herdoc", O_RDWR | O_CREAT | O_APPEND, 0666);
+		fd = open (".herdoc", O_RDWR | O_CREAT | O_TRUNC, 0666);
 		ft_putstr_fd(buff, fd);
 	}
 	return (1);
