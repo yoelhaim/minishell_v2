@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:01:09 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/27 21:10:47 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/28 22:15:15 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,19 @@ void	pushback_red(t_red **lst, int type, char *val)
 			head = head->next;
 		head->next = new;
 	}
+}
+
+int	sizeofred(t_red *red)
+{
+	int	i;
+
+	i = 0;
+	while (red)
+	{
+		i++;
+		red = red->next;
+	}
+	return (i);
 }
 
 t_red	*clear_list_red(t_red **lst)
