@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/28 15:53:51 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/28 23:39:24 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@
  near unexpected token `newline' '"
 // fin error message
 
-extern t_globals	g_tools;
-
 typedef struct s_env
 {
 	char			*variable;
@@ -81,6 +79,7 @@ typedef struct s_globals
 	int			fd[2];
 }	t_globals;
 
+extern t_globals	g_tools;
 typedef struct s_red
 {
 	int				type;
@@ -123,6 +122,7 @@ t_node	*clear_list(t_node **lst);
 t_red	*new_node_red(int type, char *val);
 void	pushback_red(t_red **lst, int type, char *val);
 t_red	*clear_list_red(t_red **lst);
+int		sizeofred(t_red *red);
 //commond list
 void	pushback_cmd(t_cmd **lst, char **arg, t_red *red);
 t_cmd	*new_node_cmd(char **arg, t_red *red);
@@ -163,8 +163,9 @@ int		check_builtin(char *cmd);
 int		print_cmnd(char **cmd);
 // next_ exec part 2
 // void	check_status_file(int status, int *in, int *out);
-int		check_is_one_cmnd(t_cmd *cmd, t_node *list, int *i);
+int		check_is_one_cmnd(t_cmd *cmd, t_node *list, int *i, int *status);
 void	child_process(t_cmd *cmd, int *status);
+void	check_switch_cd(void);
 // function export and unset cd
 char	*get_cmd_export(char ***splited_value, char *cmd);
 void	next_export(char **cmd, char **splited_value \
@@ -175,9 +176,13 @@ int		check_cmd_valid(char *cmd);
 void	check_exported_append(char ***splited_value, char ***cmd, int *append);
 void	is_red(t_red *cmd, int *status);
 void	ft_cd(char **cmd);
+void	ft_push_to_env(int *status, int *append, \
+char *splited_value, char *cmd);
 // red 
 void	open_redout(char *filename);
 void	open_append(char *filename);
 int		open_in(char *filename, int *status);
+int		open_herdoc_file(int *status, t_red *cmd);
 char	*create_err(char *firs_s, char *midl_s, char *last_s);
+int		checkerr_red(t_node *str);
 #endif
