@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:15:33 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/28 14:28:40 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/28 16:01:19 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_env(char **cmd)
 	if (*(cmd + 1))
 	{
 		ft_putstr_fd(create_err("env: ",*(cmd + 1) \
-		,": No such file or directory\n"), 2);
+		, ": No such file or directory\n"), 2);
 		return ;
 	}
 	while (env)

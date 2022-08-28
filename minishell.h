@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/28 14:41:11 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/28 15:53:51 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@
  near unexpected token `newline' '"
 // fin error message
 
+extern t_globals	g_tools;
+
 typedef struct s_env
 {
 	char			*variable;
@@ -79,7 +81,6 @@ typedef struct s_globals
 	int			fd[2];
 }	t_globals;
 
-extern t_globals	g_tools;
 typedef struct s_red
 {
 	int				type;
@@ -178,7 +179,5 @@ void	ft_cd(char **cmd);
 void	open_redout(char *filename);
 void	open_append(char *filename);
 int		open_in(char *filename, int *status);
-
-
 char	*create_err(char *firs_s, char *midl_s, char *last_s);
 #endif

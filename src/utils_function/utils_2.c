@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 12:49:23 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/28 13:06:33 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/28 16:04:53 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*create_err(char *firs_s, char *midl_s, char *last_s)
 {
-	char *str;
+	char	*str;
 
 	str = NULL;
 	if (!firs_s)
@@ -25,6 +25,5 @@ char	*create_err(char *firs_s, char *midl_s, char *last_s)
 		str = ft_strjoin(firs_s, last_s);
 	else
 		str = "error ";
-	
 	return (str);
 }

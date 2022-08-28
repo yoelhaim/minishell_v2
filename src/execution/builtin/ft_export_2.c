@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:07:57 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/28 14:16:30 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/28 16:08:21 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../minishell.h"
 
-void ft_err_exp(char *str)
+void	ft_err_exp(char *str)
 {
-	if(str)
+	if (str)
 		ft_putstr_fd(create_err("minishell: export: `", str, \
 					"': not a valid identifier\n"), 2);
 }
@@ -33,7 +33,7 @@ int	check_cmd_valid(char *cmd)
 	{
 		temp = *cmd;
 		cmd++;
-		if(*(cmd + 1) == '+' && *(cmd + 2) == '+')
+		if (*(cmd + 1) == '+' && *(cmd + 2) == '+')
 			return (ft_err_exp(cmd), 1);
 		if (*cmd == '=')
 		{
@@ -65,7 +65,6 @@ void	check_exported_append(char ***splited_value, char ***cmd, int *append)
 		while (splited_value[0][0][++i])
 			str[i] = splited_value[0][0][i];
 		str[i -1] = 0;
-		
 		*splited_value[0] = str;
 		**cmd = ft_strjoin(*splited_value[0], "=");
 		if (splited_value[0][1])

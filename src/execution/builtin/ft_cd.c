@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 14:27:28 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/28 15:21:54 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/28 16:09:58 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../minishell.h"
 
-void	check_switch_cd()
+void	check_switch_cd(void)
 {
 	static int	status;
 	static int	is_switch;
@@ -30,7 +30,7 @@ void	check_switch_cd()
 		ft_putstr_fd("minishell : cd: OLDPWD not set\n", 2);
 	else
 	{
-		if(is_switch == 1)
+		if (is_switch == 1)
 		{
 			if (chdir(getenv("OLDPWD")) == -1)
 				check_folder (getenv("OLDPWD"));
@@ -52,7 +52,7 @@ void	change_pwd(char *last_cmd)
 	char	path[1024];
 	bool	status_old;
 	bool	status_pwd;
-	
+
 	status_old = true;
 	status_pwd = true;
 	env = g_tools.g_env;
@@ -63,7 +63,6 @@ void	change_pwd(char *last_cmd)
 			env->value = ft_strdup(ft_strjoin("PWD=", getcwd(path, 1024)));
 			status_pwd = false;
 		}
-		
 		if (!ft_strcmp(env->variable, "OLDPWD"))
 		{
 			env->value = ft_strdup(ft_strjoin("OLDPWD=", last_cmd));
@@ -71,10 +70,12 @@ void	change_pwd(char *last_cmd)
 		}
 		env = env->next;
 	}
-	if(status_pwd)
-		pushback_env(&g_tools.g_env, ft_strdup("PWD"), ft_strdup(ft_strjoin("PWD=", getcwd(path, 1024))));
-	if(status_old)
-		pushback_env(&g_tools.g_env, ft_strdup("OLDPWD"), ft_strdup(ft_strjoin("OLDPWD=", last_cmd)));
+	if (status_pwd)
+		pushback_env(&g_tools.g_env, ft_strdup("PWD"), \
+		ft_strdup(ft_strjoin("PWD=", getcwd(path, 1024))));
+	if (status_old)
+		pushback_env(&g_tools.g_env, ft_strdup("OLDPWD"), \
+		ft_strdup(ft_strjoin("OLDPWD=", last_cmd)));
 }
 
 void	ft_cd(char **cmd)
@@ -90,7 +91,7 @@ void	ft_cd(char **cmd)
 		else
 			change_pwd(this_path);
 	}
-	else if(*cmd && *(cmd + 1)[0] == '-')
+	else if (*cmd && *(cmd + 1)[0] == '-')
 		check_switch_cd();
 	else
 	{

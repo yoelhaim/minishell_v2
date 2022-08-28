@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:05:02 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/28 14:11:23 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/28 16:09:03 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,9 @@ void	next_export(char **cmd, char **splited_value, int status, t_env *env)
 	while (*cmd)
 	{
 		*cmd = get_cmd_export(&splited_value, *cmd);
-		if(*cmd == NULL)
+		if (*cmd == NULL)
 			return ;
 		check_exported_append(&splited_value, &cmd, &append);
-		// return ;
 		while (env)
 		{
 			if (!ft_strcmp(env->variable, splited_value[0]))

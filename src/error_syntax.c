@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_syntax.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 12:48:30 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/28 13:09:52 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/28 15:57:08 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ static int	check_after_red(t_node *list)
 					str = str->next;
 				if (str->next->type != 11 && str->next->type != 9)
 					return (ft_putstr_fd(create_err(NL_ERROR_MESSSAGE \
-					,NULL,"\n"), 2), ERROR_RETURN);
+					, NULL, "\n"), 2), ERROR_RETURN);
 			}
 		}
 		else if ((!strcmp(buff, "<") || !strcmp(buff, "<<") \
 		|| !strcmp(buff, ">") || !strcmp(buff, ">>")))
-			return (ft_putstr_fd(create_err(NL_ERROR_MESSSAGE,NULL \
-			,"\n"), 2), ERROR_RETURN);
+			return (ft_putstr_fd(create_err(NL_ERROR_MESSSAGE, NULL \
+			, "\n"), 2), ERROR_RETURN);
 		str = str->next;
 	}
 	return (1);
@@ -54,7 +54,8 @@ int	check_pipe_is_end(t_node *list)
 		line = line->next;
 	}
 	if (tmp[0] == '|')
-		return (ft_putstr_fd(create_err(TOKEN_ERR,tmp,"\n"), 2), ERROR_RETURN);
+		return (ft_putstr_fd(create_err(TOKEN_ERR, \
+		tmp, "\n"), 2), ERROR_RETURN);
 	return (1);
 }
 
@@ -64,7 +65,8 @@ static int	valid_pipe(t_node *list)
 
 	line = list;
 	if (line->type == PIPE)
-		return (ft_putstr_fd(create_err(TOKEN_ERR,line->val,"\n"), 2), ERROR_RETURN);
+		return (ft_putstr_fd(create_err(TOKEN_ERR, \
+		line->val, "\n"), 2), ERROR_RETURN);
 	while (line)
 	{
 		if (line->type == PIPE)
@@ -75,7 +77,8 @@ static int	valid_pipe(t_node *list)
 				while (line->type == WSPACE)
 				line = line->next;
 				if (line->type == PIPE)
-					return (ft_putstr_fd(create_err(TOKEN_ERR,line->val,"\n"), 2), ERROR_RETURN);
+					return (ft_putstr_fd(create_err(TOKEN_ERR, \
+					line->val, "\n"), 2), ERROR_RETURN);
 			}
 		}
 		else
