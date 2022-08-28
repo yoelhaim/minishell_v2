@@ -32,6 +32,7 @@ SRC = $(FILES_SRC)/main.c \
 	$(FILES_EXEC)/builtin/ft_export_2.c \
 	$(FILES_EXEC)/builtin/ft_unset.c \
 	$(FILES_EXEC)/builtin/ft_cd.c \
+	$(FILES_EXEC)/builtin/ft_cd_2.c \
 	$(FILES_EXEC)/utils_exec.c \
 	$(FILES_EXEC)/redirect_file.c \
 	$(FILES_SRC)/forfree.c \
