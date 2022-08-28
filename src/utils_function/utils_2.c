@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 12:49:23 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/28 16:04:53 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/28 23:39:55 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,12 @@ char	*create_err(char *firs_s, char *midl_s, char *last_s)
 	else
 		str = "error ";
 	return (str);
+}
+
+int	checkerr_red(t_node *str)
+{
+	if (str->type == HEREDOC || str->type == APPEND \
+	|| str->type == REDIN || str->type == REDOUT)
+		return (1);
+	return (0);
 }

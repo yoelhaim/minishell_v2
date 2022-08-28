@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 12:28:53 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/27 22:30:07 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/28 21:35:52 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	print_cmnd(char **cmd)
 		}
 	}
 	execve(path, cmd, export_env(g_tools.g_env));
-	printf("minishell : %s : command not found \n", *cmd);
+	ft_putstr_fd(create_err("minishell : ", *cmd, ": command not found \n"), 2);
 	return (ERROR_RETURN);
 }
 
@@ -91,9 +91,15 @@ void	pipe_cmd(t_cmd *cmd)
 void	exec_cmd(t_cmd *cmd, t_node *list)
 {
 	int	i;
+	int	status;
 
+	status = 1;
+	g_tools.dup_out = dup(1);
+	g_tools.dup_in = dup(0);
 	i = 0;
-	if (check_is_one_cmnd(cmd, list, &i))
+	if (g_tools.status_sign == 127)
+		g_tools.status_sign = 0;
+	if (check_is_one_cmnd(cmd, list, &i, &status))
 		return ;
 	else
 		pipe_cmd(cmd);

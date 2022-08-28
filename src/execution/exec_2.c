@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 20:24:16 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/28 16:12:05 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/28 21:18:25 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void	check_status_file(int status)
 	else
 	{
 		dup2(g_tools.dup_in, 0);
-		close(g_tools.dup_in);
 		dup2(g_tools.dup_out, 1);
 		close(g_tools.dup_out);
-	}	
+		close(g_tools.dup_in);
+	}
 }
 
 int	cmd_systm_one(t_cmd *cmd)
@@ -45,19 +45,18 @@ int	cmd_systm_one(t_cmd *cmd)
 		print_cmnd(cmd->cmnd);
 		exit(127);
 	}
-	while (waitpid (-1, &statuss, 0) != -1);
+	while (1)
+	{
+		if (waitpid (-1, &statuss, 0) == -1)
+			break ;
+	}
 	check_status_file(status);
 	g_tools.status_sign = WEXITSTATUS(statuss);
 	return (1);
 }
 
-int	check_is_one_cmnd(t_cmd *cmd, t_node *list, int *i)
+int	check_is_one_cmnd(t_cmd *cmd, t_node *list, int *i, int *status)
 {
-	int		status;
-
-	g_tools.dup_out = dup(1);
-	g_tools.dup_in = dup(0);
-	status = 1;
 	while (list)
 	{
 		if (list->type == PIPE)
@@ -66,17 +65,19 @@ int	check_is_one_cmnd(t_cmd *cmd, t_node *list, int *i)
 	}
 	if (*i == 0)
 	{	
+		if (*cmd->cmnd == NULL)
+			if (check_redirecrt(cmd->red, status) == ERROR_RETURN)
+				return (check_status_file(*status), 1);
 		if (*cmd->cmnd != NULL)
 		{
 			if (check_builtin(*cmd->cmnd))
 			{
-				check_redirecrt(cmd->red, &status);
 				ft_builtin(cmd->cmnd);
 			}
 			else
 				cmd_systm_one(cmd);
 		}
-		check_status_file(status);
+		check_status_file(*status);
 		return (1);
 	}
 	return (0);

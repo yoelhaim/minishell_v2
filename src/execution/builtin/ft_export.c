@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:05:02 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/28 16:09:03 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/28 18:58:18 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,7 @@ void	next_export(char **cmd, char **splited_value, int status, t_env *env)
 			status = 0;
 			env = env->next;
 		}
-		if (status == 0 && append == 1)
-			pushback_env(&g_tools.g_env, splited_value[0], *cmd);
-		status = 0;
+		ft_push_to_env(&status, &append, splited_value[0], *cmd);
 		cmd++;
 	}
 }

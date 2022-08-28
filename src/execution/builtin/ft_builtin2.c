@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:26:39 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/28 14:24:18 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/28 18:31:28 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_pwd(void)
 	printf("%s\n", getcwd(path, 1024));
 }
 
-void	check_next_nl(char **str, int status, char *s)
+void	check_next_nl(char **str, int *status, char *s)
 {
 	int		i;
 
@@ -32,15 +32,18 @@ void	check_next_nl(char **str, int status, char *s)
 		while (s[++i])
 		{
 			if (s[i] == 'n' && s[i])
-				status = 1;
+				*status = 1;
 			else
 			{
-				status = 0;
+				*status = 0;
 				break ;
 			}
 		}
-		if (status == 0)
+		if (*status == 0)
+		{
 			printf("%s ", *str);
+			*status = 1;
+		}
 		str++;
 	}
 }
@@ -66,13 +69,11 @@ int	check_first_cmd(char **str, int status)
 	return (0);
 }
 
-void	check_newline(char **str)
+void	check_newline(char **str, int status)
 {
 	char	*s;
-	int		status;
 
 	s = NULL;
-	status = 0;
 	if (check_first_cmd(str, status))
 		str++;
 	else
@@ -83,10 +84,11 @@ void	check_newline(char **str)
 		printf ("\n");
 		return ;
 	}
-	check_next_nl(str, status = 0, s);
+	check_next_nl(str, &status, s);
 	if (*str)
 	{
-		str++;
+		if (status == 1)
+			str++;
 		while (*str)
 		{
 			printf("%s", *str++);
@@ -98,9 +100,12 @@ void	check_newline(char **str)
 
 int	ft_echo(char **cmd)
 {
+	int	status;
+
+	status = 0;
 	if (cmd[1] == NULL && ft_strcmp(*cmd, "$"))
 		return (printf("\n"), ERROR_RETURN);
 	cmd++;
-	check_newline(cmd);
+	check_newline(cmd, status);
 	return (1);
 }

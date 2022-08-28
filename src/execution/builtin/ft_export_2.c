@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:07:57 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/28 16:08:21 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/28 18:59:04 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../minishell.h"
+
+void	ft_push_to_env(int *status, int *append, char *splited_value, char *cmd)
+{
+	if (*status == 0 || *append == 1)
+		pushback_env(&g_tools.g_env, splited_value, cmd);
+	*status = 0;
+}
 
 void	ft_err_exp(char *str)
 {
@@ -31,8 +38,7 @@ int	check_cmd_valid(char *cmd)
 		return (ft_err_exp(cmd), 1);
 	while (*cmd)
 	{
-		temp = *cmd;
-		cmd++;
+		temp = *cmd++;
 		if (*(cmd + 1) == '+' && *(cmd + 2) == '+')
 			return (ft_err_exp(cmd), 1);
 		if (*cmd == '=')

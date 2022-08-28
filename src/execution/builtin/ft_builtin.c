@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:15:33 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/28 16:01:19 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/28 21:41:17 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,19 @@ void	ft_env(char **cmd)
 	}
 	while (env)
 	{
-		printf("%s\n", env->value);
+		if (strstr(env->value, "="))
+			printf("%s\n", env->value);
 		env = env->next;
 	}
 }
 
 void	ft_exit(char **cmd)
 {
+	if (*cmd && *(cmd + 1) == NULL)
+	{
+		ft_putstr_fd("exit\n", 2);
+		exit (0);
+	}
 	cmd++;
 	if ((!ft_strcmp(*cmd, "0") || ft_atoi(*cmd) > 0 \
 				|| ft_atoi(*cmd) < 0) && *(cmd +1) == NULL)

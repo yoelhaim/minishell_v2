@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 20:33:22 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/27 23:19:15 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/28 22:07:54 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	check_n_of_red(t_red *red)
 	return (i);
 }
 
-int	check_red(int type, char *namefile, int *status)
+int	check_red(int type, char *namefile, int *status, t_red *cmd)
 {
 	if (type == REDOUT)
 		open_redout(namefile);
@@ -38,6 +38,11 @@ int	check_red(int type, char *namefile, int *status)
 		if (open_in(namefile, status) == ERROR_RETURN)
 			return (ERROR_RETURN);
 	}
+	else if (type == HEREDOC)
+	{
+		if (open_herdoc_file(status, cmd) == ERROR_RETURN)
+			return (ERROR_RETURN);
+	}
 	return (1);
 }
 
@@ -46,15 +51,14 @@ int	check_redirecrt(t_red *red, int *status)
 	int		len;
 	t_red	*tmp;
 
-	g_tools.r_in = 0;
-	g_tools.w_out = 1;
 	len = check_n_of_red(red);
 	tmp = red;
 	if (len > 0)
 	{
 		while (red)
 		{
-			if (check_red(red->type, red->filename, status) == ERROR_RETURN)
+			if (check_red(red->type, red->filename, \
+			status, tmp) == ERROR_RETURN)
 				return (ERROR_RETURN);
 			red = red->next ;
 		}
