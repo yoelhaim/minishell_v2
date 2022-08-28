@@ -3,40 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   error_syntax.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 12:48:30 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/28 15:57:08 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/28 23:51:17 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	check_after_red(t_node *list)
+void	printf_error_red(void)
+{
+	ft_putstr_fd(create_err(NL_ERROR_MESSSAGE \
+					, NULL, "\n"), 2);
+}
+
+int	check_after_red(t_node *list)
 {
 	t_node	*str;
 	char	*buff;
+	int		tmp_red;
 
 	str = list;
 	while (str)
 	{
 		buff = str->val;
+		tmp_red = str->type;
 		if (str->next != NULL)
 		{
-			if (!strcmp(buff, "<") || !strcmp(buff, "<<") \
-			|| !strcmp(buff, ">") || !strcmp(buff, ">>"))
+			if ((!strcmp(buff, "<") || !strcmp(buff, "<<") \
+			|| !strcmp(buff, ">") || !strcmp(buff, ">>")) && (tmp_red >= 3 && tmp_red <= 6 ))
 			{
 				if (str->next->type == 1 && str->next->next != NULL)
 					str = str->next;
 				if (str->next->type != 11 && str->next->type != 9)
-					return (ft_putstr_fd(create_err(NL_ERROR_MESSSAGE \
-					, NULL, "\n"), 2), ERROR_RETURN);
+					return (printf_error_red(), ERROR_RETURN);
 			}
 		}
 		else if ((!strcmp(buff, "<") || !strcmp(buff, "<<") \
-		|| !strcmp(buff, ">") || !strcmp(buff, ">>")))
-			return (ft_putstr_fd(create_err(NL_ERROR_MESSSAGE, NULL \
-			, "\n"), 2), ERROR_RETURN);
+		|| !strcmp(buff, ">") || !strcmp(buff, ">>")) && (tmp_red >= 3 && tmp_red <= 6 ))
+			return (printf_error_red(), ERROR_RETURN);
 		str = str->next;
 	}
 	return (1);
@@ -46,14 +52,16 @@ int	check_pipe_is_end(t_node *list)
 {
 	t_node	*line;
 	char	*tmp;
+	int		type_tmp;
 
 	line = list;
 	while (line)
 	{
-		tmp = line->val;
+			tmp = line->val;
+			type_tmp = line->type;
 		line = line->next;
 	}
-	if (tmp[0] == '|')
+	if (tmp[0] == '|' && type_tmp == 2)
 		return (ft_putstr_fd(create_err(TOKEN_ERR, \
 		tmp, "\n"), 2), ERROR_RETURN);
 	return (1);
