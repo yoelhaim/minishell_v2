@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:58:58 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/28 22:41:18 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/29 14:47:44 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void	push_cmd(t_cmd **cmd, t_node *t)
 			break ;
 		else if (t->type != REDIN && t->type != REDOUT \
 				&& t->type != APPEND && t->type != HEREDOC)
-			str = ft_strjoin(str, t->val);
+			str = ft_strjoin(str, ft_strjoin(" ", t->val));
 		else
 		{
 			if (t->next->type == 1)
@@ -85,7 +85,7 @@ static void	push_cmd(t_cmd **cmd, t_node *t)
 		}
 		t = t->next;
 	}
-	str2 = ft_split(str, '\t');
+	str2 = ft_split(ft_strtrim(str, " "), ' ');
 	pushback_cmd(cmd, str2, red);
 }
 

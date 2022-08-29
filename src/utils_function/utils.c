@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:51:02 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/21 09:33:13 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/29 13:49:13 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	is_ws(char *line)
 	i = -1;
 	while (line[++i])
 	{
-		if (line[i] == 32 || (line[i] >= 9 && line[i] <= 15))
+		if (line[i] == 32 || line[i] == '\t' || (line[i] >= 9 && line[i] <= 15))
 			r++;
 	}
 	if (r == i)
@@ -50,8 +50,8 @@ char	*check_is_ws(t_node **list, char *line)
 		line++;
 		r++;
 	}
-	if (r != 0)
-		pushback(list, WSPACE, "\t");
+	// if (r != 0)
+	// 	pushback(list, WSPACE, "\t");
 	return (line);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 12:49:23 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/28 23:39:55 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/29 10:57:39 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,17 @@ char	*create_err(char *firs_s, char *midl_s, char *last_s)
 	return (str);
 }
 
-int	checkerr_red(t_node *str)
+int	checkerr_red(char *buff, int tmp_red, t_node *str)
 {
-	if (str->type == HEREDOC || str->type == APPEND \
-	|| str->type == REDIN || str->type == REDOUT)
-		return (1);
-	return (0);
+	if ((!strcmp(buff, "<") || !strcmp(buff, "<<") \
+	|| !strcmp(buff, ">") || !strcmp(buff, ">>")) \
+	&& (tmp_red >= 3 && tmp_red <= 6))
+	{
+		if (str->next->type == 1 && str->next->next != NULL)
+			str = str->next;
+		if (str->next->type != 11 && str->next->type != 9)
+			return (ft_putstr_fd(create_err(NL_ERROR_MESSSAGE \
+			, NULL, "\n"), 2), ERROR_RETURN);
+	}
+	return (1);
 }

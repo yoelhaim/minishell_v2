@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lixer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:54:42 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/28 23:34:11 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/29 14:44:52 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ char	*check_is_wd(t_node **list, char *line, char *sc)
 	int		i;
 
 	i = 0;
+	buff = NULL;
 	while (!ft_strchr(sc, line[i]))
 		i++;
 	buff = malloc(sizeof(char) * i + 1);
@@ -25,9 +26,7 @@ char	*check_is_wd(t_node **list, char *line, char *sc)
 	i = 0;
 	while (*line && !ft_strchr(sc, *line))
 	{
-		buff[i] = *line;
-		line++;
-		i++;
+		buff[i++] = *line++;
 	}
 	if (i != 0)
 	{
@@ -115,7 +114,7 @@ int	check_lexer(t_node **list, char *line)
 {
 	while (*line)
 	{
-		line = check_is_ws(list, line);
+		
 		line = check_is_wd(list, line, " \t\r\n\"'\v\f|<>$");
 		line = check_is_pipe(list, line);
 		line = check_is_red(list, line);
@@ -126,6 +125,9 @@ int	check_lexer(t_node **list, char *line)
 		line = check_is_quot_simple(list, line, '\'');
 		if (line == NULL)
 			return (ERROR_RETURN);
+		// line = check_is_ws(list, line);
+		// printf("is wddp =? %s\n", check_is_ws(list, line));
+		
 		line++;
 	}
 	return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 20:24:16 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/28 21:18:25 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/29 15:02:15 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	cmd_systm_one(t_cmd *cmd)
 		if (check_redirecrt(cmd->red, &status) == ERROR_RETURN)
 			exit(127);
 		print_cmnd(cmd->cmnd);
-		exit(127);
+		   exit(127);
 	}
 	while (1)
 	{
@@ -70,8 +70,12 @@ int	check_is_one_cmnd(t_cmd *cmd, t_node *list, int *i, int *status)
 				return (check_status_file(*status), 1);
 		if (*cmd->cmnd != NULL)
 		{
+			// if (check_redirecrt(cmd->red, status) == ERROR_RETURN)
+			// 	return (check_status_file(*status), 1);
 			if (check_builtin(*cmd->cmnd))
 			{
+				if (check_redirecrt(cmd->red, status) == ERROR_RETURN)
+					return (check_status_file(*status), 1);
 				ft_builtin(cmd->cmnd);
 			}
 			else

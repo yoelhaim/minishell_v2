@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 14:27:28 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/28 18:22:08 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/29 12:14:25 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	ft_cd(char **cmd)
 	char	path[1024];
 	char	*this_path;
 
-	this_path = getcwd(path, 1024);
+	getcwd(path, 1024);
+	this_path = path; 
 	if (this_path == NULL)
 		return ;
 	if (*cmd && (!*(cmd + 1) || *(cmd + 1)[0] == '~'))

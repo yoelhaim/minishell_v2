@@ -3,20 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:26:39 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/28 18:31:28 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/29 12:16:11 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../minishell.h"
+#include <limits.h>
+
+
+char *ft_getcwd(void)
+{
+	char path[PATH_MAX];
+
+	getcwd(path, PATH_MAX);
+	return (ft_strdup(path)); // TODO : free this allocation !
+}
 
 void	ft_pwd(void)
 {
-	char	path[1024];
 
-	printf("%s\n", getcwd(path, 1024));
+	printf("%s\n", ft_getcwd());
 }
 
 void	check_next_nl(char **str, int *status, char *s)

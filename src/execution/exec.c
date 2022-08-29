@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 12:28:53 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/28 21:35:52 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/29 14:16:26 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,14 @@ int	print_cmnd(char **cmd)
 	char	*path;
 
 	(void ) cmd;
-	splited_path = ft_split(get_path(), ':');
+	path = get_path();
+	if (!path)
+		splited_path = ft_split("", ':');
+	else
+		splited_path = ft_split(path, ':');
 	if (!access(*cmd, X_OK))
+		path = *cmd;
+	else if (strchr(*cmd, '/')) // TODO : use builtin instead of
 		path = *cmd;
 	else
 	{	
@@ -45,6 +51,10 @@ int	print_cmnd(char **cmd)
 	}
 	execve(path, cmd, export_env(g_tools.g_env));
 	ft_putstr_fd(create_err("minishell : ", *cmd, ": command not found \n"), 2);
+	if (errno == ENOENT)
+		return (127);
+	else if(errno == EACCES)
+		return (126);
 	return (ERROR_RETURN);
 }
 
