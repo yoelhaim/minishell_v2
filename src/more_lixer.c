@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   more_lixer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 12:25:31 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/28 23:29:02 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/29 17:47:13 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*middle_quets_s(t_node **list, char *line, char quot, int i)
 	buff = 0;
 	if (i == 0 && *(line + 1) == '\0')
 	{
-		pushback(list, WSPACE, " ");
+		pushback(list, WORD, " ");
 		return (" ");
 	}
 	buff = malloc(sizeof(char) * (i + 1));
@@ -53,11 +53,11 @@ char	*middle_quets(t_node **list, char *line, char quot, int i)
 	char	*buff;
 
 	buff = 0;
-	if (i == 0 && *(line + 1) == '\0')
-	{
-		pushback(list, WSPACE, " ");
-		return (" ");
-	}
+	// if (i == 0 && *(line + 1) == '\0')
+	// {
+	// 	pushback(list, WORD, " ");
+	// 	return (" ");
+	// }
 	buff = malloc(sizeof(char) * (i + 1));
 	add(&g_tools.garbage, buff);
 	if (!buff)

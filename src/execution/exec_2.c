@@ -6,7 +6,7 @@
 /*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 20:24:16 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/29 15:02:15 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/29 16:37:02 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,6 @@ void	child_process(t_cmd *cmd, int *status)
 		exit(1);
 	}
 	else
-		print_cmnd(cmd->cmnd);
+		exit(print_cmnd(cmd->cmnd));
+	
 }

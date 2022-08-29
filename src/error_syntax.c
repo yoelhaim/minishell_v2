@@ -6,7 +6,7 @@
 /*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 12:48:30 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/29 13:48:55 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/29 17:54:54 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	check_after_red(t_node *list)
 		buff = str->val;
 		tmp_red = str->type;
 		if (str->next != NULL)
-			checkerr_red(buff, tmp_red, str);
+			{if (checkerr_red(buff, tmp_red, str) == ERROR_RETURN)
+				return(ERROR_RETURN);}
 		else if ((!strcmp(buff, "<") || !strcmp(buff, "<<") \
 		|| !strcmp(buff, ">") || !strcmp(buff, ">>")) \
 		&& (tmp_red >= 3 && tmp_red <= 6))
@@ -83,8 +84,8 @@ static int	valid_pipe(t_node *list)
 			line = line->next;
 			if ((line))
 			{
-				while (line->type == WSPACE)
-				line = line->next;
+				while (line->type == WSPACE && line->next != NULL)
+					line = line->next;
 				if (line->type == PIPE)
 					return (ft_putstr_fd(create_err(TOKEN_ERR, \
 					line->val, "\n"), 2), ERROR_RETURN);

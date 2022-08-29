@@ -6,7 +6,7 @@
 /*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:33 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/29 14:46:26 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/29 19:32:58 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	setup_shell(t_node **data, t_cmd **cmd)
 			continue ;
 		if (check_lexer(data, line) == ERROR_RETURN)
 		{
-			//clear_list(data);
+			clear_list(data);
 			continue ;
 		}
 		if (syntax_error(*data) == ERROR_RETURN)

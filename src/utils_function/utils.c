@@ -6,7 +6,7 @@
 /*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:51:02 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/29 13:49:13 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/29 17:43:58 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ char	*check_is_ws(t_node **list, char *line)
 		line++;
 		r++;
 	}
-	// if (r != 0)
-	// 	pushback(list, WSPACE, "\t");
+	if (r != 0)
+		pushback(list, WSPACE, "\t");
 	return (line);
 }
 

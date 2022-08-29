@@ -6,7 +6,7 @@
 /*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:26:39 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/29 12:16:11 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/29 20:58:10 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,23 +57,31 @@ void	check_next_nl(char **str, int *status, char *s)
 	}
 }
 
-int	check_first_cmd(char **str, int status)
+int	check_first_cmd(char **str, int *status)
 {
 	int	i;
+	int	j;
 
-	i = 0;
-	if (str[0][0] == '-' && str[0][1] == 'n')
+	j = 0;
+	while (str[j])
 	{
-		while (str[0][++i])
+	 if (str[j][0] == '-' && str[j][1] == 'n')
+	  {
+		i = 0;
+		while (str[j][++i])
 		{
-			if (str[0][i] != 'n')
+			if (str[j][i] != 'n')
 			{
-				status = 1;
-				break ;
+				if(j == 0)
+					*status = 0;
+				return(j);
 			}
 		}
-		if (status == 0)
-			return (1);
+	  }
+	  if(str[j][0] >= 'a' && str[j][0] <= 'z' && str[j][0] != '-' )
+	  	return(j);
+		*status = 1;
+	 j++;
 	}
 	return (0);
 }
@@ -81,30 +89,47 @@ int	check_first_cmd(char **str, int status)
 void	check_newline(char **str, int status)
 {
 	char	*s;
+	int 	i = 0 ;
 
+	(void)status;
 	s = NULL;
-	if (check_first_cmd(str, status))
-		str++;
-	else
+	str++;
+	// printf("----- %s\n", *str);
+	if(check_first_cmd(str,&status))
+	  printf("-----\n");
+	i = check_first_cmd(str,&status) ;
+	if(status == 1)
 	{
-		if (*str)
-			while (*str)
-				printf("%s ", *str++);
-		printf ("\n");
-		return ;
-	}
-	check_next_nl(str, &status, s);
-	if (*str)
-	{
-		if (status == 1)
-			str++;
-		while (*str)
+		
+		while (str[i])
 		{
-			printf("%s", *str++);
-			if (*str)
-				printf(" ");
+			printf("%s\n", str[i++]);
 		}
+		
+		
 	}
+	
+		
+	// else
+	// {
+	// 	if (*str)
+	// 		while (*str)
+	// 			printf("%s ", *str++);
+	// 	printf ("\n");
+	// 	return ;
+	// }
+	// check_next_nl(str, &status, s);
+	// if (*str)
+	// {
+	// 	if (status == 1)
+	// 		str++;
+	// 	while (*str)
+	// 	{
+	// 		printf("%s", *str++);
+	// 		if (*str)
+	// 			printf(" ");
+	// 	}
+	// }
 }
 
 int	ft_echo(char **cmd)

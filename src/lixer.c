@@ -6,7 +6,7 @@
 /*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:54:42 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/29 14:44:52 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/29 19:22:00 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ char	*check_is_wd(t_node **list, char *line, char *sc)
 	int		i;
 
 	i = 0;
-	buff = NULL;
 	while (!ft_strchr(sc, line[i]))
 		i++;
 	buff = malloc(sizeof(char) * i + 1);
@@ -26,7 +25,9 @@ char	*check_is_wd(t_node **list, char *line, char *sc)
 	i = 0;
 	while (*line && !ft_strchr(sc, *line))
 	{
-		buff[i++] = *line++;
+		buff[i] = *line;
+		line++;
+		i++;
 	}
 	if (i != 0)
 	{
@@ -66,7 +67,7 @@ char	*check_is_sign(t_node **list, char *line)
 	return (line);
 }
 
-static char	*check_is_quot(t_node **list, char *line, char quot)
+char	*check_is_quot(t_node **list, char *line, char quot)
 {
 	char	*buff;
 	int		i;
@@ -89,7 +90,7 @@ static char	*check_is_quot(t_node **list, char *line, char quot)
 	return (line);
 }
 
-static char	*check_is_quot_simple(t_node **list, char *line, char quot)
+char	*check_is_quot_simple(t_node **list, char *line, char quot)
 {
 	int		i;
 
@@ -114,7 +115,7 @@ int	check_lexer(t_node **list, char *line)
 {
 	while (*line)
 	{
-		
+		line = check_is_ws(list, line);
 		line = check_is_wd(list, line, " \t\r\n\"'\v\f|<>$");
 		line = check_is_pipe(list, line);
 		line = check_is_red(list, line);
@@ -125,9 +126,6 @@ int	check_lexer(t_node **list, char *line)
 		line = check_is_quot_simple(list, line, '\'');
 		if (line == NULL)
 			return (ERROR_RETURN);
-		// line = check_is_ws(list, line);
-		// printf("is wddp =? %s\n", check_is_ws(list, line));
-		
 		line++;
 	}
 	return (1);

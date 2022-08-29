@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 09:19:50 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/27 21:09:27 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/29 17:27:56 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	check_expand_dollar(char **value)
 		if (!ft_strcmp(env->variable, val))
 		{
 			*value = strstr(env->value, "=") + 1;
+			// printf("str =>  %s\n", strstr(ft_strtrim(env->value, " "), "=") + 1);
 			break ;
 		}
 		else
