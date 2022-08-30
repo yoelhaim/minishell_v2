@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:33 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/29 19:32:58 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/30 01:17:38 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,13 @@ void	setup_shell(t_node **data, t_cmd **cmd)
 			clear_list(data);
 			continue ;
 		}
+		// test(data);
 		if (syntax_error(*data) == ERROR_RETURN)
 		{
 			clear_list(data);
 			continue ;
 		}
-		// test(data);
+		
 		expander(data);
 		
 		*cmd = parse(*data);
