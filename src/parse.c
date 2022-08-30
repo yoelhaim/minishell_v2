@@ -3,29 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:58:58 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/29 17:44:51 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/30 13:59:13 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+char *ft_ignore_sign(char *str)
+{
+	while (*str == '$')
+		str++;
+	return (str);
+}
 
 int	open_herdoc(int type, char *value)
 {
 	char	*line;
 	char	*buff;
 	int		fd;
-
 	buff = ft_strdup("");
 	line = NULL;
+
 	if (type == HEREDOC)
 	{
 		while (1)
 		{
 			line = readline("> ");
-			if (!line || !ft_strcmp(line, value))
+			if (!line || !ft_strcmp(ft_ignore_sign(line), ft_ignore_sign(value)))
 				break ;
 			else
 			{
@@ -48,7 +55,6 @@ static void	push_red(t_red **red, t_node *t)
 			if (t->next->type == 1)
 			{
 				pushback_red(red, t->type, ft_strdup(t->next->next->val));
-				open_herdoc(t->type, ft_strdup(t->next->next->val));
 			}
 			else
 			{
