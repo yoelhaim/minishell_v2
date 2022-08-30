@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:26:39 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/29 20:58:10 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/30 09:24:39 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,79 +57,73 @@ void	check_next_nl(char **str, int *status, char *s)
 	}
 }
 
-int	check_first_cmd(char **str, int *status)
+int	check_first_cmd(char *str, int status)
 {
 	int	i;
-	int	j;
 
-	j = 0;
-	while (str[j])
+	i = 0;
+	if (str[0] == '-' && str[1] == 'n')
 	{
-	 if (str[j][0] == '-' && str[j][1] == 'n')
-	  {
-		i = 0;
-		while (str[j][++i])
+		while (str[++i])
 		{
-			if (str[j][i] != 'n')
+			if (str[i] != 'n')
 			{
-				if(j == 0)
-					*status = 0;
-				return(j);
+				status = 1;
+				break ;
 			}
 		}
-	  }
-	  if(str[j][0] >= 'a' && str[j][0] <= 'z' && str[j][0] != '-' )
-	  	return(j);
-		*status = 1;
-	 j++;
+		if (status == 0)
+			return (1);
 	}
 	return (0);
+}
+
+int search_n(char *s)
+{
+	int i;
+
+	i = -1;
+	if(ft_strlen(&(s[++i])) == 0)
+		return (1);
+	while (s[++i])
+	{
+		if (s[i] != 'n')
+			return (0);
+	}
+	return (1);
 }
 
 void	check_newline(char **str, int status)
 {
 	char	*s;
-	int 	i = 0 ;
-
-	(void)status;
+	int j = 0;
 	s = NULL;
-	str++;
-	// printf("----- %s\n", *str);
-	if(check_first_cmd(str,&status))
-	  printf("-----\n");
-	i = check_first_cmd(str,&status) ;
-	if(status == 1)
-	{
-		
-		while (str[i])
-		{
-			printf("%s\n", str[i++]);
-		}
-		
-		
-	}
 	
-		
-	// else
-	// {
-	// 	if (*str)
-	// 		while (*str)
-	// 			printf("%s ", *str++);
-	// 	printf ("\n");
-	// 	return ;
-	// }
-	// check_next_nl(str, &status, s);
-	// if (*str)
-	// {
-	// 	if (status == 1)
-	// 		str++;
-	// 	while (*str)
-	// 	{
-	// 		printf("%s", *str++);
-	// 		if (*str)
-	// 			printf(" ");
-	// 	}
-	// }
+	if(strstr(*str,"-n") && search_n(*str))
+	{
+		str++;
+	while (*str)
+	{
+		if (!check_first_cmd(*str, status))
+			break;
+		str++;
+	}
+		while (*str)
+		{
+			printf("%s", *str++);
+			if (*str)
+				printf(" ");
+		}
+	}
+	else
+	{
+		while (str[j])
+		{
+			ft_putstr_fd(ft_strjoin(str[j], " "),1);
+			j++;
+		}
+		printf("\n");
+	}
 }
 
 int	ft_echo(char **cmd)
