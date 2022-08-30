@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:07:57 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/28 18:59:04 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/30 13:05:38 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_push_to_env(int *status, int *append, char *splited_value, char *cmd)
 {
-	if (*status == 0 || *append == 1)
+	if (*status == 0 && *append == 0)
 		pushback_env(&g_tools.g_env, splited_value, cmd);
 	*status = 0;
 }
@@ -41,7 +41,7 @@ int	check_cmd_valid(char *cmd)
 		temp = *cmd++;
 		if (*(cmd + 1) == '+' && *(cmd + 2) == '+')
 			return (ft_err_exp(cmd), 1);
-		if (*cmd == '=')
+		while (*cmd == '=')
 		{
 			while (sym[++i])
 			{
@@ -50,6 +50,8 @@ int	check_cmd_valid(char *cmd)
 				if (temp == sym[i])
 					return (ft_err_exp(cmd), 1);
 			}
+			i = -1;
+			cmd++;
 		}
 	}
 	return (ERROR_RETURN);
@@ -77,6 +79,8 @@ void	check_exported_append(char ***splited_value, char ***cmd, int *append)
 			**cmd = ft_strjoin(**cmd, splited_value[0][1]);
 		*append = 1;
 	}
+	else
+		*append = 0;
 }
 
 char	*get_cmd_export(char ***splited_value, char *cmd)
