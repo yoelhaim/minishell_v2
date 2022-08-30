@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:05:02 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/28 18:58:18 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/30 12:58:24 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ int	check_valid_export(char **cmd)
 void	next_export(char **cmd, char **splited_value, int status, t_env *env)
 {
 	int	append;
-
+	t_env	*tmp;
+	static int	is_first_append;
+	
 	append = 0;
 	while (*cmd)
 	{
@@ -44,21 +46,28 @@ void	next_export(char **cmd, char **splited_value, int status, t_env *env)
 		if (*cmd == NULL)
 			return ;
 		check_exported_append(&splited_value, &cmd, &append);
-		while (env)
+		tmp = env;
+		while (tmp)
 		{
-			if (!ft_strcmp(env->variable, splited_value[0]))
+			if (!ft_strcmp(tmp->variable, splited_value[0]))
 			{
+				printf("is here %s  ==  %s\n", splited_value[0], tmp->variable);
+				
 				if (append)
-					*cmd = ft_strjoin(env->value, splited_value[1]);
-				env->value = *cmd;
+					*cmd = ft_strjoin(tmp->value, splited_value[1]);
+				tmp->value = *cmd;
 				status = 1;
 				break ;
 			}
+			is_first_append = 0;
 			status = 0;
-			env = env->next;
+			tmp = tmp->next;
 		}
+		if(is_first_append == 0 && append)
+			ft_push_to_env(&status, &is_first_append, splited_value[0], *cmd);
 		ft_push_to_env(&status, &append, splited_value[0], *cmd);
 		cmd++;
+		is_first_append++;
 	}
 }
 
