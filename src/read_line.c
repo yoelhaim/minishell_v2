@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:12 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/29 19:45:04 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/30 09:56:00 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ char *return_line(char *line)
 	len = ft_strlen(line) - 1;
 	while (line[len] == ' ')
 		len--;
-	buff = malloc(sizeof(char) * (len + 1 ));
+	buff = malloc(sizeof(char) * (len + 1));
 	while (++i <= len)
 		buff[i] = line[i];
-	buff[i] = 0;
+	buff[i] = '\0';
 	return (buff);
 }
 
