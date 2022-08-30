@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/29 10:52:46 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/30 14:38:05 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,8 @@ void	open_redout(char *filename);
 void	open_append(char *filename);
 int		open_in(char *filename, int *status);
 int		open_herdoc_file(int *status, t_red *cmd);
+int		open_herdoc(int type, char *value);
 char	*create_err(char *firs_s, char *midl_s, char *last_s);
 int		checkerr_red(char *buff, int tmp_red, t_node *str);
+char	*ft_getcwd(void);
 #endif
