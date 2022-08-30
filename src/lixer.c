@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lixer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:54:42 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/29 19:22:00 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/30 01:18:01 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ char	*check_is_wd(t_node **list, char *line, char *sc)
 	int		i;
 
 	i = 0;
+	buff = ft_strdup("");
 	while (!ft_strchr(sc, line[i]))
 		i++;
-	buff = malloc(sizeof(char) * i + 1);
+	buff = malloc(sizeof(char) * i );
 	add(&g_tools.garbage, buff);
 	i = 0;
 	while (*line && !ft_strchr(sc, *line))
@@ -113,8 +114,10 @@ char	*check_is_quot_simple(t_node **list, char *line, char quot)
 
 int	check_lexer(t_node **list, char *line)
 {
+	
 	while (*line)
 	{
+		
 		line = check_is_ws(list, line);
 		line = check_is_wd(list, line, " \t\r\n\"'\v\f|<>$");
 		line = check_is_pipe(list, line);
