@@ -3,28 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   error_syntax.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 12:48:30 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/29 17:54:54 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/30 13:58:17 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-void test1(t_node **data)
-{
-	t_node *tmp = *data;
-	while (tmp)
-	{
-		printf("---------------\n");
-		printf("---value %s\n", tmp->val);
-		printf("---type %d\n", tmp->type);
-		printf("------------------\n");
-		
-	tmp = tmp->next;
-	}
-	
-}
+
 
 int	check_after_red(t_node *list)
 {
@@ -99,28 +86,25 @@ static int	valid_pipe(t_node *list)
 
 int	syntax_error(t_node *list)
 {
-// 	t_node *tmp;
-// 	//t_node *helper;
+	t_node	*red;
 
-// 	tmp = list;
-// 	//helper = list;
-// 	while (tmp->next)
-// 	{
-// 		if(tmp->next == NULL)
-// 		{
-// 			if(tmp->type == WSPACE)
-// 			{
-// 				free(tmp->next);
-// 				tmp->next = NULL;
-// 			}
-// 		}
-// 		tmp = tmp->next;
-// 	}
-	
-// test1(&tmp);
-// 	return  1;
+	red = list;
 	if (valid_pipe(list) == ERROR_RETURN \
 	|| check_after_red(list) == ERROR_RETURN)
 		return (ERROR_RETURN);
+	while(red)
+	{
+		if (red->type == HEREDOC)
+		{
+			if (red->next->type == 1 && red->next->next != NULL)
+			{
+				open_herdoc(red->type, ft_strdup(red->next->next->val));	
+			}
+			else
+				open_herdoc(red->type, ft_strdup(red->next->val));
+		}
+		red = red->next;
+	}
+	
 	return (1);
 }
