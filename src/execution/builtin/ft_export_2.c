@@ -6,94 +6,125 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:07:57 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/30 13:05:38 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/31 18:40:48 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../minishell.h"
 
-void	ft_push_to_env(int *status, int *append, char *splited_value, char *cmd)
+int	check_is_in_env(char *arg)
 {
-	if (*status == 0 && *append == 0)
-		pushback_env(&g_tools.g_env, splited_value, cmd);
-	*status = 0;
-}
+	t_env *env;
 
-void	ft_err_exp(char *str)
-{
-	if (str)
-		ft_putstr_fd(create_err("minishell: export: `", str, \
-					"': not a valid identifier\n"), 2);
-}
-
-int	check_cmd_valid(char *cmd)
-{
-	char	temp;
-	char	*sym;
-	int		i;
-
-	i = -1;
-	sym = "!\"'#$%&()*,-.>?-/\\;<>?@~_";
-	if ((cmd[0] >= '0' && cmd[0] <= '9'))
-		return (ft_err_exp(cmd), 1);
-	while (*cmd)
+	env = g_tools.g_env;
+	while (env)
 	{
-		temp = *cmd++;
-		if (*(cmd + 1) == '+' && *(cmd + 2) == '+')
-			return (ft_err_exp(cmd), 1);
-		while (*cmd == '=')
-		{
-			while (sym[++i])
-			{
-				if (temp == '_')
-					return (1);
-				if (temp == sym[i])
-					return (ft_err_exp(cmd), 1);
-			}
-			i = -1;
-			cmd++;
-		}
+		if (!ft_strcmp(env->variable, arg))
+			return (0);
+		env = env->next;
 	}
-	return (ERROR_RETURN);
+	return (1);
+}
+char	*get_var(char *arg)
+{
+	char	*buff;
+	int		i;
+	
+	i = 0;
+	buff = ft_strdup("");
+	if (!arg)
+		return (NULL);
+	while(arg[i] != '='  && arg[i])
+		i++;
+	buff = malloc(sizeof(char) * (i + 1));
+	i = 0;
+	while (arg[i] != '=' && arg[i])
+	{
+		buff[i] = arg[i];
+		i++;
+	}
+	buff[i] = 0;
+	return (buff);	
 }
 
-void	check_exported_append(char ***splited_value, char ***cmd, int *append)
+int check_is_valid_var(char *arg, int is_egal)
 {
-	int		i;
-	char	*str;
+	while(*arg)
+	{
+		if (is_egal)
+		{
+			if (!ft_isalnum(*arg) && (*arg != '_'))
+			return(-2);
+		}
+		if (!ft_isalnum(*arg) && (*arg != '_' && *arg != '+'))
+			return(-1);
+		arg++;
+	}
+	return (1);
+}
+
+void	add_new_var_env(char *var, char *val)
+{
+	char 	*temp_var;
+	
+	if (!val)
+	 temp_var = var;
+	else
+		temp_var =ft_strdup(ft_strjoin(ft_strjoin(var, "="), val));
+	pushback_env(&g_tools.g_env, ft_strdup(var), temp_var);
+	
+}
+
+void	update_var_env(char *var, char *val, int is_append)
+{
+	char 	*temp_var;
+	t_env 	*env;
+	
+	env = g_tools.g_env;
+	if (!val)
+	 temp_var = var;
+	else
+		temp_var =ft_strdup(ft_strjoin(ft_strjoin(var, "="), val));
+	while (env)
+	{
+		if(!ft_strcmp(env->variable, var))
+		{
+			if(is_append)
+				env->value = ft_strjoin(temp_var, val);
+			else
+				env->value = temp_var;
+			break;
+		}
+		env = env->next;
+	}
+}
+int	checkappend(char *cmd)
+{
+	int	i;
 
 	i = 0;
-	if (strstr(**cmd, "+="))
+
+	while (*cmd)
 	{
-		while (splited_value[0][0][i])
-			i++;
-		str = malloc(sizeof(char) * i);
-		add(&g_tools.garbage, str);
-		i = -1;
-		while (splited_value[0][0][++i])
-			str[i] = splited_value[0][0][i];
-		str[i -1] = 0;
-		*splited_value[0] = str;
-		**cmd = ft_strjoin(*splited_value[0], "=");
-		if (splited_value[0][1])
-			**cmd = ft_strjoin(**cmd, splited_value[0][1]);
-		*append = 1;
+		if(*cmd == '+' && *(cmd + 1) == '=')
+			return (1);
+		cmd++;
 	}
-	else
-		*append = 0;
+	return (0);
 }
 
-char	*get_cmd_export(char ***splited_value, char *cmd)
+int err_arg(char **cmd)
 {
-	*splited_value = ft_split(cmd, '=');
-	if (check_cmd_valid(cmd) != ERROR_RETURN)
-		return (NULL);
-	if (*splited_value[1] == NULL)
+	if(!*cmd)
+		return (1);
+	
+	while (*cmd)
 	{
-		if (strstr(cmd, "="))
-			cmd = ft_strjoin(*splited_value[0], "=  ");
-		else
-			return (NULL);
+		if(*cmd[0] < 'a' || *cmd[0] > 'z')
+			return (1);
+		cmd++;
 	}
-	return (cmd);
+	
+	return (0);
 }
+

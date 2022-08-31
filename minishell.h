@@ -6,14 +6,15 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/30 14:38:05 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/31 23:08:22 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include <stdlib.h>
-# include <string.h>
+# include <signal.h>
+// # include <string.h>
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -26,6 +27,8 @@
 # include <dirent.h>
 # include <errno.h>
 # include <stdbool.h>
+# include <limits.h>
+
 
 # define WSPACE 1		   // ' '
 # define PIPE 2			   // |
@@ -48,6 +51,11 @@
  near unexpected token `'"
 # define NL_ERROR_MESSSAGE "minishell: syntax error \
  near unexpected token `newline' '"
+# define MESSAGE_NF_FOLDER "cd: error retrieving current \
+ directory: getcwd: cannot access parent directories: \
+ No such file or directory\n"
+# define ERR_EXP_F "minshell: export: `"
+# define ERR_EXP_L "': not a valid identifier\n"
 // fin error message
 
 typedef struct s_env
@@ -151,7 +159,7 @@ void	exec_cmd(t_cmd *cmd, t_node *list);
 char	*get_path(void);
 char	**export_env(t_env *env);
 char	*setUpper(char *str);
-void	ft_builtin(char **cmd);
+void	ft_builtin(char **cmd, int *status);
 int		size_word(char **cmd);
 int		check_valid_export(char **cmd);
 int		ft_echo(char **cmd);
@@ -163,7 +171,7 @@ int		check_builtin(char *cmd);
 int		print_cmnd(char **cmd);
 // next_ exec part 2
 // void	check_status_file(int status, int *in, int *out);
-int		check_is_one_cmnd(t_cmd *cmd, t_node *list, int *i, int *status);
+int		check_is_one_cmnd(t_cmd *cmd, t_node *list, int *status);
 void	child_process(t_cmd *cmd, int *status);
 void	check_switch_cd(void);
 // function export and unset cd
@@ -178,8 +186,17 @@ void	is_red(t_red *cmd, int *status);
 void	ft_cd(char **cmd);
 void	ft_push_to_env(int *status, int *append, \
 char *splited_value, char *cmd);
+
+//export
+int 	err_arg(char **cmd);
+int		checkappend(char *cmd);
+void	update_var_env(char *var, char *val, int is_append);
+void	add_new_var_env(char *var, char *val);
+int 	check_is_valid_var(char *arg, int is_egal);
+char	*get_var(char *arg);
+int		check_is_in_env(char *arg);
 // red 
-void	open_redout(char *filename);
+void	open_redout(char *filename, int * status);
 void	open_append(char *filename);
 int		open_in(char *filename, int *status);
 int		open_herdoc_file(int *status, t_red *cmd);
@@ -187,4 +204,9 @@ int		open_herdoc(int type, char *value);
 char	*create_err(char *firs_s, char *midl_s, char *last_s);
 int		checkerr_red(char *buff, int tmp_red, t_node *str);
 char	*ft_getcwd(void);
+void	check_status_exit(char *cmd);
+void	more_cd(char *cmd, char *path);
+void	change_pwd(char *last_cmd);
+int		ft_execve(char *path, char **cmd);
+
 #endif

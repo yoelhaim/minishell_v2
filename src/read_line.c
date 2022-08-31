@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:12 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/30 09:56:00 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/31 22:27:25 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,18 @@ void	handler(int sig)
 	rl_redisplay();
 }
 
-char *return_line(char *line)
+char	*return_line(char *line)
 {
 	int		len;
 	char	*buff;
 	int		i;
-	
+
 	i = -1;
 	len = ft_strlen(line) - 1;
 	while (line[len] == ' ')
 		len--;
 	buff = malloc(sizeof(char) * (len + 1));
+	add(&g_tools.garbage, buff);
 	while (++i <= len)
 		buff[i] = line[i];
 	buff[i] = '\0';

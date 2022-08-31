@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   more_lixer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 12:25:31 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/29 17:47:13 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/31 00:24:15 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,15 @@ char	*middle_quets(t_node **list, char *line, char quot, int i)
 	char	*buff;
 
 	buff = 0;
-	// if (i == 0 && *(line + 1) == '\0')
-	// {
-	// 	pushback(list, WORD, " ");
-	// 	return (" ");
-	// }
 	buff = malloc(sizeof(char) * (i + 1));
 	add(&g_tools.garbage, buff);
 	if (!buff)
 		return (NULL);
+	if (i == 0 && *(line + 1) == '\0')
+	{
+		pushback(list, WORD, " ");
+		return (" ");
+	}
 	i = 0;
 	while (line[i] && line[i] != quot)
 	{

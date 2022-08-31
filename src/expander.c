@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 09:19:50 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/29 17:27:56 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/30 21:08:55 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,19 @@ void	check_expand_status(char **value)
 	*value = ft_itoa(g_tools.status_sign);
 }
 
-void	check_expand_dollar(char **value)
+void	ft_update(char *val, char ***value)
+{
+	if (val[0] == '0' && val[1] == '\0')
+		**value = "minishell";
+	else if (val[0] >= '1' && val[0] <= '9' && val[1] == '\0')
+		**value = "\0";
+	else if (val[0] >= '1' && val[0] <= '9' && val[1] != '\0')
+		**value = "\0";
+	else
+		**value = "\0";
+}
+
+void	check_expand_dollar(char **value, int i)
 {
 	char	*val;
 	t_env	*env;
@@ -28,34 +40,29 @@ void	check_expand_dollar(char **value)
 	{
 		if (!ft_strcmp(env->variable, val))
 		{
-			*value = strstr(env->value, "=") + 1;
-			// printf("str =>  %s\n", strstr(ft_strtrim(env->value, " "), "=") + 1);
+			*value = ft_strstr(env->value, "=") + 1;
 			break ;
 		}
 		else
-		{
-			if (val[0] == '0' && val[1] == '\0')
-				*value = "minishell";
-			else if (val[0] >= '1' && val[0] <= '9' && val[1] == '\0')
-				*value = "\0";
-			else if (val[0] >= '1' && val[0] <= '9' && val[1] != '\0')
-				*value = "\0";
-			else
-				*value = "\0";
-		}
+			ft_update(val, &value);
 		env = env->next;
+		i++;
 	}
+	if (i == 0)
+		*value = "\0";
 }
 
 void	expander(t_node **list)
 {
 	t_node	*cmd;
+	int		i;
 
+	i = 0;
 	cmd = *list;
 	while (cmd)
 	{
 		if (cmd->type == SIGN)
-			check_expand_dollar(&cmd->val);
+			check_expand_dollar(&cmd->val, i);
 		else if (cmd->type == EXIT_STATUS)
 			check_expand_status(&cmd->val);
 		cmd = cmd->next;

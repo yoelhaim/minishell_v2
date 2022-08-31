@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:06:14 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/23 09:30:21 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/31 16:01:33 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,20 @@ t_env	*ft_unset(char **cmd)
 	list = g_tools.g_env;
 	tmp = g_tools.g_env;
 	prev = g_tools.g_env;
-	tmp = tmp->next;
-	if (!ft_strcmp(prev->variable, cmd[1]))
+	if (!list)
+		return (NULL);
+	else
 	{
-		list = list->next;
-		return (list);
+		tmp = tmp->next;
+		if (!ft_strcmp(prev->variable, cmd[1]))
+		{
+			list = list->next;
+			return (list);
+		}
 	}
 	cmd++;
+	if (!*cmd)
+		return (list);
 	remove_to_env(cmd);
 	return (list);
 }

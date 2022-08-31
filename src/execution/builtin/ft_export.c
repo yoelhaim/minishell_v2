@@ -6,76 +6,18 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:05:02 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/30 12:58:24 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/31 19:15:43 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../minishell.h"
-
-int	check_valid_export(char **cmd)
-{
-	char	**str;
-
-	str = cmd;
-	while (*str)
-	{
-		if (!ft_strcmp(*str, "="))
-			return (ERROR_RETURN);
-		str++;
-	}
-	str = cmd;
-	while (*str)
-	{
-		if (*str[0] == '=')
-			return (ERROR_RETURN);
-		str++;
-	}
-	return (1);
-}
-
-void	next_export(char **cmd, char **splited_value, int status, t_env *env)
-{
-	int	append;
-	t_env	*tmp;
-	static int	is_first_append;
-	
-	append = 0;
-	while (*cmd)
-	{
-		*cmd = get_cmd_export(&splited_value, *cmd);
-		if (*cmd == NULL)
-			return ;
-		check_exported_append(&splited_value, &cmd, &append);
-		tmp = env;
-		while (tmp)
-		{
-			if (!ft_strcmp(tmp->variable, splited_value[0]))
-			{
-				printf("is here %s  ==  %s\n", splited_value[0], tmp->variable);
-				
-				if (append)
-					*cmd = ft_strjoin(tmp->value, splited_value[1]);
-				tmp->value = *cmd;
-				status = 1;
-				break ;
-			}
-			is_first_append = 0;
-			status = 0;
-			tmp = tmp->next;
-		}
-		if(is_first_append == 0 && append)
-			ft_push_to_env(&status, &is_first_append, splited_value[0], *cmd);
-		ft_push_to_env(&status, &append, splited_value[0], *cmd);
-		cmd++;
-		is_first_append++;
-	}
-}
 
 void	printf_export(char **str)
 {
 	char	**export;
 	int		i;
 	char	*variable;
+	char		**spl;
 
 	i = 0;
 	export = str;
@@ -92,9 +34,17 @@ void	printf_export(char **str)
 		else
 			i++;
 	}
-	i = 0;
-	while (export[i])
-		printf("declare -x %s\n", export[i++]);
+	i = -1;
+	while (export[++i])
+	{
+		spl = ft_split(export[i], '=');
+		if(spl[1] != NULL && ft_strstr(spl[0], "="))
+			printf("declare -x %s=\"%s\"\n", spl[0], spl[1]);
+		else
+			printf("declare -x %s\n", spl[0]);
+		
+		
+	}
 }
 
 void	getexport(void)
@@ -125,23 +75,45 @@ void	getexport(void)
 	printf_export(str);
 }
 
+int add_new_var(char **cmd, int is_append, char *var, char *val)
+{
+	while(*cmd)
+	{
+	if (err_arg(cmd))
+		return (ft_putstr_fd(create_err(ERR_EXP_F, *cmd, ERR_EXP_L), 2), 404);
+	if ((check_is_valid_var(get_var(*cmd), 0) == -1))
+		return (ft_putstr_fd(create_err(ERR_EXP_F, *cmd, ERR_EXP_L), 2), 404);
+	if (checkappend(*cmd))
+		is_append = 1;
+	var = get_var(*cmd);
+	if (ft_strchr(*cmd, '='))
+		val = ft_strchr(*cmd, '=') + 1;
+	if (is_append)
+		var = ft_substr(var, 0, ft_strlen(var) - 1);
+	if ((check_is_valid_var(get_var(var), 1) == -2))
+		return (ft_putstr_fd(create_err(ERR_EXP_F, *cmd, ERR_EXP_L), 2), ERROR_RETURN);
+	if (check_is_in_env(var))
+		add_new_var_env(var, val);
+	else
+		update_var_env(var, val, is_append);
+	is_append = 0;
+	cmd++;
+	}
+	return (1);
+}
+
 void	ft_export(char **cmd)
 {
-	t_env	*env;
-	int		status;
-	char	*splited_value;
-
-	env = g_tools.g_env;
-	status = 0;
-	splited_value = NULL;
+	int		is_append;
+	char	*val;
+	char	*var;
+	
+	val = NULL;
+	var = NULL;
+	is_append = 0;
 	cmd++;
-	if (check_valid_export(cmd) == ERROR_RETURN)
-	{
-		ft_putstr_fd("minishel: export: `=': not a valid identifier\n", 2);
-		return ;
-	}
 	if (*cmd != NULL)
-		next_export(cmd, &splited_value, status, env);
+		add_new_var(cmd, is_append, var , val);
 	else
 		getexport();
 }

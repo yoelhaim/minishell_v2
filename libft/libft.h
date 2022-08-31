@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 18:16:25 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/27 21:23:47 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/30 21:10:03 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*ft_itoa(int n);
 void	ft_striteri(char *s, void (*f)(unsigned int, char *));
 char	**ft_split(char const *s, char c);
 char	*ft_strtrim(char const *s1, char const *set);
-
+char	*ft_strstr(char *str, char *to_find);
 // part bonus
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new);

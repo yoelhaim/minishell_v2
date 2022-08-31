@@ -6,11 +6,12 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 16:48:43 by yoelhaim          #+#    #+#             */
-/*   Updated: 2021/11/18 14:03:10 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/30 16:27:16 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "../minishell.h"
 
 static	int	is_set(char const *s, char c)
 {
@@ -42,6 +43,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	if (end < 0)
 		return (ft_strdup(""));
 	str = malloc(end - start + 2);
+	add(&g_tools.garbage, str);
 	if (!str)
 		return (NULL);
 	ft_strlcpy(str, s1 + start, end - start + 2);

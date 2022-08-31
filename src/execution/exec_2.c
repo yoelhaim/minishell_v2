@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 20:24:16 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/30 11:49:17 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/31 23:16:14 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,31 @@ void	check_status_file(int status)
 	}
 }
 
+void	check_status_exit(char *cmd)
+{
+	if (errno == ENOENT || errno == EFAULT)
+		ft_putstr_fd(create_err("minishell : " \
+		, cmd, ": command not found \n"), 2);
+	else if (errno == EACCES)
+		ft_putstr_fd(create_err("minishell : " \
+		, cmd, ": : Permission denied \n"), 2);
+	else
+		ft_putstr_fd("errrr", 2);
+}
+
 int	cmd_systm_one(t_cmd *cmd)
 {
 	int	pid;
 	int	status;
 	int	statuss;
 
-	g_tools.dup_out = dup(1);
-	g_tools.dup_in = dup(0);
 	pid = fork();
 	status = 1;
 	if (pid == 0)
 	{
 		if (check_redirecrt(cmd->red, &status) == ERROR_RETURN)
-			exit(127);
-		print_cmnd(cmd->cmnd);
-		   exit(127);
+			exit(0);
+		exit(print_cmnd(cmd->cmnd));
 	}
 	while (1)
 	{
@@ -55,34 +64,35 @@ int	cmd_systm_one(t_cmd *cmd)
 	return (1);
 }
 
-int	check_is_one_cmnd(t_cmd *cmd, t_node *list, int *i, int *status)
+int	check_is_one_cmnd(t_cmd *cmd, t_node *list, int *status)
 {
+	
+	int i =0;
 	while (list)
 	{
 		if (list->type == PIPE)
 			i++;
 		list = list->next;
 	}
-	if (*i == 0)
+	if (i == 0)
 	{	
+		g_tools.dup_out = dup(1);
+	    g_tools.dup_in = dup(0);
 		if (*cmd->cmnd == NULL)
 			if (check_redirecrt(cmd->red, status) == ERROR_RETURN)
 				return (check_status_file(*status), 1);
 		if (*cmd->cmnd != NULL)
 		{
-			// if (check_redirecrt(cmd->red, status) == ERROR_RETURN)
-			// 	return (check_status_file(*status), 1);
 			if (check_builtin(*cmd->cmnd))
 			{
 				if (check_redirecrt(cmd->red, status) == ERROR_RETURN)
 					return (check_status_file(*status), 1);
-				ft_builtin(cmd->cmnd);
+				ft_builtin(cmd->cmnd, status);
 			}
 			else
 				cmd_systm_one(cmd);
 		}
-		check_status_file(*status);
-		return (1);
+		return (check_status_file(*status), 1);
 	}
 	return (0);
 }
@@ -108,10 +118,9 @@ void	child_process(t_cmd *cmd, int *status)
 			g_tools.status_sign = 1;
 		else
 			g_tools.status_sign = 0;
-		ft_builtin(cmd->cmnd);
+		ft_builtin(cmd->cmnd, status);
 		exit(1);
 	}
 	else
 		exit(print_cmnd(cmd->cmnd));
-	
 }

@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 22:34:27 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/28 13:22:02 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/30 21:08:46 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ char	*get_path(void)
 	env = g_tools.g_env;
 	while (env)
 	{
-		if (strstr(env->variable, "PATH"))
-			return (strstr(env->value, "=") + 1);
+		if (ft_strstr(env->variable, "PATH"))
+			return (ft_strstr(env->value, "=") + 1);
 		env = env->next;
 	}
 	return (NULL);

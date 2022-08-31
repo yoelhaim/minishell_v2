@@ -6,27 +6,11 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:26:39 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/30 09:24:39 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/31 00:14:15 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../minishell.h"
-#include <limits.h>
-
-
-char *ft_getcwd(void)
-{
-	char path[PATH_MAX];
-
-	getcwd(path, PATH_MAX);
-	return (ft_strdup(path)); // TODO : free this allocation !
-}
-
-void	ft_pwd(void)
-{
-
-	printf("%s\n", ft_getcwd());
-}
 
 void	check_next_nl(char **str, int *status, char *s)
 {
@@ -78,12 +62,12 @@ int	check_first_cmd(char *str, int status)
 	return (0);
 }
 
-int search_n(char *s)
+int	search_n(char *s)
 {
-	int i;
+	int	i;
 
 	i = -1;
-	if(ft_strlen(&(s[++i])) == 0)
+	if (ft_strlen(&(s[++i])) == 0)
 		return (1);
 	while (s[++i])
 	{
@@ -95,19 +79,18 @@ int search_n(char *s)
 
 void	check_newline(char **str, int status)
 {
-	char	*s;
-	int j = 0;
-	s = NULL;
-	
-	if(strstr(*str,"-n") && search_n(*str))
+	int		j;
+
+	j = 0;
+	if (ft_strstr(*str, "-n") && search_n(*str))
 	{
 		str++;
-	while (*str)
-	{
-		if (!check_first_cmd(*str, status))
-			break;
-		str++;
-	}
+		while (*str)
+		{
+			if (!check_first_cmd(*str, status))
+				break ;
+			str++;
+		}
 		while (*str)
 		{
 			printf("%s", *str++);
@@ -118,17 +101,14 @@ void	check_newline(char **str, int status)
 	else
 	{
 		while (str[j])
-		{
-			ft_putstr_fd(ft_strjoin(str[j], " "),1);
-			j++;
-		}
+			ft_putstr_fd(ft_strjoin(str[j++], " "), 1);
 		printf("\n");
 	}
 }
 
 int	ft_echo(char **cmd)
 {
-	int	status;
+	int		status;
 
 	status = 0;
 	if (cmd[1] == NULL && ft_strcmp(*cmd, "$"))

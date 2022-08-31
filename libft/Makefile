@@ -6,7 +6,7 @@
 #    By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/05 11:18:45 by yoelhaim          #+#    #+#              #
-#    Updated: 2021/11/20 13:52:26 by yoelhaim         ###   ########.fr        #
+#    Updated: 2022/08/30 21:10:33 by yoelhaim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ SRCS = ft_atoi.c \
 	  ft_striteri.c \
 	  ft_split.c \
 	  ft_strtrim.c \
+	  ft_strstr.c \
 
 
 SRCSBONUS = ${SRCS} \

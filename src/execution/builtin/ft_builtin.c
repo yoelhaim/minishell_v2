@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:15:33 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/28 21:41:17 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/31 23:07:10 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_env(char **cmd)
 	}
 	while (env)
 	{
-		if (strstr(env->value, "="))
+		if (ft_strstr(env->value, "="))
 			printf("%s\n", env->value);
 		env = env->next;
 	}
@@ -60,7 +60,7 @@ void	ft_exit(char **cmd)
 	}
 }
 
-void	ft_builtin(char **cmd)
+void	ft_builtin(char **cmd, int *status)
 {
 	if (!ft_strcmp(*cmd, "exit"))
 		ft_exit (cmd);
@@ -76,4 +76,5 @@ void	ft_builtin(char **cmd)
 		ft_pwd();
 	if (!ft_strcmp(*cmd, "unset"))
 		g_tools.g_env = ft_unset(cmd);
+	*status = 0;
 }

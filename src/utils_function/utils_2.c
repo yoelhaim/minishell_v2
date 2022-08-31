@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 12:49:23 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/29 10:57:39 by akadi            ###   ########.fr       */
+/*   Updated: 2022/08/30 20:01:47 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,25 @@ int	checkerr_red(char *buff, int tmp_red, t_node *str)
 			, NULL, "\n"), 2), ERROR_RETURN);
 	}
 	return (1);
+}
+
+char	*ft_getcwd(void)
+{
+	char	path[PATH_MAX];
+
+	getcwd(path, PATH_MAX);
+	return (ft_strdup(path));
+}
+
+void	ft_pwd(void)
+{
+	printf("%s\n", ft_getcwd());
+}
+
+void	more_cd(char *cmd, char *path)
+{
+	if (chdir(cmd) == -1)
+		check_folder (cmd);
+	else
+		change_pwd(path);
 }

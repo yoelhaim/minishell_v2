@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:33 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/30 01:17:38 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/31 00:22:45 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,11 @@
 
 t_globals	g_tools = {0};
 
-void test(t_node **data)
-{
-	t_node *tmp = *data;
-	while (tmp)
-	{
-		printf("---------------\n");
-		printf("---value %s\n", tmp->val);
-		printf("---type %d\n", tmp->type);
-		printf("------------------\n");
-		
-	tmp = tmp->next;
-	}
-	
-}
-
-
 void	clear_and_free(t_node **list, t_cmd **cmd, char *line)
 {
 	(void) cmd;
+	if (!list || !line)
+		return ;
 	clear_list(list);
 	free(line);
 }
@@ -68,7 +54,7 @@ void	ren_shlvl(char **envr)
 void	setup_shell(t_node **data, t_cmd **cmd)
 {
 	char	*line;
-(void ) cmd;
+
 	while (1)
 	{
 		line = read_line();
@@ -79,15 +65,12 @@ void	setup_shell(t_node **data, t_cmd **cmd)
 			clear_list(data);
 			continue ;
 		}
-		// test(data);
 		if (syntax_error(*data) == ERROR_RETURN)
 		{
 			clear_list(data);
 			continue ;
 		}
-		
 		expander(data);
-		
 		*cmd = parse(*data);
 		exec_cmd(*cmd, *data);
 		clear_and_free(data, cmd, line);
