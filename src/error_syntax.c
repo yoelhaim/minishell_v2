@@ -6,12 +6,11 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 12:48:30 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/30 13:58:17 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/08/30 22:31:26 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 
 int	check_after_red(t_node *list)
 {
@@ -25,8 +24,10 @@ int	check_after_red(t_node *list)
 		buff = str->val;
 		tmp_red = str->type;
 		if (str->next != NULL)
-			{if (checkerr_red(buff, tmp_red, str) == ERROR_RETURN)
-				return(ERROR_RETURN);}
+		{
+			if (checkerr_red(buff, tmp_red, str) == ERROR_RETURN)
+				return (ERROR_RETURN);
+		}
 		else if ((!strcmp(buff, "<") || !strcmp(buff, "<<") \
 		|| !strcmp(buff, ">") || !strcmp(buff, ">>")) \
 		&& (tmp_red >= 3 && tmp_red <= 6))
@@ -86,25 +87,8 @@ static int	valid_pipe(t_node *list)
 
 int	syntax_error(t_node *list)
 {
-	t_node	*red;
-
-	red = list;
 	if (valid_pipe(list) == ERROR_RETURN \
 	|| check_after_red(list) == ERROR_RETURN)
 		return (ERROR_RETURN);
-	while(red)
-	{
-		if (red->type == HEREDOC)
-		{
-			if (red->next->type == 1 && red->next->next != NULL)
-			{
-				open_herdoc(red->type, ft_strdup(red->next->next->val));	
-			}
-			else
-				open_herdoc(red->type, ft_strdup(red->next->val));
-		}
-		red = red->next;
-	}
-	
 	return (1);
 }
