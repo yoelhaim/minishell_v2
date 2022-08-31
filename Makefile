@@ -30,6 +30,7 @@ SRC = $(FILES_SRC)/main.c \
 	$(FILES_EXEC)/builtin/ft_builtin2.c \
 	$(FILES_EXEC)/builtin/ft_export.c \
 	$(FILES_EXEC)/builtin/ft_export_2.c \
+	$(FILES_EXEC)/builtin/ft_morefunction_builtin.c \
 	$(FILES_EXEC)/builtin/ft_unset.c \
 	$(FILES_EXEC)/builtin/ft_cd.c \
 	$(FILES_EXEC)/builtin/ft_cd_2.c \
