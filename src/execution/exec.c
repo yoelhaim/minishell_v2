@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 12:28:53 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/01 11:33:43 by akadi            ###   ########.fr       */
+/*   Updated: 2022/09/01 12:55:53 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ void	pipe_cmd(t_cmd *cmd, int statuss)
 		if (waitpid(-1, &statuss, 0) == -1)
 			break ;
 	}
-	g_tools.status_sign = WEXITSTATUS(statuss);
+	if (WIFEXITED(statuss))
+		g_tools.status_sign = WEXITSTATUS(statuss);
+	else if (WIFSIGNALED(statuss))
+		g_tools.status_sign = 128 + WTERMSIG(statuss);
 }
 
 void	hendl(int c)

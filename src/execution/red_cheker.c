@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 16:00:23 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/31 23:17:33 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/01 14:14:40 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	open_redout(char *filename, int *status)
 		ft_putstr_fd("No such file or directory\n", 2);
 		return ;
 	}
-	*status = 0;
+	*status = 1;
 	dup2(g_tools.w_out, 1);
 	close(g_tools.w_out);
 }
@@ -41,13 +41,14 @@ void	open_append(char *filename)
 
 int	open_in(char *filename, int *status)
 {
-	g_tools.r_in = open(filename, O_RDONLY, 0644);
+	(void) status;
+	g_tools.r_in = open(filename, O_RDWR, 0644);
 	if (g_tools.r_in == -1)
 	{
 		ft_putstr_fd("No such file or directory\n", 2);
 		return (ERROR_RETURN);
 	}
-	*status = 0;
+	*status = 1;
 	dup2(g_tools.r_in, 0);
 	close(g_tools.r_in);
 	return (1);
@@ -71,7 +72,7 @@ int	open_herdoc_file(int *status, t_red *cmd)
 	if (len == size || (len == 1 && size == 0))
 		unlink(".herdoc");
 	len++;
-	*status = 0;
+	*status = 1;
 	dup2(g_tools.r_in, 0);
 	close(g_tools.r_in);
 	return (1);

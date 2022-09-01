@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 20:24:16 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/01 11:37:37 by akadi            ###   ########.fr       */
+/*   Updated: 2022/09/01 14:11:08 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ int	cmd_systm_one(t_cmd *cmd)
 			break ;
 	}
 	check_status_file(status);
-	g_tools.status_sign = WEXITSTATUS(statuss);
+	if (WIFEXITED(statuss))
+		g_tools.status_sign = WEXITSTATUS(statuss);
+	else if (WIFSIGNALED(statuss))
+		g_tools.status_sign = 128 + WTERMSIG(statuss);
 	return (1);
 }
 
@@ -84,6 +87,7 @@ int	check_is_one_cmnd(t_cmd *cmd, t_node *list, int *status)
 		{
 			if (check_builtin(*cmd->cmnd))
 			{
+				
 	    		g_tools.dup_in = dup(0);
 				if (check_redirecrt(cmd->red, status) == ERROR_RETURN)
 					return (check_status_file(*status), 1);

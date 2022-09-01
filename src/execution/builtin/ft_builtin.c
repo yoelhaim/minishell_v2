@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:15:33 by akadi             #+#    #+#             */
-/*   Updated: 2022/08/31 23:07:10 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/01 13:55:33 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_env(char **cmd)
 	if (*(cmd + 1))
 	{
 		ft_putstr_fd(create_err("env: ",*(cmd + 1) \
-		, ": No such file or directory\n"), 2);
+		, ": Too MAnt Argument \n"), 2); // TODO : display to STDERR too many args !
 		return ;
 	}
 	while (env)
@@ -29,6 +29,7 @@ void	ft_env(char **cmd)
 			printf("%s\n", env->value);
 		env = env->next;
 	}
+	g_tools.status_sign = 0;
 }
 
 void	ft_exit(char **cmd)
