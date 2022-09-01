@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 12:28:53 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/31 23:02:23 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/01 11:33:43 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	pipe_cmd(t_cmd *cmd, int statuss)
 	int		status;
 
 	status = 1;
+	g_tools.fdd = 0;
 	while (cmd)
 	{
 		// pipe(g_tools.fd);
