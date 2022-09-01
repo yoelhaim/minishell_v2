@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:51:02 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/30 00:45:37 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/01 19:29:25 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	check_folder(char *name)
 		return (ERROR_RETURN);
 	if ((dirs) == NULL)
 	{
+		g_tools.status_sign = 1;
 		if (errno == 13)
 			printf("permission denied\n");
 		if (errno == ENOENT)

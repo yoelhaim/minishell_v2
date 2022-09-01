@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_syntax.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 12:48:30 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/01 15:54:39 by akadi            ###   ########.fr       */
+/*   Updated: 2022/09/01 19:25:45 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	syntax_error(t_node *list)
 	red = list;
 	while (red)
 	{
-		if (red->type == HEREDOC)
+		if (red->type == HEREDOC && red->next != NULL)
 		{
 			if (red->next->type == 1)
 				open_herdoc(red->type, red->next->next->val);

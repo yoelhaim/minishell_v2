@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 12:49:23 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/30 20:01:47 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/01 19:53:17 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	*create_err(char *firs_s, char *midl_s, char *last_s)
 	char	*str;
 
 	str = NULL;
+	g_tools.status_sign = 1;
 	if (!firs_s)
 		return (NULL);
 	if (midl_s && last_s)
@@ -24,7 +25,7 @@ char	*create_err(char *firs_s, char *midl_s, char *last_s)
 	else if (!midl_s && last_s)
 		str = ft_strjoin(firs_s, last_s);
 	else
-		str = "error ";
+		str = firs_s;
 	return (str);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 20:24:16 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/01 16:37:10 by akadi            ###   ########.fr       */
+/*   Updated: 2022/09/01 19:41:36 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	check_status_exit(char *cmd)
 		ft_putstr_fd(create_err("minishell : " \
 		, cmd, ": : Permission denied \n"), 2);
 	else
-		ft_putstr_fd("errrr", 2);
+		ft_putstr_fd("error ...\n", 2);
 }
 
 int	cmd_systm_one(t_cmd *cmd)

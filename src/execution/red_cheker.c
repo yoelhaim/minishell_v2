@@ -3,21 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   red_cheker.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 16:00:23 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/01 16:37:52 by akadi            ###   ########.fr       */
+/*   Updated: 2022/09/01 19:52:25 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+void	handle_error_fd(void)
+{
+		ft_putstr_fd(create_err("No such file or directory\n", NULL, NULL), 2);
+}
 
 void	open_redout(char *filename, int *status)
 {
 	g_tools.w_out = open(filename, O_CREAT | O_WRONLY| O_TRUNC, 0644);
 	if (g_tools.w_out == -1)
 	{
-		ft_putstr_fd("No such file or directory\n", 2);
+		handle_error_fd();
 		return ;
 	}
 	*status = 1;
@@ -32,7 +37,7 @@ void	open_append(char *filename)
 	{
 		dup2(g_tools.dup_out, 1);
 		close(g_tools.w_out);
-		ft_putstr_fd("No such file or directory\n", 2);
+		handle_error_fd();
 		return ;
 	}
 	dup2(g_tools.w_out, 1);
@@ -45,9 +50,10 @@ int	open_in(char *filename, int *status)
 	g_tools.r_in = open(filename, O_RDONLY, 0644);
 	if (g_tools.r_in == -1)
 	{
-		ft_putstr_fd("No such file or directory\n", 2);
+		handle_error_fd();
 		return (ERROR_RETURN);
 	}
+	
 	*status = 0;
 	dup2(g_tools.r_in, 0);
 	close(g_tools.r_in);
@@ -66,7 +72,7 @@ int	open_herdoc_file(int *status, t_red *cmd)
 		*status = 0;
 		dup2(g_tools.r_in, 0);
 		close(g_tools.r_in);
-		ft_putstr_fd("No such file or directory\n", 2);
+		handle_error_fd();
 		return (ERROR_RETURN);
 	}
 	if (len == size || (len == 1 && size == 0))

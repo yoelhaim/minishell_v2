@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:54:42 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/31 00:09:49 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/01 20:57:35 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,11 @@ char	*check_is_sign(t_node **list, char *line)
 	char	*symbols;
 	char	*buff;
 
-	symbols = " \t\n!\"%'()*+,-./:;<=>?@[\\]^`|~$";
+	symbols = ft_strdup(" \t\n!\"%'()*+,-./:;<=>?@[\\]^`|~$");
 	if (*line == '$')
 	{
+		if (push_sym_whit_sign(list, line[1]) != ERROR_RETURN)
+			return (line + 1);
 		if (line[1] == '?')
 			return (pushback(list, EXIT_STATUS, "$?"), line + 1);
 		else if (*line && line[1] >= '0' && line[1] <= '9')

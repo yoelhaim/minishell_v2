@@ -3,16 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:33 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/01 15:29:38 by akadi            ###   ########.fr       */
+/*   Updated: 2022/09/01 20:42:30 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 t_globals	g_tools = {0};
+
+void test(t_node *list)
+{
+	while (list)
+	{
+		printf("----------\n");
+		printf("-%s\n", list->val);
+		printf("-%d\n", list->type);
+		printf("----------\n");
+	list = list->next;
+	}
+	
+}
 
 void	clear_and_free(t_node **list, t_cmd **cmd, char *line)
 {
@@ -72,6 +85,7 @@ void	setup_shell(t_node **data, t_cmd **cmd)
 			continue ;
 		}
 		expander(data);
+		// test(*data);
 		*cmd = parse(*data);
 		exec_cmd(*cmd, *data);
 		clear_and_free(data, cmd, line);

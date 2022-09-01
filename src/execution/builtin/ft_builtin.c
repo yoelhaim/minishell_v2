@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:15:33 by akadi             #+#    #+#             */
-/*   Updated: 2022/09/01 13:55:33 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/01 21:35:54 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ void	ft_env(char **cmd)
 	env = g_tools.g_env;
 	if (*(cmd + 1))
 	{
+		g_tools.status_sign = 1;
 		ft_putstr_fd(create_err("env: ",*(cmd + 1) \
-		, ": Too MAnt Argument \n"), 2); // TODO : display to STDERR too many args !
+		, ": Too MAnt Argument \n"), 2); 
 		return ;
 	}
 	while (env)
@@ -32,26 +33,47 @@ void	ft_env(char **cmd)
 	g_tools.status_sign = 0;
 }
 
+int	ft_is_number(char n)
+{
+	if (n < '0' || n > '9')
+		return (0);
+	return (1);
+}
+
+int	check_isvalid_number(char *str, char *cmd)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (!ft_is_number(str[i]))
+		{
+		return (ft_putstr_fd(create_err("exit \nminishell: exit: ",cmd, \
+		" numeric argument required\n"), 2), 0);	
+		}
+	}
+	return (1);
+}
+
 void	ft_exit(char **cmd)
 {
+	char *str;
+
+	str = *(cmd+ 1);
 	if (*cmd && *(cmd + 1) == NULL)
 	{
 		ft_putstr_fd("exit\n", 2);
 		exit (0);
 	}
 	cmd++;
-	if ((!ft_strcmp(*cmd, "0") || ft_atoi(*cmd) > 0 \
-				|| ft_atoi(*cmd) < 0) && *(cmd +1) == NULL)
+	if(!check_isvalid_number(str, *cmd))
+		exit(255);
+	if (*(cmd +1) == NULL)
 	{	
 		g_tools.status_sign = ft_atoi(*cmd);
 		printf("exit \n");
 		exit (ft_atoi(*cmd));
-	}
-	if (ft_atoi(*cmd) == 0)
-	{
-		ft_putstr_fd(create_err("exit \nminishell: exit: ",*cmd, \
-		" numeric argument required\n"), 2);
-		exit(255);
 	}
 	if (*++cmd)
 	{	

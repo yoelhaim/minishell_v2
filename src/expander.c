@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 09:19:50 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/30 21:08:55 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/01 20:57:24 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,35 @@ void	check_expand_status(char **value)
 	*value = ft_itoa(g_tools.status_sign);
 }
 
+int	push_sym_whit_sign(t_node **list, char line)
+{
+	char	*symb;
+	char	*str;
+	
+	symb = ft_strdup( "\"%'()*+,-./:\\^`|~");
+	str = malloc(2);
+	add(&g_tools.garbage, str);
+	str[0] = line;
+	str[1] = 0;
+	while (*symb)
+	{
+		if(line == *symb)
+			return (pushback(list, WORD, ft_strjoin("$", str)),1);
+		symb++;
+	}
+	return (ERROR_RETURN);
+}
+
 void	ft_update(char *val, char ***value)
 {
 	if (val[0] == '0' && val[1] == '\0')
-		**value = "minishell";
+		**value = ft_strdup("minishell");
 	else if (val[0] >= '1' && val[0] <= '9' && val[1] == '\0')
-		**value = "\0";
+		**value = ft_strdup("\0");
 	else if (val[0] >= '1' && val[0] <= '9' && val[1] != '\0')
-		**value = "\0";
+		**value = ft_strdup("\0");
 	else
-		**value = "\0";
+		**value = ft_strdup("\0");
 }
 
 void	check_expand_dollar(char **value, int i)

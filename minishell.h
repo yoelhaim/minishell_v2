@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/31 23:08:22 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/01 20:42:01 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,5 +208,6 @@ void	check_status_exit(char *cmd);
 void	more_cd(char *cmd, char *path);
 void	change_pwd(char *last_cmd);
 int		ft_execve(char *path, char **cmd);
+int		push_sym_whit_sign(t_node **list, char line);
 
 #endif
