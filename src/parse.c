@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:58:58 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/01 14:02:29 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/01 16:55:28 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	open_herdoc(int type, char *value)
 		}
 		fd = open (".herdoc", O_RDWR | O_CREAT | O_TRUNC, 0666);
 		ft_putstr_fd(buff, fd);
+		close(fd);
 	}
 	return (1);
 }

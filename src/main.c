@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:33 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/31 00:22:45 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/01 15:29:38 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	setup_shell(t_node **data, t_cmd **cmd)
 			clear_list(data);
 			continue ;
 		}
+		
 		if (syntax_error(*data) == ERROR_RETURN)
 		{
 			clear_list(data);
