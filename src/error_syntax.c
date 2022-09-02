@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 12:48:30 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/02 13:58:38 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/02 22:35:39 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	check_after_red(t_node *list)
 			if (checkerr_red(buff, tmp_red, str) == ERROR_RETURN)
 				return (ERROR_RETURN);
 		}
-		else if ((!strcmp(buff, "<") || !strcmp(buff, "<<") \
-		|| !strcmp(buff, ">") || !strcmp(buff, ">>")) \
+		else if ((!ft_strcmp(buff, "<") || !ft_strcmp(buff, "<<") \
+		|| !ft_strcmp(buff, ">") || !ft_strcmp(buff, ">>")) \
 		&& (tmp_red >= 3 && tmp_red <= 6))
 			return (ft_putstr_fd(create_err(NL_ERROR_MESSSAGE \
 					, NULL, "\n"), 2), ERROR_RETURN);
@@ -103,6 +103,6 @@ int	syntax_error(t_node *list)
 	}
 	if (valid_pipe(list) == ERROR_RETURN \
 	|| check_after_red(list) == ERROR_RETURN)
-		return (unlink(".herdoc"), ERROR_RETURN);
+		return (unlink("/tmp/.herdoc"), ERROR_RETURN);
 	return (1);
 }
