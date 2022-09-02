@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:54:42 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/01 20:57:35 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/02 22:11:28 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ char	*check_is_quot(t_node **list, char *line, char quot)
 			return (ft_strchr(line, quot));
 		}
 		else
-			return (ft_putstr_fd("minishell: unclosed  quotes\n", 2), NULL);
+			return (ft_putstr_fd("minishell: unclosed  quotes\n", 2), \
+			g_tools.status_sign = 258, NULL);
 	}
 	return (line);
 }
@@ -108,7 +109,8 @@ char	*check_is_quot_simple(t_node **list, char *line, char quot)
 			return (ft_strchr(line, quot));
 		}
 		else
-			return (ft_putstr_fd("minishell: unclosed  quotes\n", 2), NULL);
+			return (ft_putstr_fd("minishell: unclosed  quotes\n", 2), \
+			g_tools.status_sign = 258, NULL);
 	}
 	return (line);
 }

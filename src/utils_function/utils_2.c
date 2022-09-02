@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 12:49:23 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/02 16:19:14 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/02 22:33:56 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ char	*create_err(char *firs_s, char *midl_s, char *last_s)
 
 int	checkerr_red(char *buff, int tmp_red, t_node *str)
 {
-	if ((!strcmp(buff, "<") || !strcmp(buff, "<<") \
-	|| !strcmp(buff, ">") || !strcmp(buff, ">>")) \
+	if ((!ft_strcmp(buff, "<") || !ft_strcmp(buff, "<<") \
+	|| !ft_strcmp(buff, ">") || !ft_strcmp(buff, ">>")) \
 	&& (tmp_red >= 3 && tmp_red <= 6))
 	{
 		if (str->next->type == 1 && str->next->next != NULL)
