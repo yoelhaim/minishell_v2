@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 12:49:23 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/01 19:53:17 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/02 16:19:14 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_pwd(void)
 
 void	more_cd(char *cmd, char *path)
 {
-	if (chdir(cmd) == -1)
+	if (chdir(remove_back_slash(cmd)) == -1)
 		check_folder (cmd);
 	else
 		change_pwd(path);

@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:12 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/02 00:58:01 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/02 21:24:31 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,8 @@
 
 void	handler(int sig)
 {
-	struct termios	t;
-
-	(void)sig;
-	tcgetattr(0, &t);
-	t.c_lflag &= ~ECHOCTL;
-	tcsetattr(0, TCSANOW, &t);
+	(void) sig;
+	rl_catch_signals = 0;
 	rl_replace_line("", 0);
 	write(1, "\n", 1);
 	rl_on_new_line();
@@ -41,6 +37,7 @@ char	*return_line(char *line)
 	while (++i <= len)
 		buff[i] = line[i];
 	buff[i] = '\0';
+	free(line);
 	return (buff);
 }
 
@@ -51,6 +48,7 @@ char	*read_line(void)
 	signal(SIGINT, handler);
 	signal(SIGQUIT, SIG_IGN);
 	read_line = readline("miniShell$ ");
+	add(&g_tools.garbage, read_line);
 	if (!read_line)
 	{
 		printf(MOVE_UP_RIGHRT "exit\n");

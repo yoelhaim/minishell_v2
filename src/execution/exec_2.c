@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 20:24:16 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/02 01:47:14 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/02 20:59:07 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,7 @@ int	cmd_systm_one(t_cmd *cmd)
 
 int	check_is_one_cmnd(t_cmd *cmd, t_node *list, int *status)
 {
-	int	i;
-
-	i = 0;
-	while (list)
-	{
-		if (list->type == PIPE)
-			i++;
-		list = list->next;
-	}
-	if (i == 0)
+	if (get_is_pipe(list) == 0)
 	{	
 		g_tools.dup_out = dup(1);
 		if (*cmd->cmnd == NULL)
@@ -89,7 +80,7 @@ int	check_is_one_cmnd(t_cmd *cmd, t_node *list, int *status)
 		}
 		if (*cmd->cmnd != NULL)
 		{
-			if (check_builtin(*cmd->cmnd))
+			if (check_builtin(remove_back_slash(*cmd->cmnd)))
 			{
 				g_tools.dup_in = dup(0);
 				if (check_redirecrt(cmd->red, status) == ERROR_RETURN)

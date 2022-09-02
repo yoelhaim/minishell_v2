@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:15:33 by akadi             #+#    #+#             */
-/*   Updated: 2022/09/02 01:24:46 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/02 16:13:46 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	check_isvalid_number(char *str, char *cmd)
 		if (!ft_is_number(str[i]))
 		{
 			return (ft_putstr_fd(create_err("exit \nminishell: exit: ", cmd, \
-			" numeric argument required\n"), 2), 0);
+							" numeric argument required\n"), 2), 0);
 		}
 	}
 	return (1);
@@ -85,6 +85,9 @@ void	ft_exit(char **cmd)
 
 void	ft_builtin(char **cmd, int *status)
 {
+	*cmd = remove_back_slash(*cmd);
+	if (!ft_strcmp(*cmd, "cd"))
+		ft_cd(cmd);
 	if (!ft_strcmp(*cmd, "exit"))
 		ft_exit (cmd);
 	if (!ft_strcmp(*cmd, "env"))
@@ -93,8 +96,6 @@ void	ft_builtin(char **cmd, int *status)
 		ft_export(cmd);
 	if (!ft_strcmp(*cmd, "echo"))
 		ft_echo(cmd);
-	if (!ft_strcmp(*cmd, "cd"))
-		ft_cd(cmd);
 	if (!ft_strcmp(*cmd, "pwd"))
 		ft_pwd();
 	if (!ft_strcmp(*cmd, "unset"))

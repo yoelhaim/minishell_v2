@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 16:00:23 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/02 00:58:59 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/02 21:25:15 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	open_herdoc_file(int *status, t_red *cmd)
 	int			size;
 
 	size = sizeofred(cmd) - 1;
-	g_tools.r_in = open(".herdoc", O_RDONLY, 0644);
+	g_tools.r_in = open("/tmp/.herdoc", O_RDONLY, 0644);
 	if (g_tools.r_in == -1)
 	{
 		*status = 0;
@@ -74,8 +74,8 @@ int	open_herdoc_file(int *status, t_red *cmd)
 		handle_error_fd();
 		return (ERROR_RETURN);
 	}
-	if (len == size || (len == 1 && size == 0))
-		unlink(".herdoc");
+	if (len == size || (len == 1 || size == 0))
+		unlink("/tmp/.herdoc");
 	len++;
 	*status = 0;
 	dup2(g_tools.r_in, 0);

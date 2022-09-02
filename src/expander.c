@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 09:19:50 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/02 00:57:34 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/02 14:13:07 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,11 @@ void	expander(t_node **list)
 			check_expand_dollar(&cmd->val, i);
 		else if (cmd->type == EXIT_STATUS)
 			check_expand_status(&cmd->val);
+		else if (cmd->type == 11)
+		{
+			if (cmd->val[0] == '~' && cmd->val[1] == '\0')
+				cmd->val = ft_strdup(getenv("HOME"));
+		}
 		cmd = cmd->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:26:39 by akadi             #+#    #+#             */
-/*   Updated: 2022/09/01 13:00:58 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/02 16:28:20 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,9 @@ int	search_n(char *s)
 	return (1);
 }
 
-void	check_newline(char **str, int status)
+void	check_newline(char **str, int status, int j)
 {
-	int		j;
-
-	j = 0;
+	*str = remove_back_slash(*str);
 	if (ft_strstr(*str, "-n") && search_n(*str))
 	{
 		str++;
@@ -109,12 +107,14 @@ void	check_newline(char **str, int status)
 int	ft_echo(char **cmd)
 {
 	int		status;
+	int		j;
 
+	j = 0;
 	status = 0;
 	if (cmd[1] == NULL && ft_strcmp(*cmd, "$"))
 		return (printf("\n"), ERROR_RETURN);
 	cmd++;
-	check_newline(cmd, status);
+	check_newline(cmd, status, j);
 	g_tools.status_sign = 0;
 	return (1);
 }

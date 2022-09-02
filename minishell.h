@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/02 01:41:24 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/02 21:23:22 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 # define MINISHELL_H
 # include <stdlib.h>
 # include <signal.h>
-// # include <string.h>
+# include <string.h>
 # include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+# include "readline/readline.h"
+# include "readline/history.h"
 # include <termios.h>
 # include <fcntl.h>
 # include <sys/types.h>
@@ -209,6 +209,7 @@ void	change_pwd(char *last_cmd);
 int		ft_execve(char *path, char **cmd);
 int		push_sym_whit_sign(t_node **list, char line);
 void	handl_signal(int *statuss);
-void	check_cmnd_is_one(t_cmd *cmd, char *cmnd, int *status);
+int		get_is_pipe(t_node *list);
+char	*remove_back_slash(char *cmd);
 
 #endif

@@ -6,21 +6,83 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 01:27:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/02 01:46:28 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/02 20:58:54 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-// void	check_cmnd_is_one(t_cmd *cmd, char *cmnd, int *status)
+int	get_is_pipe(t_node *list)
+{
+	int	i;
+
+	i = 0;
+	while (list)
+	{
+		if (list->type == PIPE)
+			i++;
+		list = list->next;
+	}
+	return (i);
+}
+
+void	ft_print_ign_bs(char *cmd, char *buff)
+{
+	int	i;
+	int	cont;
+
+	i = 0;
+	cont = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] != '\\')
+			buff[cont++] = cmd[i];
+		else if (cmd[i++] == '\\')
+			buff[cont++] = cmd[i];
+		i++;
+	}
+}
+
+char	*remove_back_slash(char *cmd)
+{
+	int		i;
+	int		cont;
+	char	*buff;
+
+	i = 0;
+	cont = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] != '\\')
+			cont++;
+		i++;
+		if (cmd[i] == '\\')
+			cont++;
+	}
+	buff = malloc(cont + 1);
+	add(&g_tools.garbage, buff);
+	ft_print_ign_bs(cmd, buff);
+	buff[cont] = 0;
+	return (buff);
+}
+
+// char	**rm_ba(char **cmd)
 // {
-// 	if (check_builtin(cmnd))
+// 	char	**buff;
+// 	int		i;
+
+// 	i = 0;
+// 	while (cmd[i] != (void *)0)
+// 		i++;
+// 	buff = malloc(i + 1);
+// 	add(&g_tools.garbage, buff);
+// 	i = 0;
+// 	while (cmd[i] != (void *)0)
 // 	{
-// 		g_tools.dup_in = dup(0);
-// 		if (check_redirecrt(cmd->red, &status) == ERROR_RETURN)
-// 			return (check_status_file(&status), 1);
-// 		ft_builtin(cmnd, &status);
+// 		buff[i] = remove_back_slash(cmd[i]);
+// 		i++;
 // 	}
-// 	else
-// 		cmd_systm_one(cmd);
+// 	buff[i] = 0;
+// 	free(cmd);
+// 	return (buff);
 // }

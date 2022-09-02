@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:01:09 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/28 22:15:15 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/02 19:11:21 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ int	sizeofred(t_red *red)
 	i = 0;
 	while (red)
 	{
-		i++;
+		if (red->type == HEREDOC)
+			i++;
 		red = red->next;
 	}
 	return (i);

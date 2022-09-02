@@ -6,11 +6,12 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 10:15:06 by yoelhaim          #+#    #+#             */
-/*   Updated: 2021/11/15 22:58:08 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/02 11:00:07 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "../minishell.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
@@ -26,6 +27,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	else if (len > length - start)
 		len = length;
 	str = (char *)malloc(sizeof(char) * (len + 1));
+	add(&g_tools.garbage, str);
 	if (!str)
 		return (NULL);
 	i = 0;
