@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/02 21:23:22 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/02 22:33:16 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 # include <stdlib.h>
 # include <signal.h>
-# include <string.h>
+// # include <string.h>
 # include <stdio.h>
 # include "readline/readline.h"
 # include "readline/history.h"
