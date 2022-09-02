@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 18:14:01 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/01 17:08:29 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/02 23:20:11 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,36 @@
 void	ft_switcher(void)
 {
 	static int	is_switch;
+	char		*old;
+	char		*new;
+	t_env		*temp;
 
-	if (is_switch == 1)
+	temp = g_tools.g_env;
+	while (temp)
 	{
-		chdir(getenv("OLDPWD"));
-		is_switch = 0;
+		if (!ft_strcmp(temp->variable, "PWD"))
+			new = ft_strstr(temp->value, "=") + 1;
+		if (!ft_strcmp(temp->variable, "OLDPWD"))
+			old = ft_strstr(temp->value, "=") + 1;
+		temp = temp->next;
+	}
+	if (is_switch == 0)
+	{
+		chdir(old);
+			is_switch = 1;
 	}
 	else
 	{
-		chdir(getenv("PWD"));
-			is_switch = 1;
+		chdir(new);
+		is_switch = 0;
 	}
 }
 
 void	check_switch_cd(void)
 {
-	char		path[1024];
 	t_env		*env;
 	static int	status;
+	char		path[PATH_MAX];
 
 	env = g_tools.g_env;
 	while (env)
@@ -43,12 +55,12 @@ void	check_switch_cd(void)
 	}
 	if (status == 0)
 	{
-		g_tools.status_sign = 1;
 		ft_putstr_fd("minishell : cd: OLDPWD not set\n", 2);
 	}
 	else
 	{
 		ft_switcher();
-		printf("%s\n", getcwd(path, 1024));
+		getcwd(path, PATH_MAX);
+		printf("%s\n", path);
 	}
 }
