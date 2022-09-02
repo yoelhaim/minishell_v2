@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 16:00:23 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/01 19:52:25 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/02 00:58:59 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 void	handle_error_fd(void)
 {
-		ft_putstr_fd(create_err("No such file or directory\n", NULL, NULL), 2);
+	ft_putstr_fd(create_err("No such file or directory\n", NULL, NULL), 2);
 }
 
 void	open_redout(char *filename, int *status)
 {
-	g_tools.w_out = open(filename, O_CREAT | O_WRONLY| O_TRUNC, 0644);
+	g_tools.w_out = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (g_tools.w_out == -1)
 	{
 		handle_error_fd();
 		return ;
 	}
-	*status = 1;
+	*status = 0;
 	dup2(g_tools.w_out, 1);
 	close(g_tools.w_out);
 }
@@ -53,7 +53,6 @@ int	open_in(char *filename, int *status)
 		handle_error_fd();
 		return (ERROR_RETURN);
 	}
-	
 	*status = 0;
 	dup2(g_tools.r_in, 0);
 	close(g_tools.r_in);

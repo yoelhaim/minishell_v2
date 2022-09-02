@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:15:33 by akadi             #+#    #+#             */
-/*   Updated: 2022/09/01 21:35:54 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/02 01:24:46 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_env(char **cmd)
 	{
 		g_tools.status_sign = 1;
 		ft_putstr_fd(create_err("env: ",*(cmd + 1) \
-		, ": Too MAnt Argument \n"), 2); 
+					, ": Too MAnt Argument \n"), 2);
 		return ;
 	}
 	while (env)
@@ -49,8 +49,8 @@ int	check_isvalid_number(char *str, char *cmd)
 	{
 		if (!ft_is_number(str[i]))
 		{
-		return (ft_putstr_fd(create_err("exit \nminishell: exit: ",cmd, \
-		" numeric argument required\n"), 2), 0);	
+			return (ft_putstr_fd(create_err("exit \nminishell: exit: ", cmd, \
+			" numeric argument required\n"), 2), 0);
 		}
 	}
 	return (1);
@@ -58,16 +58,16 @@ int	check_isvalid_number(char *str, char *cmd)
 
 void	ft_exit(char **cmd)
 {
-	char *str;
+	char	*str;
 
-	str = *(cmd+ 1);
+	str = *(cmd + 1);
 	if (*cmd && *(cmd + 1) == NULL)
 	{
 		ft_putstr_fd("exit\n", 2);
 		exit (0);
 	}
 	cmd++;
-	if(!check_isvalid_number(str, *cmd))
+	if (!check_isvalid_number(str, *cmd))
 		exit(255);
 	if (*(cmd +1) == NULL)
 	{	
@@ -78,7 +78,7 @@ void	ft_exit(char **cmd)
 	if (*++cmd)
 	{	
 		ft_putstr_fd(create_err("exit \nminishell: exit: ",*cmd, \
-		" oo many arguments\n"), 2);
+					" oo many arguments\n"), 2);
 		return ;
 	}
 }

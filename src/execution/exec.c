@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 12:28:53 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/01 15:38:03 by akadi            ###   ########.fr       */
+/*   Updated: 2022/09/02 01:47:47 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,7 @@ void	pipe_cmd(t_cmd *cmd, int statuss)
 	g_tools.fdd = 0;
 	while (cmd)
 	{
-		// pipe(g_tools.fd);
-		if (pipe(g_tools.fd))
-			return ;
+		pipe(g_tools.fd);
 		pid = fork();
 		if (pid < 0)
 			return ;
@@ -61,14 +59,9 @@ void	pipe_cmd(t_cmd *cmd, int statuss)
 		cmd = cmd->next;
 	}
 	while (1)
-	{
 		if (waitpid(-1, &statuss, 0) == -1)
 			break ;
-	}
-	if (WIFEXITED(statuss))
-		g_tools.status_sign = WEXITSTATUS(statuss);
-	else if (WIFSIGNALED(statuss))
-		g_tools.status_sign = 128 + WTERMSIG(statuss);
+	handl_signal(&statuss);
 }
 
 void	hendl(int c)
@@ -83,7 +76,6 @@ void	exec_cmd(t_cmd *cmd, t_node *list)
 
 	signal(SIGINT, hendl);
 	status = 1;
-	
 	if (g_tools.status_sign == 127)
 		g_tools.status_sign = 0;
 	if (check_is_one_cmnd(cmd, list, &status))

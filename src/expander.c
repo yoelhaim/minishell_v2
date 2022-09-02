@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 09:19:50 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/01 20:57:24 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/02 00:57:34 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ int	push_sym_whit_sign(t_node **list, char line)
 {
 	char	*symb;
 	char	*str;
-	
-	symb = ft_strdup( "\"%'()*+,-./:\\^`|~");
+
+	symb = ft_strdup("\"%'()*+,-./:\\^`|~");
 	str = malloc(2);
 	add(&g_tools.garbage, str);
 	str[0] = line;
 	str[1] = 0;
 	while (*symb)
 	{
-		if(line == *symb)
-			return (pushback(list, WORD, ft_strjoin("$", str)),1);
+		if (line == *symb)
+			return (pushback(list, WORD, ft_strjoin("$", str)), 1);
 		symb++;
 	}
 	return (ERROR_RETURN);

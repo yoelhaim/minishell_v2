@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/01 20:42:01 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/02 01:41:24 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 # include <errno.h>
 # include <stdbool.h>
 # include <limits.h>
-
 
 # define WSPACE 1		   // ' '
 # define PIPE 2			   // |
@@ -54,8 +53,8 @@
 # define MESSAGE_NF_FOLDER "cd: error retrieving current \
  directory: getcwd: cannot access parent directories: \
  No such file or directory\n"
-# define ERR_EXP_F "minshell: export: `"
-# define ERR_EXP_L "': not a valid identifier\n"
+# define ERR_F "minshell: export: `"
+# define ERR_L "': not a valid identifier\n"
 // fin error message
 
 typedef struct s_env
@@ -188,15 +187,15 @@ void	ft_push_to_env(int *status, int *append, \
 char *splited_value, char *cmd);
 
 //export
-int 	err_arg(char **cmd);
+int		err_arg(char **cmd);
 int		checkappend(char *cmd);
 void	update_var_env(char *var, char *val, int is_append);
 void	add_new_var_env(char *var, char *val);
-int 	check_is_valid_var(char *arg, int is_egal);
+int		check_is_valid_var(char *arg, int is_egal);
 char	*get_var(char *arg);
 int		check_is_in_env(char *arg);
 // red 
-void	open_redout(char *filename, int * status);
+void	open_redout(char *filename, int *status);
 void	open_append(char *filename);
 int		open_in(char *filename, int *status);
 int		open_herdoc_file(int *status, t_red *cmd);
@@ -209,5 +208,7 @@ void	more_cd(char *cmd, char *path);
 void	change_pwd(char *last_cmd);
 int		ft_execve(char *path, char **cmd);
 int		push_sym_whit_sign(t_node **list, char line);
+void	handl_signal(int *statuss);
+void	check_cmnd_is_one(t_cmd *cmd, char *cmnd, int *status);
 
 #endif

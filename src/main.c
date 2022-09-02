@@ -6,26 +6,13 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:33 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/01 20:42:30 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/02 00:56:55 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 t_globals	g_tools = {0};
-
-void test(t_node *list)
-{
-	while (list)
-	{
-		printf("----------\n");
-		printf("-%s\n", list->val);
-		printf("-%d\n", list->type);
-		printf("----------\n");
-	list = list->next;
-	}
-	
-}
 
 void	clear_and_free(t_node **list, t_cmd **cmd, char *line)
 {
@@ -78,14 +65,12 @@ void	setup_shell(t_node **data, t_cmd **cmd)
 			clear_list(data);
 			continue ;
 		}
-		
 		if (syntax_error(*data) == ERROR_RETURN)
 		{
 			clear_list(data);
 			continue ;
 		}
 		expander(data);
-		// test(*data);
 		*cmd = parse(*data);
 		exec_cmd(*cmd, *data);
 		clear_and_free(data, cmd, line);
