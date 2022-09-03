@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/02 22:33:16 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/03 15:44:55 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,5 +211,6 @@ int		push_sym_whit_sign(t_node **list, char line);
 void	handl_signal(int *statuss);
 int		get_is_pipe(t_node *list);
 char	*remove_back_slash(char *cmd);
+int		is_alpha_cap(char c);
 
 #endif
