@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:33 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/02 11:02:56 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/03 17:24:48 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	clear_and_free(t_node **list, t_cmd **cmd, char *line)
 	if (!list || !line)
 		return ;
 	clear_list(list);
+	clear_list_cmd(cmd);
 	free(line);
 }
 
@@ -75,6 +76,7 @@ void	setup_shell(t_node **data, t_cmd **cmd)
 		exec_cmd(*cmd, *data);
 		clear_and_free(data, cmd, line);
 	}
+	rl_clear_history();
 }
 
 int	main(int ac, char **av, char **envr)
@@ -89,6 +91,5 @@ int	main(int ac, char **av, char **envr)
 	ren_shlvl(envr);
 	setup_shell (&data, &cmd);
 	free_all (g_tools.garbage);
-	rl_clear_history();
 	return (0);
 }
