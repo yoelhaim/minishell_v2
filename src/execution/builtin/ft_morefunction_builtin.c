@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 20:20:32 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/02 16:01:59 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/03 15:49:13 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ char	*get_var(char *arg)
 	while (arg[i] != '=' && arg[i])
 		i++;
 	buff = malloc(sizeof(char) * (i + 1));
+	add(&g_tools.garbage, buff);
 	i = 0;
 	while (arg[i] != '=' && arg[i])
 	{

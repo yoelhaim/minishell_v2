@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 19:28:56 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/27 21:10:26 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/03 16:45:50 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,16 @@ void	pushback_cmd(t_cmd **lst, char **arg, t_red *red)
 t_cmd	*clear_list_cmd(t_cmd **lst)
 {
 	t_cmd	*forfree;
+	t_red	*reder;
 
 	while ((*lst))
 	{
+		while ((*lst)->red)
+		{
+			reder = (*lst)->red;
+			(*lst)->red = (*lst)->red->next;
+			free(reder);
+		}
 		forfree = (*lst);
 		(*lst) = (*lst)->next;
 		free(forfree);

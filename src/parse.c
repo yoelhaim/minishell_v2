@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:58:58 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/02 21:02:58 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/03 16:39:29 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	open_herdoc(int type, char *value)
 	return (1);
 }
 
-static void	push_red(t_red **red, t_node *t)
+void	push_red(t_red **red, t_node *t)
 {
 	while (t)
 	{
@@ -55,7 +55,7 @@ static void	push_red(t_red **red, t_node *t)
 			if (t->next->type == 1)
 				pushback_red(red, t->type, ft_strdup(t->next->next->val));
 			else
-				pushback_red(red, t->type, t->next->val);
+				pushback_red(red, t->type, ft_strdup(t->next->val));
 			t = t->next;
 		}
 		t = t->next;
@@ -68,7 +68,7 @@ static void	push_cmd(t_cmd **cmd, t_node *t)
 	char	*str;
 	char	**str2;
 
-	str = "";
+	str = ft_strdup("");
 	red = NULL;
 	push_red(&red, t);
 	while (t)
@@ -112,5 +112,7 @@ t_cmd	*parse(t_node *list)
 		clear_list(&t);
 		tmp = tmp->next;
 	}
+	clear_list(&tmp);
+	clear_list(&t);
 	return (cmd);
 }

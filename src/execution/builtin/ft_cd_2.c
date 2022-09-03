@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 18:14:01 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/02 23:20:11 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/03 17:20:49 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	check_switch_cd(void)
 	if (status == 0)
 	{
 		ft_putstr_fd("minishell : cd: OLDPWD not set\n", 2);
+		return ;
 	}
 	else
 	{

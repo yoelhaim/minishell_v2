@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:07:57 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/02 01:05:33 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/03 15:49:48 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ int	err_arg(char **cmd)
 		return (1);
 	while (*cmd)
 	{
-		if (*cmd[0] < 'a' || *cmd[0] > 'z')
+		if ((*cmd[0] < 'a' || *cmd[0] > 'z') && \
+		(*cmd[0] < 'A' || *cmd[0] > 'Z'))
 			return (1);
 		cmd++;
 	}

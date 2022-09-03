@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 16:00:23 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/02 21:25:15 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/03 00:05:02 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	open_herdoc_file(int *status, t_red *cmd)
 	int			size;
 
 	size = sizeofred(cmd) - 1;
+	printf("len %d\nsize %d\n", len, size);
 	g_tools.r_in = open("/tmp/.herdoc", O_RDONLY, 0644);
 	if (g_tools.r_in == -1)
 	{

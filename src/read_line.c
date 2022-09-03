@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:12 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/02 21:24:31 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/03 15:59:37 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ char	*read_line(void)
 	signal(SIGINT, handler);
 	signal(SIGQUIT, SIG_IGN);
 	read_line = readline("miniShell$ ");
-	add(&g_tools.garbage, read_line);
 	if (!read_line)
 	{
 		printf(MOVE_UP_RIGHRT "exit\n");

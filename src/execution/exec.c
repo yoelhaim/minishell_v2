@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 12:28:53 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/02 12:32:02 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/03 00:09:34 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	is_red(t_red *cmd, int *status)
 	red = cmd;
 	while (red)
 	{
+		g_tools.dup_in = dup(0);
 		if (check_redirecrt(cmd, status) != ERROR_RETURN)
 			return ;
 		red = red->next;
