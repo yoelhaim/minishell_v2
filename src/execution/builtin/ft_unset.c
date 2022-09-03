@@ -6,15 +6,14 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:06:14 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/31 16:01:33 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/03 17:28:13 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../minishell.h"
 
-t_env	*remove_to_env( char **cmd)
+t_env	*remove_to_env(char **cmd, t_env *list)
 {
-	t_env	*list;
 	t_env	*tmp;
 	t_env	*prev;
 
@@ -38,6 +37,7 @@ t_env	*remove_to_env( char **cmd)
 		}
 		cmd++;
 	}
+	add(&g_tools.garbage, tmp);
 	return (list);
 }
 
@@ -64,6 +64,6 @@ t_env	*ft_unset(char **cmd)
 	cmd++;
 	if (!*cmd)
 		return (list);
-	remove_to_env(cmd);
+	remove_to_env(cmd, list);
 	return (list);
 }
