@@ -70,4 +70,4 @@ fclean : clean
 	rm -rf $(NAME)
 	$(MAKE) fclean -C $(LIBFT_DIR)
 re: fclean all
-PHONY : clean fclean re all
+.PHONY : clean fclean re all
