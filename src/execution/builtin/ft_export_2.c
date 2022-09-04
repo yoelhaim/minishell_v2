@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:07:57 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/03 15:49:48 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/04 20:10:06 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,14 @@ void	update_var_env(char *var, char *val, int is_append)
 		temp_var = var;
 	else
 		temp_var = ft_strdup(ft_strjoin(ft_strjoin(var, "="), val));
+	if (!ft_strstr(temp_var, "="))
+		return ;
 	while (env)
 	{
 		if (!ft_strcmp(env->variable, var))
 		{
 			if (is_append)
-				env->value = ft_strjoin(temp_var, val);
+				env->value = ft_strjoin(env->value, val);
 			else
 				env->value = temp_var;
 			break ;

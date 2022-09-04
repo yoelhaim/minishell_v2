@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:12 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/03 20:37:13 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/04 23:24:09 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ void	handler(int sig)
 	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_redisplay();
+}
+
+void	handler_herdock(int sig)
+{
+	(void) sig;
+	// g_tools.sig_her = 0;
 }
 
 char	*return_line(char *line)
@@ -57,5 +63,5 @@ char	*read_line(void)
 	}
 	if (read_line && read_line[0])
 		add_history(read_line);
-	return (return_line(read_line));
+	return (return_line(ft_strtrim(read_line, " ")));
 }

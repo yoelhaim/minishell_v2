@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 12:28:53 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/04 11:25:54 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/04 21:13:16 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ void	pipe_cmd(t_cmd *cmd, int statuss)
 	int		status;
 
 	status = 1;
-	g_tools.fdd = 0;
 	while (cmd)
 	{
-		pipe(g_tools.fd);
+		if (pipe(g_tools.fd) < 0)
+			return ;
 		pid = fork();
-		if (pid < 0)
+		if (!check_pid(pid))
 			return ;
 		else if (pid == 0)
 			child_process(cmd, &status);
@@ -76,6 +76,7 @@ void	exec_cmd(t_cmd *cmd, t_node *list)
 {
 	int	status;
 
+	g_tools.fdd = 0;
 	signal(SIGINT, hendl);
 	status = 1;
 	if (g_tools.status_sign == 127)

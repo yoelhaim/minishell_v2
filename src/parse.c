@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:58:58 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/04 11:16:47 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/04 23:36:17 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	open_herdoc(int type, char *value, int id)
 
 	buff = ft_strdup("");
 	line = NULL;
+	printf("%s\n", value);
 	if (type == HEREDOC)
 	{
 		while (1)
@@ -34,7 +35,7 @@ int	open_herdoc(int type, char *value, int id)
 			line = readline("> ");
 			add(&g_tools.garbage, line);
 			if (!line || !ft_strcmp(ft_ignore_sign(line) \
-						, ft_ignore_sign(value)))
+			, ft_ignore_sign(value)))
 				break ;
 			else
 				buff = ft_strjoin(buff, ft_strjoin(line, "\n"));

@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 01:27:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/03 20:36:52 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/04 21:15:35 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,23 +68,20 @@ char	*remove_back_slash(char *cmd)
 	return (buff);
 }
 
-// char	**rm_ba(char **cmd)
-// {
-// 	char	**buff;
-// 	int		i;
-
-// 	i = 0;
-// 	while (cmd[i] != (void *)0)
-// 		i++;
-// 	buff = malloc(i + 1);
-// 	add(&g_tools.garbage, buff);
-// 	i = 0;
-// 	while (cmd[i] != (void *)0)
-// 	{
-// 		buff[i] = remove_back_slash(cmd[i]);
-// 		i++;
-// 	}
-// 	buff[i] = 0;
-// 	free(cmd);
-// 	return (buff);
-// }
+int	check_pid(int pid)
+{
+	if (pid < 0)
+	{
+		close(g_tools.fd[0]);
+		close(g_tools.fd[1]);
+		close(g_tools.fdd);
+		while (1)
+		{
+			if (waitpid(-1, NULL, 0) == -1)
+				break ;
+		}
+		return (ft_putstr_fd("minishell: fork: Resource temporarily \
+	unavailable\n", 2), 0);
+	}	
+	return (1);
+}
