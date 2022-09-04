@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 12:48:30 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/02 22:35:39 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/04 11:15:36 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,20 +87,6 @@ static int	valid_pipe(t_node *list)
 
 int	syntax_error(t_node *list)
 {
-	t_node	*red;
-
-	red = list;
-	while (red)
-	{
-		if (red->type == HEREDOC && red->next != NULL)
-		{
-			if (red->next->type == 1)
-				open_herdoc(red->type, red->next->next->val);
-			else
-				open_herdoc(red->type, red->next->val);
-		}
-		red = red->next;
-	}
 	if (valid_pipe(list) == ERROR_RETURN \
 	|| check_after_red(list) == ERROR_RETURN)
 		return (unlink("/tmp/.herdoc"), ERROR_RETURN);

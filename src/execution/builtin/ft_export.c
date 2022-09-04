@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:05:02 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/02 01:11:16 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/03 22:16:46 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_printf_exported(char **export)
 	while (export[++i])
 	{
 		spl = ft_split(export[i], '=');
-		if (spl[1] != NULL && ft_strstr(spl[0], "="))
+		if (spl[1] != NULL || ft_strstr(spl[0], "="))
 			printf("declare -x %s=\"%s\"\n", spl[0], spl[1]);
 		else
 			printf("declare -x %s\n", spl[0]);
@@ -67,13 +67,14 @@ void	getexport(void)
 		env = env->next;
 	}
 	str = malloc(sizeof(char *) * i + 1);
+	if (!str)
+		return ;
 	add(&g_tools.garbage, str);
 	i = 0;
 	env = g_tools.g_env;
 	while (env)
 	{
-		str[i] = env->value;
-		i++;
+		str[i++] = env->value;
 		env = env->next;
 	}
 	str[i] = 0;

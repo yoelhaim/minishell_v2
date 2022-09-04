@@ -6,13 +6,13 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:01:09 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/02 19:11:21 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/04 10:48:42 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_red	*new_node_red(int type, char *val)
+t_red	*new_node_red(int type, char *val, int id)
 {
 	t_red	*newnode;
 
@@ -22,17 +22,18 @@ t_red	*new_node_red(int type, char *val)
 	{
 		newnode->type = type;
 		newnode->filename = val;
+		newnode->id = id;
 		newnode->next = NULL;
 	}
 	return (newnode);
 }
 
-void	pushback_red(t_red **lst, int type, char *val)
+void	pushback_red(t_red **lst, int type, char *val, int id)
 {
 	t_red	*head;
 	t_red	*new;
 
-	new = new_node_red(type, val);
+	new = new_node_red(type, val, id);
 	if (!*lst)
 		*lst = new;
 	else

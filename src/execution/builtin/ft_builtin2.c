@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:26:39 by akadi             #+#    #+#             */
-/*   Updated: 2022/09/02 16:28:20 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/03 19:58:36 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	check_newline(char **str, int status, int j)
 		}
 		while (*str)
 		{
-			printf("%s", *str++);
+			ft_putstr_fd(*str++, 1);
 			if (*str)
 				printf(" ");
 		}

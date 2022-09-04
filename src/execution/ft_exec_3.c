@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 01:27:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/02 20:58:54 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/03 20:36:52 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ char	*remove_back_slash(char *cmd)
 			cont++;
 	}
 	buff = malloc(cont + 1);
+	if (!buff)
+		return (NULL);
 	add(&g_tools.garbage, buff);
 	ft_print_ign_bs(cmd, buff);
 	buff[cont] = 0;

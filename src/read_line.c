@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:12 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/03 15:59:37 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/03 20:37:13 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ char	*return_line(char *line)
 	while (line[len] == ' ')
 		len--;
 	buff = malloc(sizeof(char) * (len + 1));
+	if (!buff)
+		return (NULL);
 	add(&g_tools.garbage, buff);
 	while (++i <= len)
 		buff[i] = line[i];

@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/03 15:44:55 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/04 11:08:47 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 # define SUCCESS_RETURN 200 // success retuen value
 # define STR_IGN " \t\r\n\"'\v\f|<>$"
 # define STR_IGN_DOOLAR " \t\r\n\"'\v\f|<>>"
+# define SYMBOLS " \t\n!\"%'()*+,-./:;<=>?@[\\]^`|~$"
 //exit without new line
 # define MOVE_UP_RIGHRT "\033[1A\033[12C"
 
@@ -90,6 +91,7 @@ extern t_globals	g_tools;
 typedef struct s_red
 {
 	int				type;
+	int				id;
 	char			*filename;
 	struct s_red	*next;
 }	t_red;
@@ -126,8 +128,8 @@ t_node	*new_node(int type, char *val);
 void	pushback(t_node **lst, int type, char *val);
 t_node	*clear_list(t_node **lst);
 //redirection list
-t_red	*new_node_red(int type, char *val);
-void	pushback_red(t_red **lst, int type, char *val);
+t_red	*new_node_red(int type, char *val, int id);
+void	pushback_red(t_red **lst, int type, char *val, int id);
 t_red	*clear_list_red(t_red **lst);
 int		sizeofred(t_red *red);
 //commond list
@@ -198,8 +200,8 @@ int		check_is_in_env(char *arg);
 void	open_redout(char *filename, int *status);
 void	open_append(char *filename);
 int		open_in(char *filename, int *status);
-int		open_herdoc_file(int *status, t_red *cmd);
-int		open_herdoc(int type, char *value);
+int		open_herdoc_file(int *status, int id);
+int		open_herdoc(int type, char *value, int id);
 char	*create_err(char *firs_s, char *midl_s, char *last_s);
 int		checkerr_red(char *buff, int tmp_red, t_node *str);
 char	*ft_getcwd(void);

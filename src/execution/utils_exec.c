@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 22:34:27 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/08/30 21:08:46 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/03 20:41:40 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ char	**export_env(t_env *env)
 	while (tmp && ++len)
 		tmp = tmp->next;
 	exported_env = malloc(sizeof(char *) * len++);
-	add(&g_tools.garbage, export_env);
+	if (!exported_env)
+		return (NULL);
+	add(&g_tools.garbage, exported_env);
 	while (env)
 	{
 		exported_env[i++] = env->value;

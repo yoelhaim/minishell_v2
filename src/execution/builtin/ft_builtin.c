@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:15:33 by akadi             #+#    #+#             */
-/*   Updated: 2022/09/02 16:13:46 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/03 20:15:53 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_env(char **cmd)
 	while (env)
 	{
 		if (ft_strstr(env->value, "="))
-			printf("%s\n", env->value);
+			ft_putstr_fd(ft_strjoin(env->value, "\n"), 1);
 		env = env->next;
 	}
 	g_tools.status_sign = 0;
@@ -76,7 +76,7 @@ void	ft_exit(char **cmd)
 		exit (ft_atoi(*cmd));
 	}
 	if (*++cmd)
-	{	
+	{
 		ft_putstr_fd(create_err("exit \nminishell: exit: ",*cmd, \
 					" oo many arguments\n"), 2);
 		return ;

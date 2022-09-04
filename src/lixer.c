@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:54:42 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/02 22:11:28 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/03 20:41:59 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,12 @@ char	*check_is_wd(t_node **list, char *line, char *sc)
 	while (!ft_strchr(sc, line[i]))
 		i++;
 	buff = malloc(sizeof(char) * i);
+	if (!buff)
+		return (NULL);
 	add(&g_tools.garbage, buff);
 	i = 0;
 	while (*line && !ft_strchr(sc, *line))
-	{
-		buff[i++] = *line;
-		line++;
-	}
+		buff[i++] = *line++;
 	if (i != 0)
 	{
 		buff[i] = 0;
@@ -43,10 +42,8 @@ char	*check_is_wd(t_node **list, char *line, char *sc)
 
 char	*check_is_sign(t_node **list, char *line)
 {
-	char	*symbols;
 	char	*buff;
 
-	symbols = ft_strdup(" \t\n!\"%'()*+,-./:;<=>?@[\\]^`|~$");
 	if (*line == '$')
 	{
 		if (push_sym_whit_sign(list, line[1]) != ERROR_RETURN)
@@ -56,13 +53,15 @@ char	*check_is_sign(t_node **list, char *line)
 		else if (*line && line[1] >= '0' && line[1] <= '9')
 		{
 			buff = malloc(sizeof(char) * 2);
+			if (!buff)
+				return (NULL);
 			buff[0] = line[1];
 			buff[1] = 0;
 			add(&g_tools.garbage, buff);
 			return (pushback(list, SIGN, buff), line + 1);
 		}
 		else if (*(line + 1))
-			return (check_is_wd(list, ++line, symbols));
+			return (check_is_wd(list, ++line, SYMBOLS));
 		else
 			pushback(list, WORD, "$");
 	}

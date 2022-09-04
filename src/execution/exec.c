@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 12:28:53 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/03 00:09:34 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/04 11:25:54 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	pipe_cmd(t_cmd *cmd, int statuss)
 void	hendl(int c)
 {
 	(void) c;
+	write(1, "\n", 1);
 	g_tools.status_sign = 130;
 }
 
