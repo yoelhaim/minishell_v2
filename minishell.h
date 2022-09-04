@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/04 11:08:47 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/04 23:24:15 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,5 +214,7 @@ void	handl_signal(int *statuss);
 int		get_is_pipe(t_node *list);
 char	*remove_back_slash(char *cmd);
 int		is_alpha_cap(char c);
+int		check_pid(int pid);
+void	handler_herdock(int sig);
 
 #endif
