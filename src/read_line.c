@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:12 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/04 23:24:09 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/05 15:09:34 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	handler(int sig)
 void	handler_herdock(int sig)
 {
 	(void) sig;
+	write(1, "\n", 1);
+	exit(1);
 	// g_tools.sig_her = 0;
 }
 
@@ -56,6 +58,7 @@ char	*read_line(void)
 	signal(SIGINT, handler);
 	signal(SIGQUIT, SIG_IGN);
 	read_line = readline("miniShell$ ");
+	add(&g_tools.garbage, read_line);
 	if (!read_line)
 	{
 		printf(MOVE_UP_RIGHRT "exit\n");

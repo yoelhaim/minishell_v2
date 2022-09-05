@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:58:58 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/04 23:36:17 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/05 15:22:43 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,43 @@ int	open_herdoc(int type, char *value, int id)
 	char	*line;
 	char	*buff;
 	int		fd;
+	int 	status;
 
 	buff = ft_strdup("");
 	line = NULL;
-	printf("%s\n", value);
-	if (type == HEREDOC)
+	int idd = fork();
+	if (idd == 0)
 	{
-		while (1)
+		if (type == HEREDOC)
 		{
-			line = readline("> ");
-			add(&g_tools.garbage, line);
-			if (!line || !ft_strcmp(ft_ignore_sign(line) \
-			, ft_ignore_sign(value)))
-				break ;
-			else
-				buff = ft_strjoin(buff, ft_strjoin(line, "\n"));
+			signal(SIGINT, handler_herdock);
+			while (1)
+			{
+				line = readline("> ");
+				add(&g_tools.garbage, line);
+				if (!line || !ft_strcmp(ft_ignore_sign(line) \
+				, ft_ignore_sign(value)))
+					break ;
+				else
+					buff = ft_strjoin(buff, ft_strjoin(line, "\n"));
+			}
+			fd = open (ft_strjoin("/tmp/.herdoc", ft_itoa(id)), \
+			O_RDWR | O_CREAT | O_TRUNC, 0666);
+			ft_putstr_fd(buff, fd);
+			close(fd);
+			exit(0);
 		}
-		fd = open (ft_strjoin("/tmp/.herdoc", ft_itoa(id)), \
-		O_RDWR | O_CREAT | O_TRUNC, 0666);
-		ft_putstr_fd(buff, fd);
-		close(fd);
 	}
+	else{
+		signal(SIGINT, SIG_IGN);
+		waitpid(idd, &status, 0);
+		if (status == 256)
+		{
+			g_tools.s_h = 1;
+		}
+			
+	}
+	
 	return (1);
 }
 
@@ -61,13 +77,15 @@ void	push_red(t_red **red, t_node *t)
 			{
 				id++;
 				pushback_red(red, t->type, ft_strdup(t->next->next->val), id);
-				open_herdoc(t->type, t->next->next->val, id);
+				if (!open_herdoc(t->type, t->next->next->val, id))
+					return ;
 			}
 			else
 			{
 				id++;
 				pushback_red(red, t->type, ft_strdup(t->next->val), id);
-				open_herdoc(t->type, t->next->val, id);
+				if (!open_herdoc(t->type, t->next->val, id))
+					return ;
 			}
 			t = t->next;
 		}

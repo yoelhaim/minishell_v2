@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_file.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 20:33:22 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/04 11:08:07 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/05 15:10:56 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	check_red(int type, char *namefile, int *status, int id)
 		if (open_in(namefile, status) == ERROR_RETURN)
 			return (ERROR_RETURN);
 	}
-	else if (type == HEREDOC)
+	else if (type == HEREDOC && g_tools.s_h != 1)
 	{
 		if (open_herdoc_file(status, id) == ERROR_RETURN)
 			return (ERROR_RETURN);

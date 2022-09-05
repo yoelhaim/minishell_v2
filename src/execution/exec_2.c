@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 20:24:16 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/02 20:59:07 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/05 15:26:27 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	cmd_systm_one(t_cmd *cmd)
 			exit(0);
 		exit(print_cmnd(cmd->cmnd));
 	}
+	signal(SIGINT, SIG_IGN);
 	while (1)
 	{
 		if (waitpid (-1, &statuss, 0) == -1)

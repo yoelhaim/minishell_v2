@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:33 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/03 17:24:48 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/05 15:24:48 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,14 @@ void	setup_shell(t_node **data, t_cmd **cmd)
 		}
 		expander(data);
 		*cmd = parse(*data);
+		if (g_tools.s_h == 1)
+		{
+			clear_list(data);
+			g_tools.s_h = 0;
+			continue ;
+			
+		}
+			
 		exec_cmd(*cmd, *data);
 		clear_and_free(data, cmd, line);
 	}
@@ -85,6 +93,7 @@ int	main(int ac, char **av, char **envr)
 	t_node	*data;
 
 	(void)av;
+	g_tools.s_h = 0;
 	if (ac != 1)
 		return (printf("ERROR"), 0);
 	create_env(envr);
