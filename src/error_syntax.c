@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 12:48:30 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/04 22:25:54 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/05 21:03:30 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,28 @@ static int	valid_pipe(t_node *list)
 
 int	syntax_error(t_node *list)
 {
+	t_node  		*cmd;
+	static int	id;
+
+	cmd = list;
+	while (cmd)
+	{
+		if (cmd->type == HEREDOC)
+		{
+			if (cmd->next->type == WSPACE && cmd->next != NULL)
+			{
+				id++;
+				open_herdoc(cmd->type, cmd->next->next->val, id);
+			}
+			else
+			{
+				id++;
+				open_herdoc(cmd->type, cmd->next->val, id);
+			}
+		}
+		cmd = cmd->next;
+	}
+	
 	if (valid_pipe(list) == ERROR_RETURN \
 	|| check_after_red(list) == ERROR_RETURN)
 		return (ERROR_RETURN);

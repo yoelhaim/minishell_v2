@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:12 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/05 16:11:21 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/05 21:00:51 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@ void	child_herdoc(int id, char *value)
 
 	buff = ft_strdup("");
 	line = NULL;
+	printf("val => %s\n", value);
 	signal(SIGINT, handler_herdock);
 	while (1)
 	{
 		line = readline("> ");
 		add(&g_tools.garbage, line);
+		printf("line => %s\n", ft_ignore_sign(line));
 		if (!line || !ft_strcmp(ft_ignore_sign(line) \
 					, ft_ignore_sign(value)))
 			break ;
