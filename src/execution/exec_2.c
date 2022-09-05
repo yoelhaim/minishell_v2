@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 20:24:16 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/05 15:26:27 by akadi            ###   ########.fr       */
+/*   Updated: 2022/09/05 16:30:14 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	check_is_one_cmnd(t_cmd *cmd, t_node *list, int *status)
 		}
 		if (*cmd->cmnd != NULL)
 		{
-			if (check_builtin(remove_back_slash(*cmd->cmnd)))
+			if (check_builtin(*cmd->cmnd))
 			{
 				g_tools.dup_in = dup(0);
 				if (check_redirecrt(cmd->red, status) == ERROR_RETURN)

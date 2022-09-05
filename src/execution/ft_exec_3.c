@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 01:27:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/04 21:15:35 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/05 16:29:22 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,31 +41,6 @@ void	ft_print_ign_bs(char *cmd, char *buff)
 			buff[cont++] = cmd[i];
 		i++;
 	}
-}
-
-char	*remove_back_slash(char *cmd)
-{
-	int		i;
-	int		cont;
-	char	*buff;
-
-	i = 0;
-	cont = 0;
-	while (cmd[i])
-	{
-		if (cmd[i] != '\\')
-			cont++;
-		i++;
-		if (cmd[i] == '\\')
-			cont++;
-	}
-	buff = malloc(cont + 1);
-	if (!buff)
-		return (NULL);
-	add(&g_tools.garbage, buff);
-	ft_print_ign_bs(cmd, buff);
-	buff[cont] = 0;
-	return (buff);
 }
 
 int	check_pid(int pid)

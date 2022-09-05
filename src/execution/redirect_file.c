@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_file.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 20:33:22 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/05 15:10:56 by akadi            ###   ########.fr       */
+/*   Updated: 2022/09/05 16:31:45 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	check_redirecrt(t_red *red, int *status)
 	{
 		while (red)
 		{
-			if (check_red(red->type, remove_back_slash(red->filename), \
+			if (check_red(red->type, red->filename, \
 			status, red->id) == ERROR_RETURN)
 				return (ERROR_RETURN);
 			red = red->next ;

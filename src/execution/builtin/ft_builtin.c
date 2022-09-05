@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:15:33 by akadi             #+#    #+#             */
-/*   Updated: 2022/09/03 20:15:53 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/05 16:30:25 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void	ft_exit(char **cmd)
 
 void	ft_builtin(char **cmd, int *status)
 {
-	*cmd = remove_back_slash(*cmd);
 	if (!ft_strcmp(*cmd, "cd"))
 		ft_cd(cmd);
 	if (!ft_strcmp(*cmd, "exit"))

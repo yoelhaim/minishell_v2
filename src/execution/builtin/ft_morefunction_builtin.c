@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 20:20:32 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/03 20:35:26 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/05 16:31:24 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	print_cmnd(char **cmd)
 		while (*splited_path)
 		{
 			path = ft_strjoin(*splited_path, ft_strjoin("/", \
-			remove_back_slash(cmd[0])));
+			cmd[0]));
 			if (!access(path, X_OK))
 				break ;
 			splited_path++;

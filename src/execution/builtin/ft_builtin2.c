@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:26:39 by akadi             #+#    #+#             */
-/*   Updated: 2022/09/03 19:58:36 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/05 16:30:50 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ int	search_n(char *s)
 
 void	check_newline(char **str, int status, int j)
 {
-	*str = remove_back_slash(*str);
 	if (ft_strstr(*str, "-n") && search_n(*str))
 	{
 		str++;
