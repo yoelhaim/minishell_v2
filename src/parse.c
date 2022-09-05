@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:58:58 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/05 20:42:52 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/05 21:11:45 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	open_herdoc(int type, char *value, int id)
 
 void	push_red(t_red **red, t_node *t)
 {
-	static int	id;
 
 	while (t)
 	{
@@ -55,17 +54,11 @@ void	push_red(t_red **red, t_node *t)
 		{
 			if (t->next->type == 1)
 			{
-				id++;
-				pushback_red(red, t->type, ft_strdup(t->next->next->val), id);
-				if (!open_herdoc(t->type, t->next->next->val, id))
-					return ;
+				pushback_red(red, t->type, ft_strdup(t->next->next->val));
 			}
 			else
 			{
-				id++;
-				pushback_red(red, t->type, ft_strdup(t->next->val), id);
-				if (!open_herdoc(t->type, t->next->val, id))
-					return ;
+				pushback_red(red, t->type, ft_strdup(t->next->val));
 			}
 			t = t->next;
 		}

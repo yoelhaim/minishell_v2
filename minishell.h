@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/05 16:11:01 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/05 21:47:07 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,17 @@ typedef struct s_globals
 	int			dup_out;
 	int			fd[2];
 	int			s_h;
+	int			n_h;
 }	t_globals;
 
 extern t_globals	g_tools;
 typedef struct s_red
 {
 	int				type;
-	int				id;
 	char			*filename;
 	struct s_red	*next;
 }	t_red;
+
 
 // linked list commonds
 typedef struct s_node
@@ -129,8 +130,8 @@ t_node	*new_node(int type, char *val);
 void	pushback(t_node **lst, int type, char *val);
 t_node	*clear_list(t_node **lst);
 //redirection list
-t_red	*new_node_red(int type, char *val, int id);
-void	pushback_red(t_red **lst, int type, char *val, int id);
+t_red	*new_node_red(int type, char *val);
+void	pushback_red(t_red **lst, int type, char *val);
 t_red	*clear_list_red(t_red **lst);
 int		sizeofred(t_red *red);
 //commond list
@@ -201,7 +202,7 @@ int		check_is_in_env(char *arg);
 void	open_redout(char *filename, int *status);
 void	open_append(char *filename);
 int		open_in(char *filename, int *status);
-int		open_herdoc_file(int *status, int id);
+int		open_herdoc_file(int *status);
 int		open_herdoc(int type, char *value, int id);
 char	*create_err(char *firs_s, char *midl_s, char *last_s);
 int		checkerr_red(char *buff, int tmp_red, t_node *str);
@@ -219,5 +220,5 @@ int		check_pid(int pid);
 void	handler_herdock(int sig);
 void	child_herdoc(int id, char *value);
 char	*ft_ignore_sign(char *str);
-
+//herdook
 #endif

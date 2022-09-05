@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 20:33:22 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/05 16:31:45 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/05 21:35:09 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	check_n_of_red(t_red *red)
 	return (i);
 }
 
-int	check_red(int type, char *namefile, int *status, int id)
+int	check_red(int type, char *namefile, int *status)
 {
 	if (type == REDOUT)
 		open_redout(namefile, status);
@@ -40,7 +40,7 @@ int	check_red(int type, char *namefile, int *status, int id)
 	}
 	else if (type == HEREDOC && g_tools.s_h != 1)
 	{
-		if (open_herdoc_file(status, id) == ERROR_RETURN)
+		if (open_herdoc_file(status) == ERROR_RETURN)
 			return (ERROR_RETURN);
 	}
 	return (1);
@@ -58,7 +58,7 @@ int	check_redirecrt(t_red *red, int *status)
 		while (red)
 		{
 			if (check_red(red->type, red->filename, \
-			status, red->id) == ERROR_RETURN)
+			status) == ERROR_RETURN)
 				return (ERROR_RETURN);
 			red = red->next ;
 		}
