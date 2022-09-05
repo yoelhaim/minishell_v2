@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:33 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/05 15:24:48 by akadi            ###   ########.fr       */
+/*   Updated: 2022/09/05 16:12:59 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,8 @@ void	setup_shell(t_node **data, t_cmd **cmd)
 		line = read_line();
 		if (!line || !is_ws(line))
 			continue ;
-		if (check_lexer(data, line) == ERROR_RETURN)
-		{
-			clear_list(data);
-			continue ;
-		}
-		if (syntax_error(*data) == ERROR_RETURN)
+		if (check_lexer(data, line) == ERROR_RETURN || \
+		syntax_error(*data) == ERROR_RETURN)
 		{
 			clear_list(data);
 			continue ;
@@ -78,9 +74,7 @@ void	setup_shell(t_node **data, t_cmd **cmd)
 			clear_list(data);
 			g_tools.s_h = 0;
 			continue ;
-			
 		}
-			
 		exec_cmd(*cmd, *data);
 		clear_and_free(data, cmd, line);
 	}
