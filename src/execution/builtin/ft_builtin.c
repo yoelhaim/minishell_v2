@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:15:33 by akadi             #+#    #+#             */
-/*   Updated: 2022/09/05 16:30:25 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/05 16:48:05 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_env(char **cmd)
 	{
 		g_tools.status_sign = 1;
 		ft_putstr_fd(create_err("env: ",*(cmd + 1) \
-					, ": Too MAnt Argument \n"), 2);
+					, ": Too Many Argument \n"), 2);
 		return ;
 	}
 	while (env)
@@ -69,7 +69,7 @@ void	ft_exit(char **cmd)
 	cmd++;
 	if (!check_isvalid_number(str, *cmd))
 		exit(255);
-	if (*(cmd +1) == NULL)
+	if (*(cmd + 1) == NULL)
 	{	
 		g_tools.status_sign = ft_atoi(*cmd);
 		printf("exit \n");
