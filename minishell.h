@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/05 15:06:36 by akadi            ###   ########.fr       */
+/*   Updated: 2022/09/05 16:11:01 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,5 +217,7 @@ char	*remove_back_slash(char *cmd);
 int		is_alpha_cap(char c);
 int		check_pid(int pid);
 void	handler_herdock(int sig);
+void	child_herdoc(int id, char *value);
+char	*ft_ignore_sign(char *str);
 
 #endif

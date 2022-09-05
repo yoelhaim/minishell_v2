@@ -3,14 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   read_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:12 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/05 15:09:34 by akadi            ###   ########.fr       */
+/*   Updated: 2022/09/05 16:11:21 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	child_herdoc(int id, char *value)
+{
+	char	*line;
+	char	*buff;
+	int		fd;
+
+	buff = ft_strdup("");
+	line = NULL;
+	signal(SIGINT, handler_herdock);
+	while (1)
+	{
+		line = readline("> ");
+		add(&g_tools.garbage, line);
+		if (!line || !ft_strcmp(ft_ignore_sign(line) \
+					, ft_ignore_sign(value)))
+			break ;
+		else
+			buff = ft_strjoin(buff, ft_strjoin(line, "\n"));
+	}
+	fd = open (ft_strjoin("/tmp/.herdoc", ft_itoa(id)), \
+			O_RDWR | O_CREAT | O_TRUNC, 0666);
+	ft_putstr_fd(buff, fd);
+	close(fd);
+	exit(0);
+}
 
 void	handler(int sig)
 {
@@ -27,7 +53,6 @@ void	handler_herdock(int sig)
 	(void) sig;
 	write(1, "\n", 1);
 	exit(1);
-	// g_tools.sig_her = 0;
 }
 
 char	*return_line(char *line)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:58:58 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/05 15:22:43 by akadi            ###   ########.fr       */
+/*   Updated: 2022/09/05 16:10:54 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,44 +23,24 @@ int	open_herdoc(int type, char *value, int id)
 {
 	char	*line;
 	char	*buff;
-	int		fd;
-	int 	status;
+	int		status;
+	int		pid;
 
 	buff = ft_strdup("");
 	line = NULL;
-	int idd = fork();
-	if (idd == 0)
+	pid = fork();
+	if (pid == 0)
 	{
 		if (type == HEREDOC)
-		{
-			signal(SIGINT, handler_herdock);
-			while (1)
-			{
-				line = readline("> ");
-				add(&g_tools.garbage, line);
-				if (!line || !ft_strcmp(ft_ignore_sign(line) \
-				, ft_ignore_sign(value)))
-					break ;
-				else
-					buff = ft_strjoin(buff, ft_strjoin(line, "\n"));
-			}
-			fd = open (ft_strjoin("/tmp/.herdoc", ft_itoa(id)), \
-			O_RDWR | O_CREAT | O_TRUNC, 0666);
-			ft_putstr_fd(buff, fd);
-			close(fd);
-			exit(0);
-		}
+			child_herdoc(id, value);
 	}
-	else{
+	else
+	{
 		signal(SIGINT, SIG_IGN);
-		waitpid(idd, &status, 0);
+		waitpid(pid, &status, 0);
 		if (status == 256)
-		{
 			g_tools.s_h = 1;
-		}
-			
 	}
-	
 	return (1);
 }
 
