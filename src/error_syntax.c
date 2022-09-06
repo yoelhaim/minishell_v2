@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 12:48:30 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/05 21:03:30 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/05 22:11:18 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,13 @@ int	syntax_error(t_node *list)
 			if (cmd->next->type == WSPACE && cmd->next != NULL)
 			{
 				id++;
-				open_herdoc(cmd->type, cmd->next->next->val, id);
+				g_tools.n_h = id;
+				open_herdoc(cmd->type, cmd->next->next->val, g_tools.n_h);
 			}
 			else
 			{
 				id++;
+				g_tools.n_h = id;
 				open_herdoc(cmd->type, cmd->next->val, id);
 			}
 		}
