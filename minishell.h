@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/07 21:01:51 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/07 22:24:23 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,6 @@ void	open_redout(char *filename, int *status);
 void	open_append(char *filename);
 int		open_in(char *filename, int *status);
 int		open_herdoc_file(char *filename, int *status);
-int		open_herdoc(int type, char *value, int id);
 char	*create_err(char *firs_s, char *midl_s, char *last_s);
 int		checkerr_red(char *buff, int tmp_red, t_node *str);
 char	*ft_getcwd(void);
