@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 16:00:23 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/05 22:07:39 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/07 21:59:16 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,22 +59,16 @@ int	open_in(char *filename, int *status)
 	return (1);
 }
 
-int	open_herdoc_file(int *status)
+int	open_herdoc_file(char *filename, int *status)
 {
-	static int	len;
-	printf("nnnn => %s\n", ft_itoa(g_tools.n_h));
-	g_tools.r_in = open(ft_strjoin("/tmp/.herdoc", ft_itoa(g_tools.n_h)), \
-	O_RDONLY, 0644);
+	(void) status;
+	g_tools.r_in = open(filename, O_RDONLY, 0644);
 	if (g_tools.r_in == -1)
 	{
-		*status = 0;
-		dup2(g_tools.r_in, 0);
-		close(g_tools.r_in);
 		handle_error_fd();
 		return (ERROR_RETURN);
 	}
-	unlink(ft_strjoin("/tmp/.herdoc",ft_itoa(g_tools.n_h)));
-	len++;
+	unlink(filename);
 	*status = 0;
 	dup2(g_tools.r_in, 0);
 	close(g_tools.r_in);

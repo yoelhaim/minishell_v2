@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 20:24:16 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/05 16:30:14 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/07 17:52:22 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	cmd_systm_one(t_cmd *cmd)
 	if (WIFEXITED(statuss))
 		g_tools.status_sign = WEXITSTATUS(statuss);
 	else if (WIFSIGNALED(statuss))
-		g_tools.status_sign = 128 + WTERMSIG(statuss);
+		hendl(statuss);
 	return (1);
 }
 
