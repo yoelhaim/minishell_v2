@@ -43,6 +43,7 @@ SRC = $(FILES_SRC)/main.c \
 	$(FILES_SRC)/list_cmd.c \
 	$(FILES_SRC)/list_utils.c \
 	$(FILES_SRC)/error_syntax.c \
+	$(FILES_SRC)/open_herdoc.c \
 	$(FILES_UT)/utils.c \
 	$(FILES_UT)/utils_2.c \
 	$(FILES_UT)/list_env.c \
