@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 19:00:14 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/04 19:58:00 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/08 20:06:30 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,28 @@ t_env	*clear_list_env(t_env **lst)
 		free(forfree);
 	}
 	return (NULL);
+}
+
+char	*check_this(t_node *list)
+{
+	t_node	*tmp;
+	char	*buff;
+
+	tmp = list;
+	buff = ft_strdup("");
+	if (tmp->type == 1)
+		tmp = tmp->next;
+	while (tmp)
+	{
+		if (tmp->type == 1)
+			break ;
+		if (tmp->type == 9)
+			buff = ft_strjoin(buff, ft_strjoin("$", tmp->val));
+		else
+			buff = ft_strjoin(buff, tmp->val);
+		tmp->val = ft_strdup("\0");
+		tmp->type = 0;
+		tmp = tmp->next;
+	}
+	return (buff);
 }
