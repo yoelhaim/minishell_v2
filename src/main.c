@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:48:33 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/05 16:12:59 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/07 22:01:02 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_globals	g_tools = {0};
 void	clear_and_free(t_node **list, t_cmd **cmd, char *line)
 {
 	(void) cmd;
+	unlink("/tmp/.herdooc");
 	if (!list || !line)
 		return ;
 	clear_list(list);
@@ -52,10 +53,8 @@ void	ren_shlvl(char **envr)
 	}
 }
 
-void	setup_shell(t_node **data, t_cmd **cmd)
+void	setup_shell(t_node **data, t_cmd **cmd, char *line)
 {
-	char	*line;
-
 	while (1)
 	{
 		line = read_line();
@@ -67,6 +66,7 @@ void	setup_shell(t_node **data, t_cmd **cmd)
 			clear_list(data);
 			continue ;
 		}
+		check_is_herdoc(data);
 		expander(data);
 		*cmd = parse(*data);
 		if (g_tools.s_h == 1)
@@ -85,14 +85,16 @@ int	main(int ac, char **av, char **envr)
 {
 	t_cmd	*cmd;
 	t_node	*data;
+	char	*line;
 
 	(void)av;
+	line = ft_strdup("");
 	g_tools.s_h = 0;
 	if (ac != 1)
 		return (printf("ERROR"), 0);
 	create_env(envr);
 	ren_shlvl(envr);
-	setup_shell (&data, &cmd);
+	setup_shell (&data, &cmd, line);
 	free_all (g_tools.garbage);
 	return (0);
 }

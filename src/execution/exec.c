@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 12:28:53 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/05 16:30:01 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/07 17:52:48 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,10 @@ void	pipe_cmd(t_cmd *cmd, int statuss)
 
 void	hendl(int c)
 {
-	(void) c;
+	if (c == 3)
+		ft_putstr_fd("QUIT", 2);
 	write(1, "\n", 1);
-	g_tools.status_sign = 130;
+	g_tools.status_sign = 128 + WTERMSIG(c);
 }
 
 void	exec_cmd(t_cmd *cmd, t_node *list)
@@ -77,7 +78,6 @@ void	exec_cmd(t_cmd *cmd, t_node *list)
 	int	status;
 
 	g_tools.fdd = 0;
-	signal(SIGINT, hendl);
 	status = 1;
 	if (g_tools.status_sign == 127)
 		g_tools.status_sign = 0;

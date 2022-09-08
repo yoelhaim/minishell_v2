@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 20:33:22 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/05 21:35:09 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/07 21:26:15 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	check_red(int type, char *namefile, int *status)
 	}
 	else if (type == HEREDOC && g_tools.s_h != 1)
 	{
-		if (open_herdoc_file(status) == ERROR_RETURN)
+		if (open_herdoc_file(namefile, status) == ERROR_RETURN)
 			return (ERROR_RETURN);
 	}
 	return (1);

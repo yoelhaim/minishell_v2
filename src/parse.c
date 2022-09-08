@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:58:58 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/05 21:11:45 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/07 21:37:55 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	open_herdoc(int type, char *value, int id)
 
 void	push_red(t_red **red, t_node *t)
 {
-
 	while (t)
 	{
 		if (t->type == REDIN || t->type == REDOUT \
@@ -90,7 +89,7 @@ static void	push_cmd(t_cmd **cmd, t_node *t)
 		}
 		t = t->next;
 	}
-	str2 = ft_split(str, '\t');
+	str2 = ft_split(str, ' ');
 	pushback_cmd(cmd, str2, red);
 }
 

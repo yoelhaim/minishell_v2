@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/05 21:47:07 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/07 22:24:23 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ typedef struct s_red
 	char			*filename;
 	struct s_red	*next;
 }	t_red;
-
 
 // linked list commonds
 typedef struct s_node
@@ -202,8 +201,7 @@ int		check_is_in_env(char *arg);
 void	open_redout(char *filename, int *status);
 void	open_append(char *filename);
 int		open_in(char *filename, int *status);
-int		open_herdoc_file(int *status);
-int		open_herdoc(int type, char *value, int id);
+int		open_herdoc_file(char *filename, int *status);
 char	*create_err(char *firs_s, char *midl_s, char *last_s);
 int		checkerr_red(char *buff, int tmp_red, t_node *str);
 char	*ft_getcwd(void);
@@ -220,5 +218,7 @@ int		check_pid(int pid);
 void	handler_herdock(int sig);
 void	child_herdoc(int id, char *value);
 char	*ft_ignore_sign(char *str);
-//herdook
+void	hendl(int c);
+void	check_is_herdoc(t_node **list);
+
 #endif
