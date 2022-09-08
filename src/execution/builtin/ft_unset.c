@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 09:06:14 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/05 17:15:58 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/08 12:18:47 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ t_env	*ft_unset(char **cmd)
 	prev = g_tools.g_env;
 	if (!list)
 		return (NULL);
+	if (!*(cmd + 1))
+		return (list);
 	else
 	{
 		if (!ft_strcmp(prev->variable, cmd[1]))
