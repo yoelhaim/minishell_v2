@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 19:04:32 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/08 16:45:06 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/08 20:05:54 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ void	child_herdoc_now(char ***value, int *type)
 	while (1)
 	{
 		line = readline("> ");
-		if (*type == SIGN)
-			line = ft_strtrim(line, "$");
 		add(&g_tools.garbage, line);
 		if (!line || !ft_strcmp(**value, line))
 			break ;
@@ -88,9 +86,15 @@ void	check_is_herdoc(t_node **list)
 		if (tmp->type == HEREDOC)
 		{
 			if (tmp->next->type == 1 && tmp->next != NULL)
+			{
+				tmp->next->next->val = ft_strdup(check_this(tmp->next));
 				open_herdoc_now(&tmp->next->next->val, &tmp->next->next->type);
+			}
 			else
+			{
+				tmp->next->val = ft_strdup(check_this(tmp->next));
 				open_herdoc_now(&tmp->next->val, &tmp->next->type);
+			}
 		}
 		tmp = tmp->next;
 	}
