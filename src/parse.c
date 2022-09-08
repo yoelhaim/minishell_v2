@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:58:58 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/07 21:37:55 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/08 11:52:55 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static void	push_cmd(t_cmd **cmd, t_node *t)
 		}
 		t = t->next;
 	}
-	str2 = ft_split(str, ' ');
+	str2 = ft_split(str, '\t');
 	pushback_cmd(cmd, str2, red);
 }
 

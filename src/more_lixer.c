@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 12:25:31 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/07 21:41:49 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/08 11:52:23 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*middle_quets_s(t_node **list, char *line, char quot, int i)
 	buff = 0;
 	if (i == 0 && *(line + 1) == '\0')
 	{
-		pushback(list, WORD, "'");
+		pushback(list, WORD, " ");
 		return ("'");
 	}
 	buff = malloc(sizeof(char) * (i + 1));
@@ -63,7 +63,7 @@ char	*middle_quets(t_node **list, char *line, char quot, int i)
 		return (NULL);
 	if (i == 0 && *(line + 1) == '\0')
 	{
-		pushback(list, WORD, "\"");
+		pushback(list, WORD, " ");
 		return ("\"");
 	}
 	i = 0;
