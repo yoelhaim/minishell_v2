@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 12:25:31 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/08 12:09:58 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/08 16:45:35 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,26 @@ char	*check_is_red(t_node **list, char *line)
 	else if (*line == '>')
 		pushback(list, REDOUT, ">");
 	return (line);
+}
+
+int	check__is_exits(char *filename)
+{
+	DIR				*dir;
+	struct dirent	*dp;
+
+	if (!filename)
+		return (0);
+	dir = opendir("/tmp");
+	if (dir != NULL)
+	{
+		dp = readdir(dir);
+		while (dp)
+		{
+			if (!ft_strcmp(ft_strchr(filename, '.'), dp->d_name))
+				return (closedir(dir), 1);
+			dp = readdir(dir);
+		}
+	}
+	closedir(dir);
+	return (0);
 }

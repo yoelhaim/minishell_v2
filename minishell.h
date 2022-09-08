@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/07 22:24:23 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/08 16:45:51 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,5 +220,6 @@ void	child_herdoc(int id, char *value);
 char	*ft_ignore_sign(char *str);
 void	hendl(int c);
 void	check_is_herdoc(t_node **list);
+int		check__is_exits(char *filename);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 19:04:32 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/07 21:59:06 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/08 16:45:06 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,18 @@ char	*return_value(char *value)
 	return (buff);
 }
 
+char	*get_filename(char *filename)
+{
+	if (check__is_exits(filename))
+		return (get_filename(ft_strjoin(filename, "_c")));
+	return (filename);
+}
+
 void	child_herdoc_now(char ***value, int *type)
 {
 	char	*line;
 	char	*buff;
+	char	*filename;
 	int		fd;
 
 	buff = ft_strdup("");
@@ -52,7 +60,8 @@ void	child_herdoc_now(char ***value, int *type)
 		else
 			buff = ft_strjoin(buff, ft_strjoin(line, "\n"));
 	}
-	**value = ft_strdup(ft_strjoin("/tmp/.herdooc", ft_itoa(g_tools.n_h)));
+	filename = get_filename(ft_strjoin("/tmp/.herdooc", ft_itoa(g_tools.n_h)));
+	**value = filename;
 	fd = open (**value, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	*type = 11;
 	ft_putstr_fd(buff, fd);
