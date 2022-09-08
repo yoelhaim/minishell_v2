@@ -6,7 +6,7 @@
 /*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 19:00:14 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/08 20:06:30 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/09/08 21:00:34 by yoelhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char	*check_this(t_node *list)
 		else
 			buff = ft_strjoin(buff, tmp->val);
 		tmp->val = ft_strdup("\0");
-		tmp->type = 0;
+		tmp->type = 1;
 		tmp = tmp->next;
 	}
 	return (buff);
