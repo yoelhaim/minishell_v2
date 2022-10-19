@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forfree.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:06:12 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/03 20:42:31 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/10/18 20:11:01 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ void	free_all(t_node_free *garbage)
 	tmp = NULL;
 	while (garbage)
 	{
-		free(garbage->pointer);
-		tmp = garbage;
+		printf("%p\n", g_tools.garbage);
+		// free(garbage->pointer);
+		// tmp = garbage;
+		// free(tmp);
 		garbage = garbage->next;
-		free(tmp);
 	}
 }

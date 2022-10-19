@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:58:58 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/08 11:52:55 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/10/19 12:04:59 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,30 +19,30 @@ char	*ft_ignore_sign(char *str)
 	return (str);
 }
 
-int	open_herdoc(int type, char *value, int id)
-{
-	char	*line;
-	char	*buff;
-	int		status;
-	int		pid;
+// int	open_herdoc(int type, char *value, int id)
+// {
+// 	char	*line;
+// 	char	*buff;
+// 	int		status;
+// 	int		pid;
 
-	buff = ft_strdup("");
-	line = NULL;
-	pid = fork();
-	if (pid == 0)
-	{
-		if (type == HEREDOC)
-			child_herdoc(id, value);
-	}
-	else
-	{
-		signal(SIGINT, SIG_IGN);
-		waitpid(pid, &status, 0);
-		if (status == 256)
-			g_tools.s_h = 1;
-	}
-	return (1);
-}
+// 	buff = ft_strdup("");
+// 	line = NULL;
+// 	pid = fork();
+// 	if (pid == 0)
+// 	{
+// 		if (type == HEREDOC)
+// 			child_herdoc(id, value);
+// 	}
+// 	else
+// 	{
+// 		signal(SIGINT, SIG_IGN);
+// 		waitpid(pid, &status, 0);
+// 		if (status == 256)
+// 			g_tools.s_h = 1;
+// 	}
+// 	return (1);
+// }
 
 void	push_red(t_red **red, t_node *t)
 {

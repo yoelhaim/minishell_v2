@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoelhaim <yoelhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akadi <akadi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:53:47 by yoelhaim          #+#    #+#             */
-/*   Updated: 2022/09/08 21:00:47 by yoelhaim         ###   ########.fr       */
+/*   Updated: 2022/10/19 11:18:37 by akadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include <dirent.h>
 # include <errno.h>
 # include <stdbool.h>
-# include <limits.h>
+# include <limits.h> 
 
 # define WSPACE 1		   // ' '
 # define PIPE 2			   // |
